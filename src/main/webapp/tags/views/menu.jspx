@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" xmlns:spring="http://www.springframework.org/tags" id="menu" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <menu:menu id="_menu">
+        <menu:category messageCode="menu.root.name">
+            <menu:item messageCode="menu.root.home" url="/"/>
+        </menu:category>
+        <menu:category messageCode="menu.tickets.name">
+            <menu:item messageCode="menu.tickets.list" url="/tickets?page=1&amp;size=${empty param.size ? 10 : param.size}"/>
+            <menu:item messageCode="menu.tickets.new" url="/tickets?form"/>
+            <menu:item messageCode="menu.tickets.search" url="/tickets?search"/>
+        </menu:category>
+    </menu:menu>
+</div>

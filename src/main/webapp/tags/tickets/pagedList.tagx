@@ -1,0 +1,28 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:tickets="urn:jsptagdir:/WEB-INF/tags/tickets" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+
+	<jsp:output omit-xml-declaration="yes" />
+
+	<jsp:directive.attribute name="items" type="java.util.Collection" required="true" rtexprvalue="true" description="The form backing object name" />
+	<jsp:directive.attribute name="firstRecord" type="java.util.Collection" required="false" description="First record id" />
+
+	<c:choose>
+		<c:when test="${not empty items}">
+			<c:forEach items="${items}" var="item">
+				<tickets:lightShow item="${item}" />
+			</c:forEach>
+
+			<util:pagination maxPages="${maxPages}" page="${param.page}" size="${param.size}" />
+		</c:when>
+		<c:otherwise>
+			<util:panel>
+				<spring:message var="alert" code="tickets.noitems.title" />
+				<util:alertHeader title="${alert}" />
+				<util:panelContent>
+					<spring:message arguments="${label}" code="tickets.noitems.content" />
+				</util:panelContent>
+			</util:panel>
+		</c:otherwise>
+	</c:choose>
+</jsp:root>

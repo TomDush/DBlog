@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_com_dush_blog_dto_model_Comment" modelAttribute="comment" path="/comments" versionField="Version" z="Ye6VlV3GQfaCIb794ZI2v0kWBoY=">
+        <field:input field="authorName" id="c_com_dush_blog_dto_model_Comment_authorName" required="true" z="r7n57xE1klyQUsKQznyjeMV/CJ4="/>
+        <field:input field="message" id="c_com_dush_blog_dto_model_Comment_message" z="da/SM99wR6NMJKYA8nhv5OpCDXo="/>
+        <field:datetime dateTimePattern="${comment_creation_date_format}" field="creation" id="c_com_dush_blog_dto_model_Comment_creation" required="true" z="X9vkg0PO51e+w7qqshIE7uArRY8="/>
+    </form:update>
+</div>

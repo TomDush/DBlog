@@ -1,0 +1,47 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+	<jsp:output omit-xml-declaration="yes" />
+
+	<jsp:directive.attribute name="itemId" type="java.lang.Integer" required="true" />
+	<jsp:directive.attribute name="itemType" type="java.lang.String" required="true" />
+	<jsp:directive.attribute name="show" type="java.lang.Boolean" required="false" description="Afficher l'icone de detail. Defaut : true."/>
+	
+	<c:if test="${empty path}">
+		<c:set var="path" value="/${itemType}" />
+	</c:if>
+
+	<div class="quicklinks">
+		<c:if test="${empty show or show}" >
+			<span> 
+				<spring:url value="${path}/${itemId}" var="show_item_url" />
+				<spring:url value="/resources/images/show.png" var="show_image_url" />
+				<spring:message var="show_label" code="${itemType}.nav.show" />
+				<a href="${fn:escapeXml(show_item_url)}" alt="${fn:escapeXml(show_label)}" title="${fn:escapeXml(show_label)}"> <img alt="${fn:escapeXml(show_label)}"
+					class="image" src="${fn:escapeXml(show_image_url)}" title="${fn:escapeXml(show_label)}" /> </a>
+			</span>
+		</c:if>
+		<span>
+			<spring:url value="${path}/${itemId}" var="update_form_url">
+				<spring:param name="form" />
+			</spring:url>
+			<spring:url value="/resources/images/update.png" var="update_image_url" />
+			<spring:message arguments="${typeName}" code="${itemType}.nav.update" var="update_label" htmlEscape="false" />
+			<a href="${fn:escapeXml(update_form_url)}" alt="${fn:escapeXml(update_label)}" title="${fn:escapeXml(update_label)}"> <img alt="${fn:escapeXml(update_label)}"
+				class="image" src="${fn:escapeXml(update_image_url)}" title="${fn:escapeXml(update_label)}" /> </a>
+		</span>
+		<span> 
+			<spring:url value="${path}/${itemId}" var="delete_form_url" />
+			<spring:url value="/resources/images/delete.png" var="delete_image_url" />
+			<form:form action="${fn:escapeXml(delete_form_url)}" method="DELETE">
+				<spring:message var="delete_label" code="${itemType}.nav.delete" htmlEscape="false" />
+				<c:set var="delete_confirm_msg">
+					<spring:escapeBody javaScriptEscape="true">
+						<spring:message code="entity_delete_confirm" />
+					</spring:escapeBody>
+				</c:set>
+				<input alt="${fn:escapeXml(delete_label)}" class="image" src="${fn:escapeXml(delete_image_url)}" title="${fn:escapeXml(delete_label)}" 
+					type="image" value="${fn:escapeXml(delete_label)}" onclick="return confirm('${fn:escapeXml(delete_confirm_msg)}');" />
+			</form:form>
+		</span>
+	</div>
+</jsp:root>

@@ -1,0 +1,11 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+	<jsp:output omit-xml-declaration="yes" />
+	
+	<jsp:directive.attribute name="title" type="java.lang.String" required="true" />
+  
+	<div class="panelHeader">
+		<jsp:doBody />
+		<h3><c:out value="${title}" /></h3>
+	</div>
+</jsp:root>
