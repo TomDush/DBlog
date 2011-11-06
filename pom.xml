@@ -5,10 +5,10 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.dush.test</groupId>
-	<artifactId>dblog-jsf</artifactId>
-	<version>0.1-SNAPSHOT</version>
+	<artifactId>dblog</artifactId>
+	<version>0.2-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>DBlogJsf</name>
+	<name>DBlog</name>
 	<description>Blog by Dush powered by JSF.</description>
 
 	<properties>
