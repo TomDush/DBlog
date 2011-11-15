@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+"http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<faces-config>
+
+	<managed-bean>
+		<description>
+			Visual Bean with reference on Business Bean.
+		</description>
+		
+		<managed-bean-name>home</managed-bean-name>
+		<managed-bean-class>fr.dush.test.dblog.controller.HomeController</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<!-- 
+		<managed-property>
+			<property-name>toDoService</property-name>
+			<value>#{toDoService}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>toDoId</property-name>
+			<value>#{param.toDoId}</value>
+		</managed-property>
+		 -->
+	</managed-bean>
+	
+	<navigation-rule>
+		<from-view-id>/home.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/then.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>failure</from-outcome>
+			<to-view-id>/error.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- This JSF variable resolver lets you reference JSF managed beans from 
+		a Spring context, or a Spring bean from a managed bean -->
+	<application>
+		<variable-resolver>
+			org.springframework.web.jsf.DelegatingVariableResolver
+		</variable-resolver>
+		<locale-config />
+	</application>
+	<lifecycle />
+	<factory />
+</faces-config>
+
