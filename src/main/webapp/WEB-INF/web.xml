@@ -15,29 +15,23 @@
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
 
-	<listener>
-		<listener-class>com.sun.faces.webapp.FacesServlet</listener-class>
-	</listener>
-<!-- 
 	<context-param>
-		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-		<param-value>.xhtml</param-value>
+		<param-name>org.apache.myfaces.annotation.SCAN_PACKAGES</param-name>
+		<param-value>fr.dush.test.dblog.controller</param-value>
 	</context-param>
- -->
+
 	<!-- SPRING Configuration -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			/WEB-INF/spring/context-global.xml,
-			/WEB-INF/spring/context-persistence.xml			
+			classpath:/WEB-INF/spring/context-global.xml,
+			classpath:/WEB-INF/spring/context-persistence.xml			
 		</param-value>
 	</context-param>
 
-	<servlet>
-		<servlet-name>Spring Context Servlet</servlet-name>
-		<servlet-class>org.springframework.web.context.ContextLoaderListener</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 
 	<!-- Disables Servlet Container welcome file handling. Needed for compatibility 
 		with Servlet 3.0 and Tomcat 7.0 -->

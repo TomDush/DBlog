@@ -4,6 +4,7 @@
 
 <faces-config>
 
+<!-- 
 	<managed-bean>
 		<description>
 			Visual Bean with reference on Business Bean.
@@ -12,16 +13,6 @@
 		<managed-bean-name>home</managed-bean-name>
 		<managed-bean-class>fr.dush.test.dblog.controller.HomeController</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
-		<!-- 
-		<managed-property>
-			<property-name>toDoService</property-name>
-			<value>#{toDoService}</value>
-		</managed-property>
-		<managed-property>
-			<property-name>toDoId</property-name>
-			<value>#{param.toDoId}</value>
-		</managed-property>
-		 -->
 	</managed-bean>
 	
 	<navigation-rule>
@@ -36,8 +27,6 @@
 		</navigation-case>
 	</navigation-rule>
 
-	<!-- This JSF variable resolver lets you reference JSF managed beans from 
-		a Spring context, or a Spring bean from a managed bean -->
 	<application>
 		<variable-resolver>
 			org.springframework.web.jsf.DelegatingVariableResolver
@@ -46,5 +35,6 @@
 	</application>
 	<lifecycle />
 	<factory />
+	 -->
 </faces-config>
 
