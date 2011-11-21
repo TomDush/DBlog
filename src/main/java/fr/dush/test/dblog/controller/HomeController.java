@@ -7,7 +7,7 @@ import javax.faces.bean.ManagedBean;
 public class HomeController {
 
 	public String getText() {
-		return "Welcome in DBlog !";
+		return "This is a dynamic controller provided text.";
 	}
 
 }

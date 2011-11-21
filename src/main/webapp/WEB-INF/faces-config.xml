@@ -27,6 +27,7 @@
 		</navigation-case>
 	</navigation-rule>
 
+	 -->
 	<application>
 		<variable-resolver>
 			org.springframework.web.jsf.DelegatingVariableResolver
@@ -35,6 +36,5 @@
 	</application>
 	<lifecycle />
 	<factory />
-	 -->
 </faces-config>
 

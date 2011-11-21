@@ -8,8 +8,16 @@
 	xmlns:crank="http://www.googlecode.com/crank"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<ui:composition>
-	<ui:define name="content">#{main.text}</ui:define>
+<ui:composition template="layout/full_layout.jsp">
+	<ui:define name="headtitle">
+		<title>Welcome to DBlog !</title>
+	</ui:define>
+	<ui:define name="content">
+		<h2>Welcome to DBlog !</h2>
+		<p>
+			<h:outputText value="#{home.text}"></h:outputText>
+		</p>
+	</ui:define>
 </ui:composition>
 
 </html>

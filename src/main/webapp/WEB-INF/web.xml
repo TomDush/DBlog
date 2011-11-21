@@ -12,12 +12,17 @@
 
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.jsf</url-pattern>
+		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
 	<context-param>
 		<param-name>org.apache.myfaces.annotation.SCAN_PACKAGES</param-name>
 		<param-value>fr.dush.test.dblog.controller</param-value>
+	</context-param>
+	<!-- Change to "Production" when you are ready to deploy -->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
 	</context-param>
 
 	<!-- SPRING Configuration -->
