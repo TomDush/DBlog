@@ -2,16 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:crank="http://www.googlecode.com/crank"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="layout/full_layout.jsp">
-	<ui:define name="headtitle">
-		<title>Welcome to DBlog !</title>
-	</ui:define>
+	<ui:param name="headtitle" value="Welcome to DBlog !" />
+
 	<ui:define name="content">
 		<h2>Welcome to DBlog !</h2>
 		<p>

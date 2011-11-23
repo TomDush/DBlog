@@ -10,9 +10,7 @@
 	<!-- 
 	<h:outputStylesheet library="css" name="dblog_blue.css" />
 	 -->
-	<ui:insert name="headtitle">
-		<title>DBlog</title>
-	</ui:insert>
+	<title>#{headtitle}</title>
 </h:head>
 <h:body>
 	<f:view>
