@@ -4,6 +4,17 @@
 
 <faces-config>
 
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>tickets</from-outcome>
+			<to-view-id>/errors/underconstruction.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>create</from-outcome>
+			<to-view-id>/errors/underconstruction.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 <!-- 
 	<managed-bean>
 		<description>
@@ -14,18 +25,6 @@
 		<managed-bean-class>fr.dush.test.dblog.controller.HomeController</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
-	
-	<navigation-rule>
-		<from-view-id>/home.jsp</from-view-id>
-		<navigation-case>
-			<from-outcome>success</from-outcome>
-			<to-view-id>/then.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>failure</from-outcome>
-			<to-view-id>/error.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
 
 	 -->
 	<application>

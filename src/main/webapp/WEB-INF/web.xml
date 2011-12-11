@@ -40,8 +40,15 @@
 
 	<!-- Disables Servlet Container welcome file handling. Needed for compatibility 
 		with Servlet 3.0 and Tomcat 7.0 -->
+	<!-- <welcome-file-list> -->
+	<!-- <welcome-file></welcome-file> -->
+	<!-- </welcome-file-list> -->
 	<welcome-file-list>
-		<welcome-file></welcome-file>
+		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/errors/404.xhtml</location>
+	</error-page>
 
 </web-app>

@@ -10,13 +10,13 @@
 	<ui:composition>
 		<menu:bar>
 			<menu:panel title="Home">
-				<menu:item name="Home" link="/" />
-				<menu:item name="Last 5" link="/tickets.xhtml?nb=5" />
-				<menu:item name="Search" link="/search.xhtml" />
+				<menu:item value="Home" link="index" />
+				<menu:item value="Last 5" link="tickets" param="nb=5"/>
+				<menu:item value="Search" link="search" />
 			</menu:panel>
 			<menu:panel title="Ticket">
-				<menu:item name="Show all" link="/tickets.xhtml" />
-				<menu:item name="Create ticket" link="/create.xhtml" />
+				<menu:item value="Show all" link="tickets" />
+				<menu:item value="Create ticket" link="create" />
 			</menu:panel>
 		</menu:bar>
 	</ui:composition>

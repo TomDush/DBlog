@@ -7,20 +7,21 @@
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<ui:insert name="headtitle">
-		<title>DBlog - Une erreur s'est produite...</title>
-	</ui:insert>
+
+	<h:outputStylesheet library="styles" name="dblog_horizontal.css" />
+
+	<title>#{(headtitle == null) ? "DBlog Error" : headtitle}</title>
 </h:head>
 <h:body>
 	<div id="main">
 		<div id="content">
-			<div id="error">
+			<div class="error">
 				<ui:insert name="content" />
 			</div>
 		</div>
 		<div id="footer">
 			<ui:insert name="footer">
-				<ui:include src="/template/footer.jsp" />
+				<ui:include src="/template/footer.xhtml" />
 			</ui:insert>
 		</div>
 	</div>

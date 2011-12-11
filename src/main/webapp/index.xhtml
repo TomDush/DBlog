@@ -16,6 +16,17 @@
 		</p>
 		<h3>Hard one</h3>
 		<p>Hard coded other message</p>
+
+		<h2>Hard links</h2>
+		<p>
+			<a href="search.xhtml">Hard link</a><br />
+			<h:form>
+				<h:commandButton action="search" value="Move to search.xhtml" />
+				<h:commandLink action="search" value="Move to search.xhtml" />
+				<h:commandLink action="#{home.searchAction}" value="Move to #{home.searchAction}" />
+			</h:form>
+		</p>
+
 		<h2>Tickets ...</h2>
 		<p>Here, the last 5 tickets are shown...</p>
 	</ui:define>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13236159001470" configfile="/DBlog/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" id="pf132361646707425" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf132361646707426 pf132361653819128" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="errors/underconstruction.xhtml" id="pf132361646707427" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf132361646707426 pf132361653819128" path="/errors/underconstruction.xhtml"/>
+  <links id="pf132361646707426" target="pf132361646707427" source="pf132361646707425" outcome="tickets"/>
+  <links id="pf132361653819128" target="pf132361646707427" source="pf132361646707425" outcome="create"/>
+</pageflow:Pageflow>
