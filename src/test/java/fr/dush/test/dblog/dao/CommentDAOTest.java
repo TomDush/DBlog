@@ -91,21 +91,21 @@ public class CommentDAOTest extends AbstractJunitTest {
 		assertEquals("Nov", comments.get(0).getMessage());
 		assertEquals("Jan", comments.get(3).getMessage());
 
-		// première page de 2
+		// first page of 2
 		comments = commentDAO.findByTicket(idTicket, 0, 2);
 		assertNotNull(comments);
 		assertEquals(2, comments.size());
 		assertEquals("Nov", comments.get(0).getMessage());
 		assertEquals("Oct", comments.get(1).getMessage());
 
-		// seconde page de 2
+		// second page of 2
 		comments = commentDAO.findByTicket(idTicket, 2, 2);
 		assertNotNull(comments);
 		assertEquals(2, comments.size());
 		assertEquals("Mar", comments.get(0).getMessage());
 		assertEquals("Jan", comments.get(1).getMessage());
 
-		// seconde page de 3
+		// third page de 3
 		comments = commentDAO.findByTicket(idTicket, 3, 3);
 		assertNotNull(comments);
 		assertEquals(1, comments.size());

@@ -29,7 +29,7 @@ public class Ticket {
 	private Integer idTicket;
 
 	/**
-	 * Date de création du ticket.
+	 * Date de crÃ©ation du ticket.
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull

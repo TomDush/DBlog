@@ -88,21 +88,21 @@ public class TicketDAOTest extends AbstractJunitTest {
 		assertEquals("Nov", tickets.get(0).getTitle());
 		assertEquals("Jan", tickets.get(4).getTitle());
 
-		// première page de 2
+		// first page of 2
 		tickets = ticketDAO.findPage(0, 2);
 		assertNotNull(tickets);
 		assertEquals(2, tickets.size());
 		assertEquals("Nov", tickets.get(0).getTitle());
 		assertEquals("Oct", tickets.get(1).getTitle());
 
-		// seconde page de 2
+		// second page of 2
 		tickets = ticketDAO.findPage(2, 2);
 		assertNotNull(tickets);
 		assertEquals(2, tickets.size());
 		assertEquals("Mai", tickets.get(0).getTitle());
 		assertEquals("Mar", tickets.get(1).getTitle());
 
-		// seconde page de 3
+		// third page of 3
 		tickets = ticketDAO.findPage(3, 3);
 		assertNotNull(tickets);
 		assertEquals(2, tickets.size());
