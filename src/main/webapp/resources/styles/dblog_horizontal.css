@@ -59,7 +59,7 @@ h3 {
 
 /* Layout - Menu */
 #menu h2 {
-	background-image: inherit;
+	background-image: none;
 	line-height: 1.8em;
 }
 
