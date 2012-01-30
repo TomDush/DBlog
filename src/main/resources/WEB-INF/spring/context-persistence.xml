@@ -12,51 +12,53 @@
 		<property name="password" value="${datasource.password}" />
 	</bean>
 
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
+<!-- 	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> -->
+<!-- 		<property name="dataSource" ref="dataSource" /> -->
 
-		<property name="configLocation">
-			<value>classpath:WEB-INF/config/hibernate.cfg.xml</value>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">${datasource.dialect}</prop>
-				<prop key="hibernate.show_sql">false</prop>
-				<prop key="hibernate.format_sql">true</prop>
-				<!--<prop key="hibernate.hbm2ddl.auto">create-drop</prop>-->
-				<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
-				<prop key="hibernate.connection.release_mode">auto</prop>
-				<prop key="hibernate.c3p0.acquire_increment">1</prop>
-				<prop key="hibernate.c3p0.min_size">5</prop>
-				<prop key="hibernate.c3p0.max_size">100</prop>
-				<prop key="hibernate.c3p0.timeout">600</prop>
-				<prop key="hibernate.c3p0.idle_test_period">300</prop>
-				<prop key="hibernate.c3p0.max_statements">50</prop>
-			</props>
-		</property>
-	</bean>
-	<!--
-		<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+<!-- 		<property name="configLocation"> -->
+<!-- 			<value>classpath:WEB-INF/config/hibernate.cfg.xml</value> -->
+<!-- 		</property> -->
+<!-- 		<property name="hibernateProperties"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="hibernate.dialect">${datasource.dialect}</prop> -->
+<!-- 				<prop key="hibernate.show_sql">false</prop> -->
+<!-- 				<prop key="hibernate.format_sql">true</prop> -->
+<!-- 				<prop key="hibernate.hbm2ddl.auto">create-drop</prop> -->
+<!-- 				<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop> -->
+<!-- 				<prop key="hibernate.connection.release_mode">auto</prop> -->
+<!-- 				<prop key="hibernate.c3p0.acquire_increment">1</prop> -->
+<!-- 				<prop key="hibernate.c3p0.min_size">5</prop> -->
+<!-- 				<prop key="hibernate.c3p0.max_size">100</prop> -->
+<!-- 				<prop key="hibernate.c3p0.timeout">600</prop> -->
+<!-- 				<prop key="hibernate.c3p0.idle_test_period">300</prop> -->
+<!-- 				<prop key="hibernate.c3p0.max_statements">50</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan">
-		<list>
-		<value>fr.dush.test.dblog.dto</value>
-		</list>
+			<list>
+				<value>fr.dush.test.dblog.dto</value>
+			</list>
 		</property>
-		<property name="annotatedClasses">
-		<list>
-		</list>
-		</property>
+<!-- 		<property name="annotatedClasses"> -->
+<!-- 			<list> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
 		<property name="hibernateProperties">
-		<value>
-		hibernate.dialect=${datasource.dialect}
-		</value>
+			<value>
+				hibernate.dialect=${datasource.dialect}
+				hibernate.hbm2ddl.auto=create-drop
+			</value>
+<!-- 				<value> -->
+<!-- 					hibernate.hbm2ddl.auto=create-drop -->
+<!-- 				</value> -->
 		</property>
-		</bean>
-	-->
+	</bean>
 
 	<!-- TRANSACTIONS -->
-	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 

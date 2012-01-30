@@ -1,6 +1,5 @@
 package fr.dush.test.dblog.dao.model;
 
-import java.beans.ConstructorProperties;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,21 +10,20 @@ import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateObjectRetrievalFailureException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import fr.dush.test.dblog.dto.model.Ticket;
 
 @Repository
-public class TicketDAOImpl extends HibernateDaoSupport implements ITicketDAO {
+public class TicketDAOImpl implements ITicketDAO {
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TicketDAOImpl.class);
 
 	@Autowired
-	@ConstructorProperties(value = {"sessionFactory"})
-	public TicketDAOImpl(SessionFactory sessionFactory) {
-		logger.debug("TicketDAOImpl with session factory : {}", sessionFactory);
-		setSessionFactory(sessionFactory);
+	private SessionFactory sessionFactory;
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 	@Override
@@ -74,7 +72,7 @@ public class TicketDAOImpl extends HibernateDaoSupport implements ITicketDAO {
 
 	@Override
 	public long count() {
-		return (long)getHibernateTemplate().find("SELECT COUNT(t) FROM Ticket t").get(0);
+		return (long) getHibernateTemplate().find("SELECT COUNT(t) FROM Ticket t").get(0);
 	}
 
 }

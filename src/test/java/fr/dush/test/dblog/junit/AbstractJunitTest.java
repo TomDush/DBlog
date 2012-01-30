@@ -22,7 +22,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.test.context.ContextConfiguration;
 
 import fr.dush.test.dblog.junit.dbunitapi.DBUnitJUnit4ClassRunner;
@@ -85,7 +85,7 @@ public abstract class AbstractJunitTest extends DBTestCase implements IDatabaseS
 		}
 
 		if (databasePopulationScripts != null) {
-			sessionFactory.createDatabaseSchema();
+//			sessionFactory.getcreateDatabaseSchema(); //FIXME créer les tables de la bases de données.
 			setUp();
 		} else logger.warn("No databasePopulationScripts.");
 	}
@@ -106,7 +106,7 @@ public abstract class AbstractJunitTest extends DBTestCase implements IDatabaseS
 			FlatXmlDataSet.write(fullDataSet, new FileOutputStream(fileName));
 		}
 
-		sessionFactory.dropDatabaseSchema();
+//		sessionFactory.dropDatabaseSchema(); //FIXME Dropper les tables.
 	}
 
 	@Override
