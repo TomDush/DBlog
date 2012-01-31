@@ -3,17 +3,19 @@ package fr.dush.test.dblog.dao.model;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate4.HibernateObjectRetrievalFailureException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.dush.test.dblog.dto.model.Comment;
 
 @Repository
+@Transactional
 public class CommentDAOImpl implements ICommentDAO {
 
 	@Autowired
@@ -27,7 +29,7 @@ public class CommentDAOImpl implements ICommentDAO {
 	public Comment findById(Integer id) {
 		try {
 			return (Comment) sessionFactory.getCurrentSession().load(Comment.class, id);
-		} catch (HibernateObjectRetrievalFailureException e) {
+		} catch (ObjectNotFoundException e) {
 			return null;
 		}
 	}
@@ -65,7 +67,9 @@ public class CommentDAOImpl implements ICommentDAO {
 
 	@Override
 	public void delete(Integer commentId) {
-		sessionFactory.getCurrentSession().delete(findById(commentId));
+		Comment c = findById(commentId);
+		c.getTicket().getComments().remove(c);
+		sessionFactory.getCurrentSession().delete(c);
 	}
 
 }

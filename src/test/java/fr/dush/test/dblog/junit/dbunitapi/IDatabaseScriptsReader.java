@@ -6,6 +6,6 @@ public interface IDatabaseScriptsReader {
 
 	void setDatabasePopulationScripts(List<String> databaseScripts);
 
-	void setDropDatabase(boolean dropDatabase);
+	void setDumpDatabase(boolean dropDatabase);
 
 }

@@ -24,10 +24,10 @@ public class DBUnitJUnit4ClassRunner extends SpringJUnit4ClassRunner {
 
 		// Retrieve the database population scripts location if the test class is annotated
 		DatabaseScripts dsMethod = frameworkMethod.getAnnotation(DatabaseScripts.class);
-		boolean dropDatabe = false;
+		boolean dumpDatabe = false;
 		if (dsMethod != null) {
 			dsStack.push(dsMethod);
-			dropDatabe = dsMethod.dropDatabase();
+			dumpDatabe = dsMethod.dumpDatabase();
 		}
 
 		// Retrieve the database population scripts location if the test class or its super-classes is annotated
@@ -62,7 +62,7 @@ public class DBUnitJUnit4ClassRunner extends SpringJUnit4ClassRunner {
 		// Set (or erase) the database scripts location for this method
 		if (obj instanceof IDatabaseScriptsReader) {
 			((IDatabaseScriptsReader) obj).setDatabasePopulationScripts(locationsList);
-			((IDatabaseScriptsReader) obj).setDropDatabase(dropDatabe);
+			((IDatabaseScriptsReader) obj).setDumpDatabase(dumpDatabe);
 		} else throw new RuntimeException("Test class must implement IDatabaseScriptsReader to use @DatabaseScripts.");
 
 		return super.methodInvoker(frameworkMethod, obj);

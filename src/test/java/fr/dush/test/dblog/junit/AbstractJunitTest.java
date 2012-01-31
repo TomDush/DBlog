@@ -46,7 +46,7 @@ public abstract class AbstractJunitTest extends DBTestCase implements IDatabaseS
 	 */
 	private List<String> databasePopulationScripts;
 
-	private boolean dropDatabase = false;
+	private boolean dumpDatabase = false;
 
 	@PostConstruct
 	public void initConnexion() throws Exception {
@@ -95,15 +95,15 @@ public abstract class AbstractJunitTest extends DBTestCase implements IDatabaseS
 	 */
 	@After
 	public void dropDatabase() throws Exception {
-		if (dropDatabase) {
-			File file = new File("target/bdd/");
-			if (!file.exists()) file.mkdir();
+		if (dumpDatabase) {
+			File targetDirFile = new File("target/bdd/");
+			if (!targetDirFile.exists()) targetDirFile.mkdir();
 
-			String fileName = "target/bdd/" + this.getClass().getName() + "-db-"
-					+ new SimpleDateFormat("yyyy-MM-dd.HH-mm-ss.S").format(new java.util.Date()) + ".xml";
+			File dumpFile = new File(targetDirFile, this.getClass().getName() + "-db-"
+					+ new SimpleDateFormat("yyyy-MM-dd.HH-mm-ss.S").format(new java.util.Date()) + ".xml");
 
 			IDataSet fullDataSet = new DatabaseConnection(dataSource.getConnection()).createDataSet();
-			FlatXmlDataSet.write(fullDataSet, new FileOutputStream(fileName));
+			FlatXmlDataSet.write(fullDataSet, new FileOutputStream(dumpFile));
 		}
 
 //		sessionFactory.dropDatabaseSchema(); //FIXME Dropper les tables.
@@ -116,7 +116,7 @@ public abstract class AbstractJunitTest extends DBTestCase implements IDatabaseS
 
 	@Override
 	protected DatabaseOperation getTearDownOperation() throws Exception {
-		return DatabaseOperation.NONE;
+		return DatabaseOperation.DELETE_ALL;
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public abstract class AbstractJunitTest extends DBTestCase implements IDatabaseS
 	}
 
 	@Override
-	public void setDropDatabase(boolean dropDatabase) {
-		this.dropDatabase = dropDatabase;
+	public void setDumpDatabase(boolean dumpDatabase) {
+		this.dumpDatabase = dumpDatabase;
 	}
 }

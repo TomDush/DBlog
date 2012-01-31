@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import fr.dush.test.dblog.dao.model.ICommentDAO;
 import fr.dush.test.dblog.dao.model.ITicketDAO;
@@ -26,7 +25,6 @@ public class CommentDAOTest extends AbstractJunitTest {
 	private ITicketDAO ticketDAO;
 
 	@Test
-	@DatabaseScripts(dropDatabase = true)
 	public void testRead() throws Exception {
 		Comment comment = commentDAO.findById(3);
 		assertNotNull(comment);
@@ -52,7 +50,7 @@ public class CommentDAOTest extends AbstractJunitTest {
 		assertEquals(1, commentDAO.countByTicket(2) - count);
 	}
 
-	@Test @Transactional //FIXME retire transactionnal.
+	@Test
 	public void testCount() {
 		assertEquals(4, commentDAO.countByTicket(3));
 		assertEquals(1, commentDAO.countByTicket(2));

@@ -22,6 +22,6 @@ public @interface DatabaseScripts {
 	/**
 	 * Used only on method : drop the database's final contents in "target/bdd/the_date.xml".
 	 */
-	boolean dropDatabase() default false;
+	boolean dumpDatabase() default false;
 
 }

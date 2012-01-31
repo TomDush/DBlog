@@ -1,20 +1,18 @@
 package fr.dush.test.dblog.dao.model;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.HibernateObjectRetrievalFailureException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.dush.test.dblog.dto.model.Ticket;
 
 @Repository
+@Transactional
 public class TicketDAOImpl implements ITicketDAO {
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TicketDAOImpl.class);
@@ -29,7 +27,7 @@ public class TicketDAOImpl implements ITicketDAO {
 	@Override
 	public List<Ticket> findAll() {
 		@SuppressWarnings("unchecked")
-		List<Ticket> tickets = getHibernateTemplate().find("FROM Ticket ORDER BY date");
+		List<Ticket> tickets = sessionFactory.getCurrentSession().createQuery("FROM Ticket ORDER BY date").list();
 
 		logger.debug("{} ticket(s) found", tickets.size());
 
@@ -39,40 +37,32 @@ public class TicketDAOImpl implements ITicketDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Ticket> findPage(final int firstResult, final int maxResults) {
-		return getHibernateTemplate().executeFind(new HibernateCallback<List<Ticket>>() {
+		Criteria c = sessionFactory.getCurrentSession().createCriteria(Ticket.class);
+		c.addOrder(Order.desc("date"));
+		c.setMaxResults(maxResults).setFirstResult(firstResult);
 
-			@Override
-			public List<Ticket> doInHibernate(Session session) throws HibernateException, SQLException {
-				return session.createCriteria(Ticket.class).addOrder(Order.desc("date")).setFirstResult(firstResult)
-						.setMaxResults(maxResults).list();
-			}
-
-		});
+		return c.list();
 	}
 
 	@Override
 	public Ticket findById(Integer id) {
-		try {
-			return getHibernateTemplate().load(Ticket.class, id);
-		} catch (HibernateObjectRetrievalFailureException e) {
-			return null;
-		}
+		return (Ticket) sessionFactory.getCurrentSession().get(Ticket.class, id);
 	}
 
 	@Override
 	public void merge(Ticket ticket) {
 		logger.debug("Save ticket : {}", ticket);
-		getHibernateTemplate().merge(ticket);
+		sessionFactory.getCurrentSession().merge(ticket);
 	}
 
 	@Override
 	public void delete(Integer ticket) {
-		getHibernateTemplate().delete(findById(ticket));
+		sessionFactory.getCurrentSession().delete(findById(ticket));
 	}
 
 	@Override
 	public long count() {
-		return (long) getHibernateTemplate().find("SELECT COUNT(t) FROM Ticket t").get(0);
+		return (long) sessionFactory.getCurrentSession().createQuery("SELECT COUNT(t) FROM Ticket t").uniqueResult();
 	}
 
 }
