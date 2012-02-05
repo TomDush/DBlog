@@ -20,7 +20,7 @@ public @interface DatabaseScripts {
 	boolean inheritLocations() default true;
 
 	/**
-	 * Used only on method : drop the database's final contents in "target/bdd/the_date.xml".
+	 * Used only on method : dump the database's final contents in "target/bdd/the_date.xml".
 	 */
 	boolean dumpDatabase() default false;
 

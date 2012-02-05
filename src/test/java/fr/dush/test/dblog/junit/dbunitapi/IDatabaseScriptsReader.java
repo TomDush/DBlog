@@ -8,4 +8,6 @@ public interface IDatabaseScriptsReader {
 
 	void setDumpDatabase(boolean dropDatabase);
 
+	void setDumpFilename(String dumpFilename);
+
 }

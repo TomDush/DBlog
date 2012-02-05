@@ -13,7 +13,7 @@ import fr.dush.test.dblog.dto.model.Comment;
 import fr.dush.test.dblog.junit.AbstractJunitTest;
 import fr.dush.test.dblog.junit.dbunitapi.DatabaseScripts;
 
-@DatabaseScripts(locations = { "/bdd/comments.xml" })
+@DatabaseScripts(locations = { "/bdd/comments.xml" }, dumpDatabase = true)
 public class CommentDAOTest extends AbstractJunitTest {
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(CommentDAOTest.class);

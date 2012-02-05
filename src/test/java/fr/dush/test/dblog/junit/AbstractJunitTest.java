@@ -2,14 +2,17 @@ package fr.dush.test.dblog.junit;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import junit.framework.TestCase;
+
 import org.apache.commons.dbcp.BasicDataSource;
-import org.dbunit.DBTestCase;
+import org.dbunit.DatabaseUnitException;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.dataset.CompositeDataSet;
@@ -22,23 +25,25 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.test.context.ContextConfiguration;
 
 import fr.dush.test.dblog.junit.dbunitapi.DBUnitJUnit4ClassRunner;
 import fr.dush.test.dblog.junit.dbunitapi.IDatabaseScriptsReader;
 
+/**
+ * Initialise le contexte SPRING et founie les méthodes pour gérer le contenu de la base de données (avec DBUnit).
+ *
+ *
+ * @author Thomas Duchatelle (thomas.duchatelle@capgemini.com)
+ */
 @RunWith(DBUnitJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:WEB-INF/spring/context-global.xml", "classpath:WEB-INF/spring/context-persistence.xml" })
-public abstract class AbstractJunitTest extends DBTestCase implements IDatabaseScriptsReader {
+public abstract class AbstractJunitTest extends TestCase implements IDatabaseScriptsReader {
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AbstractJunitTest.class);
 
 	@Autowired
 	private BasicDataSource dataSource;
-
-	@Autowired
-	private LocalSessionFactoryBean sessionFactory;
 
 	/**
 	 * Database population scripts. The scripts are executed in the list order, ie from first to last The list may be left empty so that
@@ -47,6 +52,25 @@ public abstract class AbstractJunitTest extends DBTestCase implements IDatabaseS
 	private List<String> databasePopulationScripts;
 
 	private boolean dumpDatabase = false;
+
+	private String dumpFilename = this.getClass().getName();
+
+	private DatabaseConnection databaseConnection;
+
+	@Override
+	public void setDatabasePopulationScripts(List<String> databaseScripts) {
+		this.databasePopulationScripts = databaseScripts;
+	}
+
+	@Override
+	public void setDumpDatabase(boolean dumpDatabase) {
+		this.dumpDatabase = dumpDatabase;
+	}
+
+	@Override
+	public void setDumpFilename(String dumpFilename) {
+		this.dumpFilename = this.getClass().getName() + "." + dumpFilename;
+	}
 
 	@PostConstruct
 	public void initConnexion() throws Exception {
@@ -58,9 +82,8 @@ public abstract class AbstractJunitTest extends DBTestCase implements IDatabaseS
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, dataSource.getPassword());
 	}
 
-	@Override
+	// @Override
 	protected IDataSet getDataSet() throws Exception {
-		logger.debug("---> getDataSet()");
 		List<IDataSet> dataSets = new LinkedList<>();
 
 		DataFileLoader loader = new FlatXmlDataFileLoader();
@@ -70,24 +93,7 @@ public abstract class AbstractJunitTest extends DBTestCase implements IDatabaseS
 
 		IDataSet dataset = new CompositeDataSet(dataSets.toArray(new IDataSet[dataSets.size()]));
 
-		logger.debug("<--- getDataSet()");
 		return dataset;
-	}
-
-	/**
-	 * Populate the in-memory database with test data
-	 */
-	@Before
-	public void populateDatabase() throws Exception {
-
-		if (databasePopulationScripts == null) {
-			return;
-		}
-
-		if (databasePopulationScripts != null) {
-//			sessionFactory.getcreateDatabaseSchema(); //FIXME créer les tables de la bases de données.
-			setUp();
-		} else logger.warn("No databasePopulationScripts.");
 	}
 
 	/**
@@ -99,33 +105,53 @@ public abstract class AbstractJunitTest extends DBTestCase implements IDatabaseS
 			File targetDirFile = new File("target/bdd/");
 			if (!targetDirFile.exists()) targetDirFile.mkdir();
 
-			File dumpFile = new File(targetDirFile, this.getClass().getName() + "-db-"
-					+ new SimpleDateFormat("yyyy-MM-dd.HH-mm-ss.S").format(new java.util.Date()) + ".xml");
+			File dumpFile = new File(targetDirFile, new SimpleDateFormat("yyyy-MM-dd.HH-mm-ss.S").format(new java.util.Date()) + "-db-"
+					+ dumpFilename + ".xml");
 
-			IDataSet fullDataSet = new DatabaseConnection(dataSource.getConnection()).createDataSet();
+			IDataSet fullDataSet = getDatasource().createDataSet();
 			FlatXmlDataSet.write(fullDataSet, new FileOutputStream(dumpFile));
 		}
 
-//		sessionFactory.dropDatabaseSchema(); //FIXME Dropper les tables.
 	}
 
 	@Override
-	protected DatabaseOperation getSetUpOperation() throws Exception {
-		return DatabaseOperation.CLEAN_INSERT;
+	@Before
+	public void setUp() throws Exception {
+		logger.debug("--> setUp");
+		super.setUp();
+		if (databasePopulationScripts == null) {
+			logger.warn("No databasePopulationScripts.");
+			return;
+		} else {
+			DatabaseOperation.CLEAN_INSERT.execute(getDatasource(), getDataSet());
+		}
+		logger.debug("<-- setUp");
 	}
 
 	@Override
-	protected DatabaseOperation getTearDownOperation() throws Exception {
-		return DatabaseOperation.DELETE_ALL;
+	@After
+	public void tearDown() throws Exception {
+		logger.debug("--> tearDown");
+		super.tearDown();
+		if (databasePopulationScripts == null) {
+			logger.warn("No databasePopulationScripts.");
+			return;
+		} else {
+			DatabaseOperation.DELETE_ALL.execute(getDatasource(), getDataSet());
+		}
+
+		closeConnection();
+		logger.debug("<-- tearDown");
 	}
 
-	@Override
-	public void setDatabasePopulationScripts(List<String> databaseScripts) {
-		this.databasePopulationScripts = databaseScripts;
+	private DatabaseConnection getDatasource() throws DatabaseUnitException, SQLException {
+		if (databaseConnection == null || databaseConnection.getConnection().isClosed()) {
+			databaseConnection = new DatabaseConnection(dataSource.getConnection());
+		}
+		return databaseConnection;
 	}
 
-	@Override
-	public void setDumpDatabase(boolean dumpDatabase) {
-		this.dumpDatabase = dumpDatabase;
+	private void closeConnection() throws SQLException {
+		if (databaseConnection != null) databaseConnection.close();
 	}
 }
