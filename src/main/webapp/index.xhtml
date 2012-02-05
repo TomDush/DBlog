@@ -17,13 +17,13 @@
 		<h3>Hard one</h3>
 		<p>Hard coded other message</p>
 
-		<h2>Hard links</h2>
+		<h2>Hard/soft links</h2>
 		<p>
 			<a href="search.xhtml">Hard link</a><br />
 			<h:form>
-				<h:commandButton action="search" value="Move to search.xhtml" />
-				<h:commandLink action="search" value="Move to search.xhtml" />
-				<h:commandLink action="#{home.searchAction}" value="Move to #{home.searchAction}" />
+				<h:commandButton action="search" value="Move to search.xhtml (commandButton)" /><br/>
+				<h:commandLink action="search" value="Move to search.xhtml (commandLink)" /><br/>
+				<h:commandLink action="#{home.searchAction}" value="Move to #{home.searchAction} (commandLink with action)" /><br/>
 			</h:form>
 		</p>
 

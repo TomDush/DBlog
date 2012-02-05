@@ -10,7 +10,19 @@ public class HomeController {
 		return "This is a dynamic controller provided text.";
 	}
 
+	/**
+	 * Méthode appelée par les EL (dans les textes)
+	 * @return
+	 */
 	public String getSearchAction() {
+		return "search";
+	}
+
+	/**
+	 * Méthode appelée dans les <i>actions</i> des formulaires/buttons de submit.
+	 * @return
+	 */
+	public String searchAction() {
 		return "search";
 	}
 

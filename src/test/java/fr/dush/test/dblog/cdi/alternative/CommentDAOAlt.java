@@ -2,14 +2,11 @@ package fr.dush.test.dblog.cdi.alternative;
 
 import java.util.List;
 
-import javax.enterprise.inject.Alternative;
-import javax.inject.Named;
-
 import fr.dush.test.dblog.dao.model.ICommentDAO;
 import fr.dush.test.dblog.dto.model.Comment;
 
-@Named
-@Alternative
+//@Named
+//@Alternative
 public class CommentDAOAlt implements ICommentDAO {
 
 	@Override
