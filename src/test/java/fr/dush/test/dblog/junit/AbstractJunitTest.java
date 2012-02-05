@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 import junit.framework.TestCase;
 
@@ -24,7 +25,6 @@ import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import fr.dush.test.dblog.junit.dbunitapi.DBUnitJUnit4ClassRunner;
@@ -42,7 +42,7 @@ public abstract class AbstractJunitTest extends TestCase implements IDatabaseScr
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AbstractJunitTest.class);
 
-	@Autowired
+	@Inject
 	private BasicDataSource dataSource;
 
 	/**

@@ -4,8 +4,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.dush.test.dblog.dao.model.ITicketDAO;
 import fr.dush.test.dblog.dto.model.Ticket;
@@ -17,7 +18,7 @@ public class TicketDAOTest extends AbstractJunitTest {
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TicketDAOTest.class);
 
-	@Autowired
+	@Inject
 	private ITicketDAO ticketDAO;
 
 	@Test

@@ -1,9 +1,9 @@
 package fr.dush.test.dblog.controller;
 
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 
 
-@ManagedBean(name = "home")
+@Named(value = "home")
 public class HomeController {
 
 	public String getText() {
