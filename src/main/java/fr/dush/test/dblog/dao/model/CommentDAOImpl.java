@@ -3,7 +3,6 @@ package fr.dush.test.dblog.dao.model;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.hibernate.Criteria;
 import org.hibernate.ObjectNotFoundException;
@@ -11,12 +10,11 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.transaction.annotation.Transactional;
 
+import fr.dush.test.dblog.annotations.DaoQualifier;
 import fr.dush.test.dblog.dto.model.Comment;
 
-@Transactional
-@Named
+@DaoQualifier
 public class CommentDAOImpl implements ICommentDAO {
 
 	@Inject

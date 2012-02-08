@@ -3,17 +3,15 @@ package fr.dush.test.dblog.dao.model;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
-import org.springframework.transaction.annotation.Transactional;
 
+import fr.dush.test.dblog.annotations.DaoQualifier;
 import fr.dush.test.dblog.dto.model.Ticket;
 
-@Transactional
-@Named
+@DaoQualifier
 public class TicketDAOImpl implements ITicketDAO {
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TicketDAOImpl.class);

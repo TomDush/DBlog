@@ -1,0 +1,329 @@
+/* main elements */
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #333;
+	background-color: #fff;
+	text-align: left;
+}
+
+/* Generic - Text style */
+h1,h2,h3 {
+	font-family: Helvetica, sans-serif;
+	color: #165986;
+}
+
+h1 {
+	font-size: 2em;
+	line-height: 2.2em;
+	text-align: center;
+	font-weight: bold;
+	font-variant: small-caps;
+	text-shadow: 15px 5px 10px #AAA;
+}
+
+h2 {
+	font-size: 1.6em;
+	padding-left: 10px;
+	color: #FFF;
+	background-image: -webkit-gradient(linear, left top, right top, color-stop(0.1, #165986),
+		color-stop(0.5, #FFF) );
+	background-image: -moz-linear-gradient(left center, #165986 10%, #FFF 50%);
+}
+
+h3 {
+	font-size: 1.3em;
+	line-height: 1.5em;
+	padding-left: 50px;
+}
+
+/* Layout - Header */
+#header {
+	margin-bottom: 10px;
+}
+
+#header a {
+	text-decoration: none;
+}
+
+.headerlogo {
+	margin: 0px;
+	padding: 0px 100px;
+	text-align: left;
+	font-size: 4em;
+	font-weight: bold;
+	font-variant: small-caps;
+	color: #165986;
+	text-shadow: 15px 10px 10px #333;
+}
+
+/* Layout - Menu */
+#menu h2 {
+	background-image: none;
+	line-height: 1.8em;
+}
+
+#menu ul.lvl0 {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: 30px;
+	width: 100%;
+	height: 30px;
+	background-color: #165986;
+}
+
+#menu li.lvl0 {
+	display: block;
+	float: left;
+	margin: 0px;
+	width: 200px;
+	height: 30px;
+	margin: 0px;
+}
+
+#menu li.lvl0 h2 {
+	margin: 0px;
+	padding: 0px;
+	padding-top: 2px;
+	text-align: center;
+	color: #FFF;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 1.2em;
+	text-align: center;
+}
+
+#menu ul.lvl1 {
+	margin: 0px;
+	padding: 0px;
+	visibility: hidden;
+	border-radius: 0px 0px 10px 10px;
+	-moz-border-radius: 0px 0px 10px 10px;
+	box-shadow: 5px 5px 5px #AAA;
+	-moz-box-shadow: 5px 5px 5px #AAA;
+	background-color: #1e7ab7;
+}
+
+#menu li.lvl0:hover {
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.3, #165986),
+		color-stop(1, #1e7ab7) );
+	background-image: -moz-linear-gradient(top center, #165986 30%, #1e7ab7 100%);
+}
+
+#menu li.lvl0:hover ul.lvl1 {
+	diplay: block;
+	visibility: visible;
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+
+#menu li.lvl1 {
+	display: block;
+	margin: 0px;
+	padding: 2px 10px;
+	font-size: 1em;
+	color: #FFF;
+}
+
+#menu li.lvl1 a,#menu li.lvl1 a:link,#menu li.lvl1 a:visited,#menu li.lvl1 a:active
+	{
+	display: block;
+	margin: 0px;
+	passing: 0px;
+	text-decoration: none;
+	color: inherit;
+}
+
+#menu li.lvl1:hover {
+	background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #165986),
+		color-stop(0.9, #1e7ab7) );
+	background-image: -moz-linear-gradient(left center, #165986 0%, #1e7ab7 90%);
+	border-radius: 10px 0px 10px 10px;
+	-moz-border-radius: 10px 0px 10px 10px;
+}
+
+/* Layout - Footer */
+#footer {
+	clear: both;
+	text-align: center;
+	margin-top: 30px;
+	border-top: 1px solid #999;
+	background: #fff;
+	color: #999;
+	font-size: 0.8em;
+}
+
+#footer .version {
+	float: right;
+	padding-right: 10px;
+}
+
+/* Layout - content */
+#content {
+	padding: 0px 20px;
+}
+
+/* Layout - Errors */
+#content .error {
+	width: 60%;
+	margin: auto;
+	margin-top: 20px;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.3, #AAA),
+		color-stop(0.9, #EEE) );
+	background-image: -moz-linear-gradient(top center, #CCC 2em, #EEE 100%);
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	box-shadow: 10px 10px 5px #AAA;
+}
+
+#content .error h1 {
+	margin: 0px;
+	line-height: 2em;
+	color: #FFF;
+	text-shadow: none;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #165986),
+		color-stop(0.9, #1e7ab7) );
+	background-image: -moz-linear-gradient(top center, #861616 0%, #b71e1e 90%);
+	border-radius: 10px 10px 0px 0px;
+	-moz-border-radius: 10px 10px 0px 0px;
+}
+#content .info {
+	width: 60%;
+	margin: auto;
+	margin-top: 20px;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.3, #AAA),
+		color-stop(0.9, #EEE) );
+	background-image: -moz-linear-gradient(top center, #CCC 2em, #EEE 100%);
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	box-shadow: 10px 10px 5px #AAA;
+}
+#content .info h1 {
+	margin: 0px;
+	line-height: 2em;
+	color: #FFF;
+	text-shadow: none;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #165986),
+		color-stop(0.9, #1e7ab7) );
+	background-image: -moz-linear-gradient(top center, #165986 0%, #1e7ab7 90%);
+	border-radius: 10px 10px 0px 0px;
+	-moz-border-radius: 10px 10px 0px 0px;
+}
+
+#content .error p, #content .info p {
+	font-size: 1.1;
+	margin: 0px;
+	padding: 20px;
+}
+
+/* Layout - title, text, ... */
+
+/* ??? */
+.pagination {
+	color: #666;
+	text-align: center;
+}
+
+.pagination .confReultsByPage {
+	float: right;
+	font-size: 0.8em;
+}
+
+.quicklinks {
+	display: inline;
+	float: right;
+	margin-right: 10px;
+}
+
+.quicklinks form {
+	display: inline;
+}
+
+table.navigation {
+	border: 0px;
+}
+
+label {
+	width: 100px;
+	float: left;
+	margin-left: 5px;
+	margin-top: 0px;
+}
+
+input {
+	height: 20px;
+}
+
+input,textarea,select {
+	border: 1px solid #B3B3B3;
+}
+
+input.image {
+	border: none;
+	height: auto;
+	vertical-align: middle;
+}
+
+submit {
+	height: 25px;
+}
+
+div {
+	text-align: left;
+}
+
+div .box {
+	display: block;
+	margin-left: 105px;
+}
+
+/* Panels */
+.panel {
+	margin: 0px 20px 15px 0px;
+	border: solid 1px #165986;
+	padding: 0px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	box-shadow: 5px 5px 5px #AAA;
+	-moz-box-shadow: 5px 5px 5px #AAA;
+}
+
+.panel .panelHeader,.panel .alertPanelHeader {
+	padding: 3px;
+	border-radius: 10px 10px 0px 0px;
+	-moz-border-radius: 10px 10px 0px 0px;
+}
+
+.panel .panelHeader {
+	background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #165986),
+		color-stop(0.9, #FFFFFF) );
+	background-image: -moz-linear-gradient(left center, #165986 0%, #FFFFFF 90%);
+}
+
+.panel .alertPanelHeader {
+	background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #FF0000),
+		color-stop(0.9, #FFFFFF) );
+	background-image: -moz-linear-gradient(left center, #FF0000 0%, #FFFFFF 90%);
+}
+
+.panel .panelHeader h3,.panel .alertPanelHeader h3 {
+	color: #FFFFFF;
+	font-weight: normal;
+	display: inline;
+	font-size: 1.3em;
+	line-height: 1.3em;
+	font-variant: small-caps;
+	padding-left: 15px;
+}
+
+.panel .panelHeader .rightHeader,.panel .alertPanelHeader .alertPanel {
+	float: right;
+	padding-right: 15px;
+	font-style: italic;
+}
+
+.panel .panelContent {
+	padding: 5px;
+}
