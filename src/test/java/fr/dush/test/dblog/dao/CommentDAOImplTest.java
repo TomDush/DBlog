@@ -15,47 +15,15 @@ import fr.dush.test.dblog.junit.AbstractJunitTest;
 import fr.dush.test.dblog.junit.dbunitapi.DatabaseScripts;
 
 @DatabaseScripts(locations = { "/bdd/comments.xml" }, dumpDatabase = true)
-public class CommentDAOTest extends AbstractJunitTest {
+public class CommentDAOImplTest extends AbstractJunitTest {
 
-	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(CommentDAOTest.class);
+	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(CommentDAOImplTest.class);
 
 	@Inject
 	private ICommentDAO commentDAO;
 
 	@Inject
 	private ITicketDAO ticketDAO;
-
-	@Test
-	public void testRead() throws Exception {
-		Comment comment = commentDAO.findById(3);
-		assertNotNull(comment);
-		assertEquals(new Integer(3), comment.getIdComment());
-		assertEquals(new Integer(2), comment.getTicket().getIdTicket());
-		assertEquals("My Message", comment.getMessage());
-		assertEquals("2011-10-09 00:00:00.0", comment.getDate().toString());
-		assertEquals("NiceGirl", comment.getAuthorName());
-	}
-
-	@Test
-	public void testCreate() throws Exception {
-		long count = commentDAO.countByTicket(2);
-
-		Comment c = new Comment();
-		c.setAuthorName("me");
-		c.setDate(new Date());
-		c.setMessage("J'ai rien a dire");
-		c.setTicket(ticketDAO.findById(2));
-
-		commentDAO.merge(c);
-
-		assertEquals(1, commentDAO.countByTicket(2) - count);
-	}
-
-	@Test
-	public void testCount() {
-		assertEquals(4, commentDAO.countByTicket(3));
-		assertEquals(1, commentDAO.countByTicket(2));
-	}
 
 	@Test
 	public void readAll() {
@@ -81,7 +49,18 @@ public class CommentDAOTest extends AbstractJunitTest {
 	}
 
 	@Test
-	public void testPage() {
+	public void testFindById() {
+		Comment comment = commentDAO.findById(3);
+		assertNotNull(comment);
+		assertEquals(new Integer(3), comment.getIdComment());
+		assertEquals(new Integer(2), comment.getTicket().getIdTicket());
+		assertEquals("My Message", comment.getMessage());
+		assertEquals("2011-10-09 00:00:00.0", comment.getDate().toString());
+		assertEquals("NiceGirl", comment.getAuthorName());
+	}
+
+	@Test
+	public void testFindByTicket() {
 		int idTicket = 3;
 
 		// complet
@@ -110,6 +89,27 @@ public class CommentDAOTest extends AbstractJunitTest {
 		assertNotNull(comments);
 		assertEquals(1, comments.size());
 		assertEquals("Jan", comments.get(0).getMessage());
+	}
+
+	@Test
+	public void testCountByTicket() {
+		assertEquals(4, commentDAO.countByTicket(3));
+		assertEquals(1, commentDAO.countByTicket(2));
+	}
+
+	@Test
+	public void testMerge() {
+		long count = commentDAO.countByTicket(2);
+
+		Comment c = new Comment();
+		c.setAuthorName("me");
+		c.setDate(new Date());
+		c.setMessage("J'ai rien a dire");
+		c.setTicket(ticketDAO.findById(2));
+
+		commentDAO.merge(c);
+
+		assertEquals(1, commentDAO.countByTicket(2) - count);
 	}
 
 }

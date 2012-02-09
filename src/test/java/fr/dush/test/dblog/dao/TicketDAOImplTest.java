@@ -14,9 +14,9 @@ import fr.dush.test.dblog.junit.AbstractJunitTest;
 import fr.dush.test.dblog.junit.dbunitapi.DatabaseScripts;
 
 @DatabaseScripts(locations = { "/bdd/tickets.xml" })
-public class TicketDAOTest extends AbstractJunitTest {
+public class TicketDAOImplTest extends AbstractJunitTest {
 
-	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TicketDAOTest.class);
+	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TicketDAOImplTest.class);
 
 	@Inject
 	private ITicketDAO ticketDAO;

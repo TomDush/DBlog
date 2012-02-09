@@ -11,15 +11,25 @@ public class TicketManagerImpl implements ITicketManager {
 	@Inject
 	private ITicketDAO ticketDAO;
 
-	/* (non-Javadoc)
-	 * @see fr.dush.test.dblog.business.ITicketManager#getTicketPage(int, int)
-	 */
 	@Override
 	public Page<Ticket> getTicketPage(int pageNumber, int pageSize) {
 		Page<Ticket> page = new Page<Ticket>(pageSize, ticketDAO.count());
 		page.setPageNumber(pageNumber);
 		page.setElements(ticketDAO.findPage(pageNumber, pageSize));
 
+		// TODO Rendre la collection de ticket paginée, par intercepteur
+		// remplacer la collection prxyfoxifiée d'hibernate par une perso.
+
 		return page;
 	}
+
+	/**
+	 * Sauvegarde le ticket.
+	 * @param ticket
+	 */
+	public void saveTicket(Ticket ticket) {
+		ticketDAO.merge(ticket);
+	}
+
+
 }
