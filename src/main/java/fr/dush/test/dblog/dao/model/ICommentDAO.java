@@ -6,7 +6,7 @@ import fr.dush.test.dblog.dto.model.Comment;
 
 public interface ICommentDAO {
 
-	List<Comment> findLast(int nb);
+	List<Comment> findLast(int ticketId, int nb);
 
 	List<Comment> findByTicket(Integer ticket, int firstResult, int maxResults);
 

@@ -22,23 +22,24 @@ public class CommentDAOImpl implements ICommentDAO {
 	@Inject
 	private SessionFactory sessionFactory;
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
+	public void setSessionFactory(final SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
 	@Override
-	public Comment findById(Integer id) {
+	public Comment findById(final Integer id) {
 		try {
 			return (Comment) sessionFactory.getCurrentSession().load(Comment.class, id);
-		} catch (ObjectNotFoundException e) {
+		} catch (final ObjectNotFoundException e) {
 			return null;
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Comment> findLast(int nb) {
-		Query q = sessionFactory.getCurrentSession().createQuery("FROM Comment ORDER BY date");
+	public List<Comment> findLast(final int idTicket, final int nb) {
+		final Query q = sessionFactory.getCurrentSession().createQuery("FROM Comment WHERE ticket.idTicket = :idTicket ORDER BY date");
+		q.setInteger("idTicket", idTicket);
 		q.setMaxResults(nb);
 		return q.list();
 	}
@@ -46,7 +47,7 @@ public class CommentDAOImpl implements ICommentDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Comment> findByTicket(final Integer ticket, final int firstResult, final int maxResult) {
-		Criteria c = sessionFactory.getCurrentSession().createCriteria(Comment.class);
+		final Criteria c = sessionFactory.getCurrentSession().createCriteria(Comment.class);
 		c.add(Restrictions.eq("ticket.idTicket", ticket)).addOrder(Order.desc("date"));
 		c.setFirstResult(firstResult).setMaxResults(maxResult);
 
@@ -54,21 +55,22 @@ public class CommentDAOImpl implements ICommentDAO {
 	}
 
 	@Override
-	public long countByTicket(Integer idTicket) {
-		Query q = sessionFactory.getCurrentSession().createQuery("SELECT COUNT(c) FROM Comment c WHERE c.ticket.idTicket = :idTicket");
+	public long countByTicket(final Integer idTicket) {
+		final Query q = sessionFactory.getCurrentSession()
+				.createQuery("SELECT COUNT(c) FROM Comment c WHERE c.ticket.idTicket = :idTicket");
 		q.setInteger("idTicket", idTicket);
 
 		return (long) q.uniqueResult();
 	}
 
 	@Override
-	public void merge(Comment comment) {
+	public void merge(final Comment comment) {
 		sessionFactory.getCurrentSession().merge(comment);
 	}
 
 	@Override
-	public void delete(Integer commentId) {
-		Comment c = findById(commentId);
+	public void delete(final Integer commentId) {
+		final Comment c = findById(commentId);
 		c.getTicket().getComments().remove(c);
 		sessionFactory.getCurrentSession().delete(c);
 	}

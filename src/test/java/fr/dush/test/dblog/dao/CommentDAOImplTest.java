@@ -14,7 +14,7 @@ import fr.dush.test.dblog.dto.model.Comment;
 import fr.dush.test.dblog.junit.AbstractJunitTest;
 import fr.dush.test.dblog.junit.dbunitapi.DatabaseScripts;
 
-@DatabaseScripts(locations = { "/bdd/comments.xml" }, dumpDatabase = true)
+@DatabaseScripts(locations = { "/bdd/comments.xml" })
 public class CommentDAOImplTest extends AbstractJunitTest {
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(CommentDAOImplTest.class);
@@ -27,10 +27,10 @@ public class CommentDAOImplTest extends AbstractJunitTest {
 
 	@Test
 	public void readAll() {
-		Collection<Comment> comments = commentDAO.findByTicket(3, 0, 50);
+		final Collection<Comment> comments = commentDAO.findByTicket(3, 0, 50);
 
 		assertEquals(4, comments.size());
-		for (Comment c : comments) {
+		for (final Comment c : comments) {
 			logger.debug("Comment : {}", c);
 		}
 	}
@@ -50,7 +50,7 @@ public class CommentDAOImplTest extends AbstractJunitTest {
 
 	@Test
 	public void testFindById() {
-		Comment comment = commentDAO.findById(3);
+		final Comment comment = commentDAO.findById(3);
 		assertNotNull(comment);
 		assertEquals(new Integer(3), comment.getIdComment());
 		assertEquals(new Integer(2), comment.getTicket().getIdTicket());
@@ -61,7 +61,7 @@ public class CommentDAOImplTest extends AbstractJunitTest {
 
 	@Test
 	public void testFindByTicket() {
-		int idTicket = 3;
+		final int idTicket = 3;
 
 		// complet
 		List<Comment> comments = commentDAO.findByTicket(idTicket, 0, 10);
@@ -99,9 +99,9 @@ public class CommentDAOImplTest extends AbstractJunitTest {
 
 	@Test
 	public void testMerge() {
-		long count = commentDAO.countByTicket(2);
+		final long count = commentDAO.countByTicket(2);
 
-		Comment c = new Comment();
+		final Comment c = new Comment();
 		c.setAuthorName("me");
 		c.setDate(new Date());
 		c.setMessage("J'ai rien a dire");

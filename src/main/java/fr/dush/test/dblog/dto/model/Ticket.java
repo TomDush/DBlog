@@ -1,8 +1,8 @@
 package fr.dush.test.dblog.dto.model;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -59,13 +59,13 @@ public class Ticket {
 	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "ticket")
 	@OrderBy(value = "date")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private Set<Comment> comments = new HashSet<>();
+	private Collection<Comment> comments = new HashSet<>();
 
 	public Integer getIdTicket() {
 		return idTicket;
 	}
 
-	public void setIdTicket(Integer idTicket) {
+	public void setIdTicket(final Integer idTicket) {
 		this.idTicket = idTicket;
 	}
 
@@ -73,7 +73,7 @@ public class Ticket {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(final Date date) {
 		this.date = date;
 	}
 
@@ -81,7 +81,7 @@ public class Ticket {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
@@ -89,15 +89,15 @@ public class Ticket {
 		return message;
 	}
 
-	public void setMessage(String message) {
+	public void setMessage(final String message) {
 		this.message = message;
 	}
 
-	public Set<Comment> getComments() {
+	public Collection<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(Set<Comment> comments) {
+	public void setComments(final Collection<Comment> comments) {
 		this.comments = comments;
 	}
 
@@ -105,7 +105,7 @@ public class Ticket {
 		return authorName;
 	}
 
-	public void setAuthorName(String authorName) {
+	public void setAuthorName(final String authorName) {
 		this.authorName = authorName;
 	}
 

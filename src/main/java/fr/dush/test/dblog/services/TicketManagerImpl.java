@@ -1,10 +1,10 @@
-package fr.dush.test.dblog.business;
+package fr.dush.test.dblog.services;
 
 import javax.inject.Inject;
 
-import fr.dush.test.dblog.business.page.Page;
 import fr.dush.test.dblog.dao.model.ITicketDAO;
 import fr.dush.test.dblog.dto.model.Ticket;
+import fr.dush.test.dblog.services.page.Page;
 
 public class TicketManagerImpl implements ITicketManager {
 
@@ -12,8 +12,8 @@ public class TicketManagerImpl implements ITicketManager {
 	private ITicketDAO ticketDAO;
 
 	@Override
-	public Page<Ticket> getTicketPage(int pageNumber, int pageSize) {
-		Page<Ticket> page = new Page<Ticket>(pageSize, ticketDAO.count());
+	public Page<Ticket> getTicketPage(final int pageNumber, final int pageSize) {
+		final Page<Ticket> page = new Page<Ticket>(pageSize, ticketDAO.count());
 		page.setPageNumber(pageNumber);
 		page.setElements(ticketDAO.findPage(pageNumber, pageSize));
 
@@ -27,8 +27,14 @@ public class TicketManagerImpl implements ITicketManager {
 	 * Sauvegarde le ticket.
 	 * @param ticket
 	 */
-	public void saveTicket(Ticket ticket) {
+	@Override
+	public void saveTicket(final Ticket ticket) {
 		ticketDAO.merge(ticket);
+	}
+
+	@Override
+	public void findTicket(final int id) {
+		ticketDAO.findById(id);
 	}
 
 

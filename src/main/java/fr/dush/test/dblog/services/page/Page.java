@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.business.page;
+package fr.dush.test.dblog.services.page;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -39,7 +39,7 @@ public class Comment {
 		return idComment;
 	}
 
-	public void setIdComment(Integer idComment) {
+	public void setIdComment(final Integer idComment) {
 		this.idComment = idComment;
 	}
 
@@ -47,7 +47,7 @@ public class Comment {
 		return ticket;
 	}
 
-	public void setTicket(Ticket ticket) {
+	public void setTicket(final Ticket ticket) {
 		this.ticket = ticket;
 	}
 
@@ -55,7 +55,7 @@ public class Comment {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(final Date date) {
 		this.date = date;
 	}
 
@@ -63,7 +63,7 @@ public class Comment {
 		return message;
 	}
 
-	public void setMessage(String message) {
+	public void setMessage(final String message) {
 		this.message = message;
 	}
 
@@ -71,7 +71,7 @@ public class Comment {
 		return authorName;
 	}
 
-	public void setAuthorName(String authorName) {
+	public void setAuthorName(final String authorName) {
 		this.authorName = authorName;
 	}
 
