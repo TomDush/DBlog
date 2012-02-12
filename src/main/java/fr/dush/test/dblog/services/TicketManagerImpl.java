@@ -1,11 +1,13 @@
 package fr.dush.test.dblog.services;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import fr.dush.test.dblog.dao.model.ITicketDAO;
 import fr.dush.test.dblog.dto.model.Ticket;
 import fr.dush.test.dblog.services.page.Page;
 
+@Named
 public class TicketManagerImpl implements ITicketManager {
 
 	@Inject
@@ -17,7 +19,7 @@ public class TicketManagerImpl implements ITicketManager {
 		page.setPageNumber(pageNumber);
 		page.setElements(ticketDAO.findPage(pageNumber, pageSize));
 
-		// TODO Rendre la collection de ticket paginée, par intercepteur
+		// TODO Rendre les collections de ticket paginées, par intercepteur
 		// remplacer la collection prxyfoxifiée d'hibernate par une perso.
 
 		return page;
@@ -33,8 +35,8 @@ public class TicketManagerImpl implements ITicketManager {
 	}
 
 	@Override
-	public void findTicket(final int id) {
-		ticketDAO.findById(id);
+	public Ticket findTicket(final int id) {
+		return ticketDAO.findById(id);
 	}
 
 

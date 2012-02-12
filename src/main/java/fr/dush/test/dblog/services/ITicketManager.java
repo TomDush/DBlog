@@ -7,7 +7,7 @@ public interface ITicketManager {
 
 	public abstract Page<Ticket> getTicketPage(int pageNumber, int pageSize);
 
-	public abstract void findTicket(final int id);
+	public abstract Ticket findTicket(final int id);
 
 	public abstract void saveTicket(final Ticket ticket);
 
