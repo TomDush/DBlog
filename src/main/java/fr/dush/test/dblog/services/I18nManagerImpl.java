@@ -26,7 +26,7 @@ import fr.dush.test.dblog.dto.i18n.AvailableLocale;
  *
  * @author Thomas Duchatelle (thomas.duchatelle@capgemini.com)
  */
-@Named("i18nManager")
+@Named
 public class I18nManagerImpl implements II18nManager {
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(I18nManagerImpl.class);

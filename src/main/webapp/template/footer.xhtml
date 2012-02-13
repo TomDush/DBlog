@@ -5,10 +5,20 @@
 
 <body>
 	<ui:composition>
-		<span class="version"><h:outputText value="#{msg['footer.version']}">
+		<span class="language">
+			<ui:repeat var="locale" value="#{i18n.availableLocalesList}" varStatus="status">
+				<h:graphicImage library="locales" name="#{locale.icon}" alt="#{locale.name}"/>
+			</ui:repeat>
+		</span>
+	
+		<span class="version">
+			<h:outputFormat value="#{msg['footer.version']}">
 				<f:param value="x.x" />
-			</h:outputText></span>
-		<span><h:outputText value="#{msg['footer.text']}" escape="false"/>.
+			</h:outputFormat>
+		</span>
+ 
+		<span>
+			<h:outputText value="#{msg['footer.text']}" escape="false"/>
 		</span>
 	</ui:composition>
 

@@ -160,6 +160,14 @@ h3 {
 	padding-right: 10px;
 }
 
+#footer .language {
+	float: left;
+	padding-left: 10px;
+}
+#footer .language img {
+	width: 20px;
+}
+
 /* Layout - content */
 #content {
 	padding: 0px 20px;
