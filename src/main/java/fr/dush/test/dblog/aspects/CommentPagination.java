@@ -12,6 +12,7 @@ import fr.dush.test.dblog.dto.model.Ticket;
  * Change la collection présente dans les objects ticket pour que seuls les derniers commentaires soient chargés. TODO faire que ces
  * chargements soient lazyfifés.
  *
+ * TODO intercepter les execption hibernate.
  *
  * @author Thomas Duchatelle (thomas.duchatelle@capgemini.com)
  */

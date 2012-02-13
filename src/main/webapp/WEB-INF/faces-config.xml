@@ -24,6 +24,8 @@
 		
 		<locale-config>
 			<default-locale>en_US</default-locale>
+			<supported-locale>fr_FR</supported-locale>
+			<supported-locale>en_US</supported-locale>
 		</locale-config>
 		<resource-bundle>
 			<base-name>fr.dush.dblog.locales.messages</base-name>
