@@ -5,14 +5,13 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/layout/simple_layout.xhtml">
-	<ui:param name="headtitle" value="DBLOG : page under construction" />
+	<ui:param name="headtitle" value="#{msg['underconstruction.header']}" />
 
 	<ui:define name="content">
 		<div class="info">
-			<h1>Page under construction</h1>
+			<h1><h:outputText value="#{msg['underconstruction.title']}" /></h1>
 
-			<p>The page which you are looking for was under construction.
-				Please wait next release...</p>
+			<p><h:outputText value="#{msg['underconstruction.message']}" /></p>
 		</div>
 	</ui:define>
 </ui:composition>

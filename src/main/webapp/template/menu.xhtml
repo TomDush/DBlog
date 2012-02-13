@@ -9,14 +9,15 @@
 <body>
 	<ui:composition>
 		<menu:bar>
-			<menu:panel title="Home">
-				<menu:item value="Home" link="index" />
-				<menu:item value="Last 5" link="tickets" param="nb=5"/>
-				<menu:item value="Search" link="search" />
+			<menu:panel title="#{msg['menu.home']}">
+				<menu:item value="#{msg['menu.home']}" link="index" />
+				<menu:item value="#{msg['menu.last']}" link="tickets" param="nb=5"/>
+				<menu:item value="#{msg['menu.search']}" link="search" />
 			</menu:panel>
-			<menu:panel title="Ticket">
-				<menu:item value="Show all" link="tickets" />
-				<menu:item value="Create ticket" link="create" />
+			<menu:panel title="#{msg['menu.ticket']}">
+				<menu:item value="#{msg['menu.ticket.showall']}" link="tickets" />
+				<menu:item value="#{msg['menu.ticket.create']}" link="create" />
+				<menu:item value="#{msg['menu.ticket.manage']}" link="managetickets" />
 			</menu:panel>
 		</menu:bar>
 	</ui:composition>

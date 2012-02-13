@@ -1,14 +1,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="layout/full_layout.xhtml">
-	<ui:param name="headtitle" value="Welcome to DBlog !" />
+	<ui:param name="headtitle" value="#{msg['homepage.header']}" />
 
 	<ui:define name="content">
-		<h1>Welcome to DBlog !</h1>
+		<h1>
+			<h:outputText value="#{msg['homepage.title']}" />
+		</h1>
+		
 		<h2>Information message</h2>
 		<h3>Dynamic one</h3>
 		<p>
@@ -21,9 +22,12 @@
 		<p>
 			<a href="search.xhtml">Hard link</a><br />
 			<h:form>
-				<h:commandButton action="search" value="Move to search.xhtml (commandButton)" /><br/>
-				<h:commandLink action="search" value="Move to search.xhtml (commandLink)" /><br/>
-				<h:commandLink action="#{home.searchAction}" value="Move to #{home.searchAction} (commandLink with action)" /><br/>
+				<h:commandButton action="search" value="Move to search.xhtml (commandButton)" />
+				<br />
+				<h:commandLink action="search" value="Move to search.xhtml (commandLink)" />
+				<br />
+				<h:commandLink action="#{home.searchAction}" value="Move to #{home.searchAction} (commandLink with action)" />
+				<br />
 			</h:form>
 		</p>
 

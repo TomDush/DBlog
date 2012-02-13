@@ -5,12 +5,12 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/layout/alert_layout.xhtml">
-		<ui:param name="headtitle" value="DBLOG 404 : page not found" />
+		<ui:param name="headtitle" value="#{msg['notfound.header']}" />
 
 	<ui:define name="content">
-		<h1>Page not found</h1>
+		<h1><h:outputText value="#{msg['notfound.title']}" /></h1>
 
-		<p>The page which you are looking for was not found.</p>
+		<p><h:outputText value="#{msg['notfound.message']}" /></p>
 	</ui:define>
 </ui:composition>
 
