@@ -12,9 +12,13 @@ public class AvailableLocale {
 
 	private Locale locale;
 
-	private String name;
+	private String language;
 
 	private String icon;
+
+	public String getFullLocale() {
+		return locale.getLanguage();
+	}
 
 	public Locale getLocale() {
 		return locale;
@@ -24,12 +28,12 @@ public class AvailableLocale {
 		this.locale = locale;
 	}
 
-	public String getName() {
-		return name;
+	public String getLanguage() {
+		return language;
 	}
 
-	public void setName(final String name) {
-		this.name = name;
+	public void setLanguage(final String language) {
+		this.language = language;
 	}
 
 	public String getIcon() {
@@ -38,6 +42,11 @@ public class AvailableLocale {
 
 	public void setIcon(final String icon) {
 		this.icon = icon;
+	}
+
+	@Override
+	public String toString() {
+		return "AvailableLocale [locale=" + locale + ", name=" + language + ", icon=" + icon + ", getFullLocale()=" + getFullLocale() + "]";
 	}
 
 }

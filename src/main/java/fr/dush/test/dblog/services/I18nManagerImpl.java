@@ -85,7 +85,7 @@ public class I18nManagerImpl implements II18nManager {
 		final AvailableLocale locale = new AvailableLocale();
 		locale.setIcon(props.getProperty("icon"));
 		locale.setLocale(new Locale(props.getProperty("locale")));
-		locale.setName(props.getProperty("name"));
+		locale.setLanguage(props.getProperty("name"));
 
 		return locale;
 	}

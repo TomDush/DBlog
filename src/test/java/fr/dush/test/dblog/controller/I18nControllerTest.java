@@ -17,6 +17,11 @@ public class I18nControllerTest extends AbstractJunitTest {
 		final AvailableLocale[] locales = i18nController.getAvailableLocalesList();
 		assertNotNull(locales);
 		assertEquals(2, locales.length);
-	}
 
+		for(final AvailableLocale l : locales) {
+			assertNotNull(l.getLocale());
+			assertTrue(l.getFullLocale() + " is invalid.", "fr_fr".equals(l.getFullLocale()) || "en_us".equals(l.getFullLocale()));
+			assertTrue(l.getFullLocale() + " is invalid.", l.getIcon().endsWith(".png"));
+		}
+	}
 }

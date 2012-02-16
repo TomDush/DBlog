@@ -6,11 +6,15 @@
 <body>
 	<ui:composition>
 		<span class="language">
-			<ui:repeat var="locale" value="#{i18n.availableLocalesList}" varStatus="status">
-				<h:graphicImage library="locales" name="#{locale.icon}" alt="#{locale.name}"/>
-			</ui:repeat>
+			<h:form>
+				<ui:repeat var="locale" value="#{i18n.availableLocalesList}" varStatus="status">
+					<h:commandLink actionListener="#{i18n.onChangeLocale}" id="_#{locale}">
+						<h:graphicImage library="locales" name="#{locale.icon}" alt="#{locale.icon}" title="#{locale.language}" />
+					</h:commandLink>
+				</ui:repeat>
+			</h:form>
 		</span>
-	
+
 		<span class="version">
 			<h:outputFormat value="#{msg['footer.version']}">
 				<f:param value="x.x" />
