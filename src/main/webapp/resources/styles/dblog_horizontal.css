@@ -166,6 +166,7 @@ h3 {
 }
 #footer .language img {
 	width: 20px;
+	border: none;
 }
 
 /* Layout - content */

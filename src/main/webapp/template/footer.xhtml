@@ -8,8 +8,9 @@
 		<span class="language">
 			<h:form>
 				<ui:repeat var="locale" value="#{i18n.availableLocalesList}" varStatus="status">
-					<h:commandLink actionListener="#{i18n.onChangeLocale}" id="_#{locale}">
-						<h:graphicImage library="locales" name="#{locale.icon}" alt="#{locale.icon}" title="#{locale.language}" />
+					<h:commandLink actionListener="#{i18n.onChangeLocale}" >
+						<f:attribute name="locale" value="#{locale.locale}" />
+						<h:graphicImage library="locales" name="#{locale.icon}" alt="#{locale.language}" title="#{locale.language}" />
 					</h:commandLink>
 				</ui:repeat>
 			</h:form>
