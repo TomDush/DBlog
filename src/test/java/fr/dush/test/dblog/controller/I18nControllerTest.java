@@ -2,6 +2,7 @@ package fr.dush.test.dblog.controller;
 
 import javax.inject.Inject;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import fr.dush.test.dblog.dto.i18n.AvailableLocale;
@@ -12,8 +13,12 @@ public class I18nControllerTest extends AbstractWebContextJunitTest {
 	@Inject
 	private I18nController i18nController;
 
+	@Before
+	public void initScope() {
+		startSession();
+	}
+
 	@Test
-//	@Ignore("Scope session est inconnu en JUNIT...")
 	public void testGetAvailableLocalesList() {
 		final AvailableLocale[] locales = i18nController.getAvailableLocalesList();
 		assertNotNull(locales);
