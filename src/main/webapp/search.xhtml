@@ -5,12 +5,12 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="layout/full_layout.xhtml">
-	<ui:param name="headtitle" value="Search ticket" />
+	<ui:param name="headtitle" value="#{msg['search.head']}" />
 
 	<ui:define name="content">
-		<h1>Search of tickets</h1>
+		<h1><h:outputText value="#{msg['search.title']}" /></h1>
 		<p>
-			<h:outputText value="Here a form to search tikets by author/date/keyword" />
+			<h:outputText value="#{msg['search.message']}" />
 		</p>
 	</ui:define>
 </ui:composition>
