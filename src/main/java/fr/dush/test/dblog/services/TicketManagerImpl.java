@@ -19,8 +19,8 @@ public class TicketManagerImpl implements ITicketManager {
 		page.setPageNumber(pageNumber);
 		page.setElements(ticketDAO.findPage(pageNumber, pageSize));
 
-		// TODO Rendre les collections de ticket paginées, par intercepteur
-		// remplacer la collection prxyfoxifiée d'hibernate par une perso.
+		// TODO Rendre les collections de ticket paginÃ©es, par intercepteur
+		// remplacer la collection prxyfoxifiÃ©e d'hibernate par une perso.
 
 		return page;
 	}

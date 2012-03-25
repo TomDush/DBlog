@@ -31,7 +31,7 @@ public class I18nManagerImpl implements II18nManager {
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(I18nManagerImpl.class);
 
-	private Set<AvailableLocale> availableLocales = new HashSet<>();
+	private final Set<AvailableLocale> availableLocales = new HashSet<>();
 
 	@Inject
 	public I18nManagerImpl(@Value("${directory.i18n}") final String localesDir, final ResourceLoader loader) throws IOException {
@@ -55,7 +55,7 @@ public class I18nManagerImpl implements II18nManager {
 	}
 
 	/**
-	 * Charge les fichiers de langue trouvé.
+	 * Charge les fichiers de langue trouvÃ©.
 	 * @param i18nDir
 	 * @throws IOException
 	 */

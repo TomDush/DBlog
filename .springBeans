@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
-	<pluginVersion><![CDATA[2.8.1.201111220115-RELEASE]]></pluginVersion>
+	<pluginVersion><![CDATA[2.9.1.201203220057-RELEASE]]></pluginVersion>
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
@@ -9,6 +9,7 @@
 	<configs>
 		<config>src/test/resources/WEB-INF/spring/mock-dao.xml</config>
 		<config>src/test/resources/WEB-INF/spring/web-session-scopes.xml</config>
+		<config>src/main/resources/WEB-INF/spring/context-scope.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

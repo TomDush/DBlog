@@ -31,13 +31,13 @@ import fr.dush.test.dblog.junit.dbunitapi.DBUnitJUnit4ClassRunner;
 import fr.dush.test.dblog.junit.dbunitapi.IDatabaseScriptsReader;
 
 /**
- * Initialise le contexte SPRING et founie les méthodes pour gérer le contenu de la base de données (avec DBUnit).
+ * Initialise le contexte SPRING et founie les mï¿½thodes pour gï¿½rer le contenu de la base de donnï¿½es (avec DBUnit).
  *
  *
  * @author Thomas Duchatelle (thomas.duchatelle@capgemini.com)
  */
 @RunWith(DBUnitJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:WEB-INF/spring/context-global.xml", "classpath:WEB-INF/spring/context-persistence.xml" })
+@ContextConfiguration(locations = { "classpath:WEB-INF/spring/context-global.xml", "classpath:WEB-INF/spring/context-persistence.xml", "classpath:WEB-INF/spring/context-scope.xml" })
 public abstract class AbstractJunitTest extends TestCase implements IDatabaseScriptsReader {
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AbstractJunitTest.class);
@@ -84,14 +84,14 @@ public abstract class AbstractJunitTest extends TestCase implements IDatabaseScr
 
 	// @Override
 	protected IDataSet getDataSet() throws Exception {
-		List<IDataSet> dataSets = new LinkedList<>();
+		final List<IDataSet> dataSets = new LinkedList<>();
 
-		DataFileLoader loader = new FlatXmlDataFileLoader();
-		for (String script : databasePopulationScripts) {
+		final DataFileLoader loader = new FlatXmlDataFileLoader();
+		for (final String script : databasePopulationScripts) {
 			dataSets.add(loader.load(script));
 		}
 
-		IDataSet dataset = new CompositeDataSet(dataSets.toArray(new IDataSet[dataSets.size()]));
+		final IDataSet dataset = new CompositeDataSet(dataSets.toArray(new IDataSet[dataSets.size()]));
 
 		return dataset;
 	}
@@ -102,13 +102,13 @@ public abstract class AbstractJunitTest extends TestCase implements IDatabaseScr
 	@After
 	public void dropDatabase() throws Exception {
 		if (dumpDatabase) {
-			File targetDirFile = new File("target/bdd/");
+			final File targetDirFile = new File("target/bdd/");
 			if (!targetDirFile.exists()) targetDirFile.mkdir();
 
-			File dumpFile = new File(targetDirFile, new SimpleDateFormat("yyyy-MM-dd.HH-mm-ss.S").format(new java.util.Date()) + "-db-"
+			final File dumpFile = new File(targetDirFile, new SimpleDateFormat("yyyy-MM-dd.HH-mm-ss.S").format(new java.util.Date()) + "-db-"
 					+ dumpFilename + ".xml");
 
-			IDataSet fullDataSet = getDatasource().createDataSet();
+			final IDataSet fullDataSet = getDatasource().createDataSet();
 			FlatXmlDataSet.write(fullDataSet, new FileOutputStream(dumpFile));
 		}
 

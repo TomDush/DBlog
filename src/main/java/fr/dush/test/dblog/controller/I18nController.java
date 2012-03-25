@@ -32,7 +32,7 @@ public class I18nController {
 	}
 
 	/**
-	 * Change la langue de la page courrante et sauvegarde la préférence.
+	 * Change la langue de la page courrante et sauvegarde la prÃ©fÃ©rence.
 	 * @param locale
 	 */
 	protected void changeLocale(final Locale locale) {
@@ -41,8 +41,8 @@ public class I18nController {
 	}
 
 	/**
-	 * Méthode appellable à partir d'un HtmlCommandLink pour changer la langue du site.
-	 * @param event Event de source HtmlCommandLink qui détient un attribut "locale" de type Locale.
+	 * MÃ©thode appellable Ã  partir d'un HtmlCommandLink pour changer la langue du site.
+	 * @param event Event de source HtmlCommandLink qui dÃ©tient un attribut "locale" de type Locale.
 	 */
 	public void onChangeLocale(final ActionEvent event) {
 		if(event.getSource() instanceof HtmlCommandLink) {
@@ -64,5 +64,13 @@ public class I18nController {
 		if(locale == null) return FacesContext.getCurrentInstance().getViewRoot().getLocale();
 
 		return locale;
+	}
+
+	/**
+	 * Ne doit Ãªtre utilisÃ© que dans le cadre des tests.
+	 * @param locale
+	 */
+	public void setLocale(Locale locale) {
+		this.locale = locale;
 	}
 }
