@@ -6,7 +6,7 @@
 	<version>0.2-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>DBlog</name>
-	<description>Blog by Dush powered by JSF.</description>
+	<description>Blog by Dush powered by Spring and JSF.</description>
 
 	<properties>
 		<java-version>1.7</java-version>
