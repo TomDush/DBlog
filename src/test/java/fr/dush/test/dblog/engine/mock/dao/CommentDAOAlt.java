@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.cdi.alternative;
+package fr.dush.test.dblog.engine.mock.dao;
 
 import java.util.List;
 

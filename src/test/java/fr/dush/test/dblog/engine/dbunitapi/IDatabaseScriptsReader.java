@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.junit.dbunitapi;
+package fr.dush.test.dblog.engine.dbunitapi;
 
 import java.util.List;
 

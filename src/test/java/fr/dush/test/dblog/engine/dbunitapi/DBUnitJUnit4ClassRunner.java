@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.junit.dbunitapi;
+package fr.dush.test.dblog.engine.dbunitapi;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import org.junit.runners.model.Statement;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * Runner JUNIT permettant la lecture des annotations chargeant ou déchargeant la base de données.
+ * Runner JUNIT permettant la lecture des annotations chargeant ou dï¿½chargeant la base de donnï¿½es.
  *
  *
  * @author Thomas Duchatelle (thomas.duchatelle@capgemini.com)

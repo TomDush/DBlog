@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import fr.dush.test.dblog.dao.model.ITicketDAO;
 import fr.dush.test.dblog.dto.model.Ticket;
-import fr.dush.test.dblog.junit.AbstractJunitTest;
+import fr.dush.test.dblog.engine.AbstractJunitTest;
 import fr.dush.test.dblog.services.page.Page;
 
 @ContextConfiguration(locations = { "classpath:WEB-INF/spring/mock-dao.xml"})

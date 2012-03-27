@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
 import fr.dush.test.dblog.controller.I18nController;
-import fr.dush.test.dblog.junit.AbstractWebContextJunitTest;
+import fr.dush.test.dblog.engine.AbstractWebContextJunitTest;
 
 public class LanguageScopeTest extends AbstractWebContextJunitTest {
 
@@ -22,7 +22,7 @@ public class LanguageScopeTest extends AbstractWebContextJunitTest {
 	@Test
 	@Ignore
 	public void testGet() {
-		// TODO implémenter la méthode
+		// TODO MOCKER le SpringContext et implémenter la méthode
 		fail("Not yet implemented");
 	}
 

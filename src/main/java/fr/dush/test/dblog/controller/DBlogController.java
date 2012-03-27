@@ -6,7 +6,7 @@ import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
- * Controlleur founissant les données globale de l'application (version, host, ...)
+ * Controlleur founissant les donnÃ©es globale de l'application (version, host, ...)
  *
  *
  * @author Thomas Duchatelle (thomas.duchatelle@capgemini.com)

@@ -11,12 +11,14 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.dush.test.dblog.dto.model.Comment;
 
 @Named
 @Transactional
+@Scope("language")
 public class CommentDAOImpl implements ICommentDAO {
 
 	@Inject

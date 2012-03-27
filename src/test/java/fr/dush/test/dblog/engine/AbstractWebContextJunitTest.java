@@ -1,12 +1,10 @@
-package fr.dush.test.dblog.junit;
+package fr.dush.test.dblog.engine;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-@ContextConfiguration(locations = { "classpath:WEB-INF/spring/web-session-scopes.xml" })
 public abstract class AbstractWebContextJunitTest extends AbstractJunitTest {
 
 	protected MockHttpSession session;

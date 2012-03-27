@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.dush.test.dblog.dto.i18n.AvailableLocale;
-import fr.dush.test.dblog.junit.AbstractWebContextJunitTest;
+import fr.dush.test.dblog.engine.AbstractWebContextJunitTest;
 
 public class I18nControllerTest extends AbstractWebContextJunitTest {
 

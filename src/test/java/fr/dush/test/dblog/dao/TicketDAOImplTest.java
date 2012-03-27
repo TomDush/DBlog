@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import fr.dush.test.dblog.dao.model.ITicketDAO;
 import fr.dush.test.dblog.dto.model.Ticket;
-import fr.dush.test.dblog.junit.AbstractJunitTest;
-import fr.dush.test.dblog.junit.dbunitapi.DatabaseScripts;
+import fr.dush.test.dblog.engine.AbstractJunitTest;
+import fr.dush.test.dblog.engine.dbunitapi.DatabaseScripts;
 
 @DatabaseScripts(locations = { "/bdd/tickets.xml" })
 public class TicketDAOImplTest extends AbstractJunitTest {

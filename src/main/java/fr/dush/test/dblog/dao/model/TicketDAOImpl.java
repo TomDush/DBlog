@@ -8,12 +8,14 @@ import javax.inject.Named;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.dush.test.dblog.dto.model.Ticket;
 
 @Named
 @Transactional
+@Scope("language")
 public class TicketDAOImpl implements ITicketDAO {
 
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TicketDAOImpl.class);
@@ -28,6 +30,7 @@ public class TicketDAOImpl implements ITicketDAO {
 	@Override
 	public List<Ticket> findAll() {
 		@SuppressWarnings("unchecked")
+		final
 		List<Ticket> tickets = sessionFactory.getCurrentSession().createQuery("FROM Ticket ORDER BY date").list();
 
 		logger.debug("{} ticket(s) found", tickets.size());
@@ -38,7 +41,7 @@ public class TicketDAOImpl implements ITicketDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Ticket> findPage(final int firstResult, final int maxResults) {
-		Criteria c = sessionFactory.getCurrentSession().createCriteria(Ticket.class);
+		final Criteria c = sessionFactory.getCurrentSession().createCriteria(Ticket.class);
 		c.addOrder(Order.desc("date"));
 		c.setMaxResults(maxResults).setFirstResult(firstResult);
 

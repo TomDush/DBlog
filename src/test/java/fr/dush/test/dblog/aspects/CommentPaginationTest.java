@@ -12,8 +12,8 @@ import fr.dush.test.dblog.dao.model.ICommentDAO;
 import fr.dush.test.dblog.dao.model.ITicketDAO;
 import fr.dush.test.dblog.dto.model.Comment;
 import fr.dush.test.dblog.dto.model.Ticket;
-import fr.dush.test.dblog.junit.AbstractJunitTest;
-import fr.dush.test.dblog.junit.dbunitapi.DatabaseScripts;
+import fr.dush.test.dblog.engine.AbstractJunitTest;
+import fr.dush.test.dblog.engine.dbunitapi.DatabaseScripts;
 
 @DatabaseScripts(locations = { "/bdd/comments.xml" })
 public class CommentPaginationTest extends AbstractJunitTest {
@@ -34,10 +34,10 @@ public class CommentPaginationTest extends AbstractJunitTest {
 	@Test
 	@Ignore
 	public void testReplaceCommentsCollection() throws Exception {
-		assertNotNull("L'aspect n'est pas injectée", commentPagination);
+		assertNotNull("L'aspect n'est pas injectï¿½e", commentPagination);
 
 		final Ticket t = ticketDAO.findById(3);
-		assertNotNull("Jeu de donnée invalide", t);
+		assertNotNull("Jeu de donnï¿½e invalide", t);
 
 		assertEquals(4, t.getComments().size()); // FIXME en mettre plus pour le test
 

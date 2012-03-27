@@ -1,11 +1,11 @@
-package fr.dush.test.dblog.cdi;
+package fr.dush.test.dblog.engine.test;
 
 import javax.inject.Inject;
 
 import org.junit.Test;
 
 import fr.dush.test.dblog.dao.model.ICommentDAO;
-import fr.dush.test.dblog.junit.AbstractJunitTest;
+import fr.dush.test.dblog.engine.AbstractJunitTest;
 
 public class AlternativeTests extends AbstractJunitTest {
 

@@ -11,7 +11,7 @@ public class HomeController {
 	}
 
 	/**
-	 * Méthode appelée par les EL (dans les textes)
+	 * MÃ©thode appelÃ©e par les EL (dans les textes)
 	 * @return
 	 */
 	public String getSearchAction() {
@@ -19,7 +19,7 @@ public class HomeController {
 	}
 
 	/**
-	 * Méthode appelée dans les <i>actions</i> des formulaires/buttons de submit.
+	 * MÃ©thode appelÃ©e dans les <i>actions</i> des formulaires/buttons de submit.
 	 * @return
 	 */
 	public String searchAction() {

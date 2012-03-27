@@ -22,7 +22,6 @@ import fr.dush.test.dblog.controller.I18nController;
  * @author dush
  *
  */
-//@Named
 public class LanguageScope implements Scope, ApplicationContextAware {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LanguageScope.class);
@@ -69,8 +68,13 @@ public class LanguageScope implements Scope, ApplicationContextAware {
 	public Object remove(String name) {
 		LOGGER.debug("Remove '{}' object.", name);
 
-		// TODO remove devrai être géré.
-		throw new UnsupportedOperationException("Remove object : " + name);
+		final String languageKey = getLanguage();
+
+		// Retire l'instance en question du contexte
+		final ScopedInstances instances = scopedInstances.get(languageKey);
+		if(instances != null) return instances.removeInstance(name);
+
+		return null;
 	}
 
 	@Override
@@ -86,7 +90,7 @@ public class LanguageScope implements Scope, ApplicationContextAware {
 
 	@Override
 	public String getConversationId() {
-		return Thread.currentThread().getName(); // FIXME revoie une valeur au pif..
+		return getLanguage();
 	}
 
 	/**

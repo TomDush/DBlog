@@ -3,11 +3,14 @@ package fr.dush.test.dblog.services;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.context.annotation.Scope;
+
 import fr.dush.test.dblog.dao.model.ITicketDAO;
 import fr.dush.test.dblog.dto.model.Ticket;
 import fr.dush.test.dblog.services.page.Page;
 
 @Named
+@Scope("language")
 public class TicketManagerImpl implements ITicketManager {
 
 	@Inject

@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.mock.dao;
+package fr.dush.test.dblog.engine.mock.dao;
 
 import java.util.HashMap;
 import java.util.LinkedList;

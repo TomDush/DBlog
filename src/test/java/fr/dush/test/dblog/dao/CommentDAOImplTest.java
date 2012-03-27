@@ -11,8 +11,8 @@ import org.junit.Test;
 import fr.dush.test.dblog.dao.model.ICommentDAO;
 import fr.dush.test.dblog.dao.model.ITicketDAO;
 import fr.dush.test.dblog.dto.model.Comment;
-import fr.dush.test.dblog.junit.AbstractJunitTest;
-import fr.dush.test.dblog.junit.dbunitapi.DatabaseScripts;
+import fr.dush.test.dblog.engine.AbstractJunitTest;
+import fr.dush.test.dblog.engine.dbunitapi.DatabaseScripts;
 
 @DatabaseScripts(locations = { "/bdd/comments.xml" })
 public class CommentDAOImplTest extends AbstractJunitTest {
