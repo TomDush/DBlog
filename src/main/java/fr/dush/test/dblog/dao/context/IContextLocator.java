@@ -10,4 +10,10 @@ public interface IContextLocator {
 	 */
 	Locale getCurrentLocale();
 
+	/**
+	 * Renvoie un identifiant unique de la langue utilisée.
+	 * @return
+	 */
+	String getLanguageKey();
+
 }

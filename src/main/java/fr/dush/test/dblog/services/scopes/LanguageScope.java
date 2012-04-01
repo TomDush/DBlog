@@ -1,7 +1,6 @@
 package fr.dush.test.dblog.services.scopes;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -12,7 +11,7 @@ import org.springframework.beans.factory.config.Scope;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import fr.dush.test.dblog.controller.I18nController;
+import fr.dush.test.dblog.dao.context.IContextLocator;
 
 /**
  * L'application repose simultanément sur 2 bases de données. L'une pour la
@@ -26,7 +25,7 @@ public class LanguageScope implements Scope, ApplicationContextAware {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LanguageScope.class);
 
-	private ApplicationContext context;
+	private IContextLocator contextLocator;
 
 	private final Map<String, ScopedInstances> scopedInstances = new HashMap<>();
 
@@ -34,13 +33,14 @@ public class LanguageScope implements Scope, ApplicationContextAware {
 		LOGGER.debug("Create new LanguageScope.");
 	}
 
-	@Override
-	public void setApplicationContext(ApplicationContext context) throws BeansException {
-		this.context = context;
+	public void setContextLocator(IContextLocator contextLocator) {
+		this.contextLocator = contextLocator;
 	}
 
-	public static String getLanguageFromLocale(Locale locale) {
-		return locale.getISO3Language();
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		// On ne peut pas injecter des beans dans un objet context (les scopes sont créés avant tout...)
+		contextLocator = applicationContext.getBean(IContextLocator.class);
 	}
 
 	@Override
@@ -79,17 +79,23 @@ public class LanguageScope implements Scope, ApplicationContextAware {
 
 	@Override
 	public void registerDestructionCallback(String name, Runnable callback) {
-		// TODO implementer la méthode. On NE cherche PAS à fermer l'objet !!
 		LOGGER.debug("registerDestructionCallback '{}' object in context '{}'.", name, getLanguage());
-//		callback.run();
+
+		final ScopedInstances instances = scopedInstances.get(getLanguage());
+		if(instances != null) {
+			instances.setCallback(name, callback);
+		}
 	}
 
 	@Override
 	public Object resolveContextualObject(String key) {
-		LOGGER.debug("resolveContextualObject '{}' object in '{}' scope.", key, getLanguage());
+		final String languageKey = getLanguage();
+		LOGGER.debug("resolveContextualObject '{}' object in '{}' scope.", key, languageKey);
 
-		// TODO renvoyer l'objet demandé, s'il existe.
-		return null; // ??
+		final ScopedInstances instances = scopedInstances.get(languageKey);
+		if(instances != null) return instances.getInstance(key);
+
+		return null;
 	}
 
 	@Override
@@ -102,9 +108,7 @@ public class LanguageScope implements Scope, ApplicationContextAware {
 	 * @return
 	 */
 	protected String getLanguage() {
-		// FIXME se baser sur le context locator...
-		final I18nController i18nController = context.getBean(I18nController.class);
-		return getLanguageFromLocale(i18nController.getLocale());
+		return contextLocator.getLanguageKey();
 	}
 
 }

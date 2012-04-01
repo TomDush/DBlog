@@ -2,12 +2,12 @@ package fr.dush.test.dblog.dao.context;
 
 import java.util.Locale;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 
 import fr.dush.test.dblog.controller.I18nController;
 
@@ -18,14 +18,24 @@ import fr.dush.test.dblog.controller.I18nController;
  *
  */
 @Named("contextLocator")
-@Scope(value = "singleton", proxyMode = ScopedProxyMode.INTERFACES)
-public class ContextLocatorImpl implements IContextLocator {
+@Scope(value = "singleton")
+public class ContextLocatorImpl implements IContextLocator, ApplicationContextAware {
 
-	@Inject
 	private ApplicationContext context;
 
 	@Override
 	public Locale getCurrentLocale() {
 		return context.getBean(I18nController.class).getLocale();
+	}
+
+	@Override
+	public String getLanguageKey() {
+		return getCurrentLocale().getISO3Language();
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		// Ce bean est utilisé très tôt : l'injection n'est pas encore active.
+		context = applicationContext;
 	}
 }
