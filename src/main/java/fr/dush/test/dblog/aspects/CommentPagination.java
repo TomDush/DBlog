@@ -9,10 +9,9 @@ import fr.dush.test.dblog.dto.model.Comment;
 import fr.dush.test.dblog.dto.model.Ticket;
 
 /**
- * Change la collection présente dans les objects ticket pour que seuls les derniers commentaires soient chargés. TODO faire que ces
- * chargements soient lazyfifés.
+ * Change la collection prÃ©sente dans les objects ticket pour que seuls les derniers commentaires soient chargÃ©s.<br/>
  *
- * TODO intercepter les execption hibernate.
+ * TODO faire que ces chargements soient lazyfifÃ©s. TODO intercepter les execption hibernate.
  *
  * @author Thomas Duchatelle (thomas.duchatelle@capgemini.com)
  */
@@ -27,9 +26,9 @@ public class CommentPagination {
 	}
 
 	/**
-	 * Change la collection de tickets pour en avoir une en sens inverse et limitée à 5.
+	 * Change la collection de tickets pour en avoir une en sens inverse et limitÃ©e Ã  5.
 	 */
-//	@AfterReturning(pointcut = "fr.dush.test.dblog.services.getTicketPage(..)", returning = "retVal")
+	// @AfterReturning(pointcut = "fr.dush.test.dblog.services.getTicketPage(..)", returning = "retVal")
 	public void replaceCommentsCollection(final Object retVal) {
 		if (retVal instanceof Ticket) {
 			final Ticket t = (Ticket) retVal;

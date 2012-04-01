@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
 import fr.dush.test.dblog.engine.context.ContextedThread;
+import fr.dush.test.dblog.exceptions.ConfigurationException;
 
 public class PropertiesDatasourceFactoryImplTest extends AbstractSpringJunitTest {
 
@@ -43,14 +44,19 @@ public class PropertiesDatasourceFactoryImplTest extends AbstractSpringJunitTest
 
 			@Override
 			public void run() {
-				final DataSource datasource = datasourceFactory.createDataSource();
+				try {
+					final DataSource datasource = datasourceFactory.createDataSource();
 
-				assertNotNull(datasource);
-				if (datasource instanceof BasicDataSource) {
-					assertNotNull(((BasicDataSource) datasource).getUrl());
-					assertTrue("contains FR", ((BasicDataSource) datasource).getUrl().contains("en"));
-				} else
-					fail(datasource + "is not instance BasicDataSource");
+					assertNotNull(datasource);
+					if (datasource instanceof BasicDataSource) {
+						assertNotNull(((BasicDataSource) datasource).getUrl());
+						assertTrue("contains FR", ((BasicDataSource) datasource).getUrl().contains("en"));
+					} else {
+						fail(datasource + "is not instance BasicDataSource");
+					}
+				} catch (final ConfigurationException e) {
+					throw new RuntimeException(e);
+				}
 			}
 
 		};

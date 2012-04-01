@@ -1,7 +1,6 @@
 package fr.dush.test.dblog.dao.context;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -14,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
+
+import fr.dush.test.dblog.exceptions.ConfigurationException;
 
 @Named("DatasourceFactory")
 public class PropertiesDatasourceFactoryImpl implements IDatasourceFactory {
@@ -32,51 +33,28 @@ public class PropertiesDatasourceFactoryImpl implements IDatasourceFactory {
 	}
 
 	@Override
-	public DataSource createDataSource() {
+	public DataSource createDataSource() throws ConfigurationException {
 		final String language = getCurrentLocale().getLanguage();
 		LOGGER.info("Creating datasource for {} language, from properties file.", language);
 
 		return readDatasource(language);
 	}
 
-//	@Bean
-//	@Scope("language")
-//	public SessionFactory createSessionFactory(DataSource datasource,
-//			@Value("application.package") String applicationPackage,
-//			@Value("hibernate.propertiesPath") String hibernatePropsPath)
-//					throws IOException {
-//
-//		final Properties hibernateProperties = PropertiesLoaderUtils.loadAllProperties(hibernatePropsPath);
-//
-//		final LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-//		sessionFactory.setDataSource(datasource);
-//		sessionFactory.setPackagesToScan(applicationPackage);
-//		sessionFactory.setHibernateProperties(hibernateProperties);
-//
-//		return sessionFactory.getObject();
-//	}
-
-	protected DataSource readDatasource(final String language) {
-		// TODO Exception si pas de datasource spécifiée.
-
-		final BasicDataSource datasource = new BasicDataSource(){
-			private final Logger LOGGER = LoggerFactory.getLogger(PropertiesDatasourceFactoryImpl.class.getCanonicalName() + ".BasicDataSource");
-
-
-			@Override
-			public synchronized void close() throws SQLException {
-				LOGGER.error("Mais qui cherche à fermer cette datasource ?!");
-				throw new RuntimeException("Mais qui cherche à fermer cette datasource ?!");
-//				super.close();
-			}
-
-		};
-		datasource.setDriverClassName(datasourcesProperties.getProperty(language + ".datasource.driverClassName"));
-		datasource.setUrl(datasourcesProperties.getProperty(language + ".datasource.url"));
-		datasource.setUsername(datasourcesProperties.getProperty(language + ".datasource.username"));
-		datasource.setPassword(datasourcesProperties.getProperty(language + ".datasource.password"));
+	protected DataSource readDatasource(final String language) throws ConfigurationException {
+		final BasicDataSource datasource = new BasicDataSource();
+		datasource.setDriverClassName(getDatasourceProperty(language, "driverClassName"));
+		datasource.setUrl(getDatasourceProperty(language, "url"));
+		datasource.setUsername(getDatasourceProperty(language, "username"));
+		datasource.setPassword(getDatasourceProperty(language, "password"));
 
 		return datasource;
+	}
+
+	protected String getDatasourceProperty(final String language, final String field) throws ConfigurationException {
+		final String prop = datasourcesProperties.getProperty(language + ".datasource."+ field);
+		if(prop == null) throw new ConfigurationException("Field " + field + "is required for language "+ language);
+
+		return prop;
 	}
 
 	protected Locale getCurrentLocale() {
