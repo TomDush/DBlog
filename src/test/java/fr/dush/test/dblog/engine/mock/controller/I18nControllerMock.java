@@ -9,9 +9,16 @@ import fr.dush.test.dblog.controller.I18nController;
 @Scope("thread")
 public class I18nControllerMock extends I18nController {
 
+	private Locale locale = new Locale("fr", "FR");
+
 	@Override
 	public Locale getLocale() {
-		return new Locale("fr", "FR");
+		return locale;
+	}
+
+	@Override
+	public void setLocale(Locale locale) {
+		this.locale = locale;
 	}
 
 }

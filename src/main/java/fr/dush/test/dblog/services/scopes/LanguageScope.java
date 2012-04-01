@@ -31,7 +31,7 @@ public class LanguageScope implements Scope, ApplicationContextAware {
 	private final Map<String, ScopedInstances> scopedInstances = new HashMap<>();
 
 	public LanguageScope() {
-		LOGGER.debug("Create new LanguageScope. (context = {})", context);
+		LOGGER.debug("Create new LanguageScope.");
 	}
 
 	@Override
@@ -45,9 +45,9 @@ public class LanguageScope implements Scope, ApplicationContextAware {
 
 	@Override
 	public Object get(String name, ObjectFactory<?> objectFactory) {
-		LOGGER.debug("Request {} object.", name);
-
 		final String languageKey = getLanguage();
+
+		LOGGER.debug("Request '{}' object in '{}' scope.", name, languageKey);
 
 		// Recherche des instances de ce contexte
 		ScopedInstances instances = scopedInstances.get(languageKey);
@@ -66,9 +66,9 @@ public class LanguageScope implements Scope, ApplicationContextAware {
 
 	@Override
 	public Object remove(String name) {
-		LOGGER.debug("Remove '{}' object.", name);
-
 		final String languageKey = getLanguage();
+
+		LOGGER.debug("Remove '{}' object from scope {}.", name, languageKey);
 
 		// Retire l'instance en question du contexte
 		final ScopedInstances instances = scopedInstances.get(languageKey);
@@ -79,12 +79,16 @@ public class LanguageScope implements Scope, ApplicationContextAware {
 
 	@Override
 	public void registerDestructionCallback(String name, Runnable callback) {
-		LOGGER.debug("registerDestructionCallback '{}' object.", name);
-		callback.run();
+		// TODO implementer la méthode. On NE cherche PAS à fermer l'objet !!
+		LOGGER.debug("registerDestructionCallback '{}' object in context '{}'.", name, getLanguage());
+//		callback.run();
 	}
 
 	@Override
 	public Object resolveContextualObject(String key) {
+		LOGGER.debug("resolveContextualObject '{}' object in '{}' scope.", key, getLanguage());
+
+		// TODO renvoyer l'objet demandé, s'il existe.
 		return null; // ??
 	}
 
@@ -98,6 +102,7 @@ public class LanguageScope implements Scope, ApplicationContextAware {
 	 * @return
 	 */
 	protected String getLanguage() {
+		// FIXME se baser sur le context locator...
 		final I18nController i18nController = context.getBean(I18nController.class);
 		return getLanguageFromLocale(i18nController.getLocale());
 	}

@@ -10,7 +10,7 @@ import org.junit.runners.model.Statement;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * Runner JUNIT permettant la lecture des annotations chargeant ou d�chargeant la base de donn�es.
+ * Runner JUNIT permettant la lecture des annotations chargeant ou déchargeant la base de données.
  *
  *
  * @author Thomas Duchatelle (thomas.duchatelle@capgemini.com)
@@ -26,10 +26,10 @@ public class DBUnitJUnit4ClassRunner extends SpringJUnit4ClassRunner {
 	@Override
 	protected Statement methodInvoker(FrameworkMethod frameworkMethod, Object obj) {
 		// List of all annotation found in method/class hierarchy.
-		ArrayDeque<DatabaseScripts> dbScriptsAnnotations = new ArrayDeque<>();
+		final ArrayDeque<DatabaseScripts> dbScriptsAnnotations = new ArrayDeque<>();
 
 		// Retrieve the database population scripts location if the test class is annotated
-		DatabaseScripts methodAnnotation = frameworkMethod.getAnnotation(DatabaseScripts.class);
+		final DatabaseScripts methodAnnotation = frameworkMethod.getAnnotation(DatabaseScripts.class);
 		boolean dumpDatabase = false;
 		if (methodAnnotation != null) {
 			dbScriptsAnnotations.push(methodAnnotation);
@@ -41,6 +41,7 @@ public class DBUnitJUnit4ClassRunner extends SpringJUnit4ClassRunner {
 		Class testClass = obj.getClass();
 		do {
 			@SuppressWarnings("unchecked")
+			final
 			DatabaseScripts classAnnotation = (DatabaseScripts) testClass.getAnnotation(DatabaseScripts.class);
 			if (classAnnotation != null) {
 				dbScriptsAnnotations.push(classAnnotation);
@@ -50,16 +51,16 @@ public class DBUnitJUnit4ClassRunner extends SpringJUnit4ClassRunner {
 		} while (testClass != null);
 
 		// Build the locations list, starting from the top-level superclass down to the running class, then the method
-		List<String> locationsList = new ArrayList<>();
+		final List<String> locationsList = new ArrayList<>();
 
 		while (!dbScriptsAnnotations.isEmpty()) {
-			DatabaseScripts ds = dbScriptsAnnotations.pop();
-			String[] locations = ds.locations();
+			final DatabaseScripts ds = dbScriptsAnnotations.pop();
+			final String[] locations = ds.locations();
 
 			if (!ds.inheritLocations()) {
 				locationsList.clear();
 			}
-			for (String location : locations) {
+			for (final String location : locations) {
 				locationsList.add(location);
 			}
 		}

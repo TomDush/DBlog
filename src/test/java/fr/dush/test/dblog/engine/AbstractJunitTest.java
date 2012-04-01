@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.sql.DataSource;
 
 import junit.framework.TestCase;
 
@@ -25,6 +26,7 @@ import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 
 import fr.dush.test.dblog.engine.dbunitapi.DBUnitJUnit4ClassRunner;
@@ -48,7 +50,10 @@ public abstract class AbstractJunitTest extends TestCase implements IDatabaseScr
 	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AbstractJunitTest.class);
 
 	@Inject
-	private BasicDataSource dataSource;
+	private DataSource dataSource;
+
+	@Inject
+	protected ApplicationContext context;
 
 	/**
 	 * Database population scripts. The scripts are executed in the list order, ie from first to last The list may be left empty so that there are no rows in the
@@ -81,10 +86,14 @@ public abstract class AbstractJunitTest extends TestCase implements IDatabaseScr
 	public void initConnexion() throws Exception {
 		logger.debug("Initialisation of AbstractJunitTest.");
 
-		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, dataSource.getDriverClassName());
-		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, dataSource.getUrl());
-		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, dataSource.getUsername());
-		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, dataSource.getPassword());
+		if (dataSource instanceof BasicDataSource) {
+			System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, ((BasicDataSource) dataSource).getDriverClassName());
+			System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, ((BasicDataSource) dataSource).getUrl());
+			System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, ((BasicDataSource) dataSource).getUsername());
+			System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, ((BasicDataSource) dataSource).getPassword());
+		} else {
+			throw new RuntimeException("datasource is not instance of BasicDataSource");
+		}
 	}
 
 	// @Override
@@ -114,7 +123,7 @@ public abstract class AbstractJunitTest extends TestCase implements IDatabaseScr
 			final File dumpFile = new File(targetDirFile, new SimpleDateFormat("yyyy-MM-dd.HH-mm-ss.S").format(new java.util.Date()) + "-db-" + dumpFilename
 					+ ".xml");
 
-			final IDataSet fullDataSet = getDatasource().createDataSet();
+			final IDataSet fullDataSet = getConnexion().createDataSet();
 			FlatXmlDataSet.write(fullDataSet, new FileOutputStream(dumpFile));
 		}
 
@@ -129,7 +138,7 @@ public abstract class AbstractJunitTest extends TestCase implements IDatabaseScr
 			logger.warn("No databasePopulationScripts.");
 			return;
 		} else {
-			DatabaseOperation.CLEAN_INSERT.execute(getDatasource(), getDataSet());
+			DatabaseOperation.CLEAN_INSERT.execute(getConnexion(), getDataSet());
 		}
 		logger.debug("<-- setUp");
 	}
@@ -143,14 +152,14 @@ public abstract class AbstractJunitTest extends TestCase implements IDatabaseScr
 			logger.warn("No databasePopulationScripts.");
 			return;
 		} else {
-			DatabaseOperation.DELETE_ALL.execute(getDatasource(), getDataSet());
+			DatabaseOperation.DELETE_ALL.execute(getConnexion(), getDataSet());
 		}
 
 		closeConnection();
 		logger.debug("<-- tearDown");
 	}
 
-	private DatabaseConnection getDatasource() throws DatabaseUnitException, SQLException {
+	private DatabaseConnection getConnexion() throws DatabaseUnitException, SQLException {
 		if (databaseConnection == null || databaseConnection.getConnection().isClosed()) {
 			databaseConnection = new DatabaseConnection(dataSource.getConnection());
 		}
