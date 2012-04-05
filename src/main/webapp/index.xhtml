@@ -1,5 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="layout/full_layout.xhtml">
@@ -9,8 +11,19 @@
 		<h1>
 			<h:outputText value="#{msg['homepage.title']}" />
 		</h1>
-		
-		<!-- Ici il va y avoir tous les tickets !  -->
+
+		<h2>
+			<h:outputText value="#{msg['homepage.lastTickets']" />
+		</h2>
+
+		<ui:repeat var="locale" value="#{ticketsController.getTicketPage}"
+			varStatus="status">
+			
+			<div class="ticket">
+				<h1></h1>
+			</div>
+		</ui:repeat>
+
 	</ui:define>
 </ui:composition>
 
