@@ -17,8 +17,6 @@ import fr.dush.test.dblog.engine.dbunitapi.DatabaseScripts;
 @DatabaseScripts(locations = { "/bdd/comments.xml" })
 public class CommentDAOImplTest extends AbstractJunitTest {
 
-	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(CommentDAOImplTest.class);
-
 	@Inject
 	private ICommentDAO commentDAO;
 
@@ -30,9 +28,6 @@ public class CommentDAOImplTest extends AbstractJunitTest {
 		final Collection<Comment> comments = commentDAO.findByTicket(3, 0, 50);
 
 		assertEquals(4, comments.size());
-		for (final Comment c : comments) {
-			logger.debug("Comment : {}", c);
-		}
 	}
 
 	@Test

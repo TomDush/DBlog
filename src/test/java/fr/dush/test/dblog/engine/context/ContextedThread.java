@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 import fr.dush.test.dblog.controller.I18nController;
 import fr.dush.test.dblog.dao.model.ITicketDAO;
 
-public class ContextedThread extends Thread implements UncaughtExceptionHandler {
+public abstract class ContextedThread extends Thread implements UncaughtExceptionHandler {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ContextedThread.class);
 
@@ -24,9 +24,18 @@ public class ContextedThread extends Thread implements UncaughtExceptionHandler 
 		super();
 		this.context = context;
 		this.locale = locale;
-
-		getI18nController().setLocale(locale);
+		setUncaughtExceptionHandler(this);
 	}
+
+	@Override
+	public final void run() {
+		// C'est le controlleur qui détient l'information sur le contexte langue.
+		getI18nController().setLocale(locale);
+
+		test();
+	}
+
+	public abstract void test();
 
 	protected I18nController getI18nController() {
 		return context.getBean(I18nController.class);
@@ -48,6 +57,7 @@ public class ContextedThread extends Thread implements UncaughtExceptionHandler 
 
 	/**
 	 * Test si le thread s'est correctement exécuté.
+	 *
 	 * @return TRUE s'il y a eu une erreur. FALSE si tout s'est bien passé.
 	 */
 	public boolean hasError() {
@@ -61,9 +71,13 @@ public class ContextedThread extends Thread implements UncaughtExceptionHandler 
 
 	/**
 	 * Remonte l'erreur s'il y en a eu une...
+	 *
 	 * @throws Throwable
 	 */
 	public void throwError() throws Throwable {
-		if(hasError()) throw throwable;
+		if (hasError()) {
+			LOGGER.error("Thread {} has error for locale {}.", getName(), locale);
+			throw new AssertionError("Error for locale " + locale + " in thread " + getName(), throwable);
+		}
 	}
 }

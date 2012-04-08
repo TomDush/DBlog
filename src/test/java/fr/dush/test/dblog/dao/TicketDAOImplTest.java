@@ -7,6 +7,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.dush.test.dblog.dao.model.ITicketDAO;
 import fr.dush.test.dblog.dto.model.Ticket;
@@ -16,14 +18,14 @@ import fr.dush.test.dblog.engine.dbunitapi.DatabaseScripts;
 @DatabaseScripts(locations = { "/bdd/tickets.xml" })
 public class TicketDAOImplTest extends AbstractJunitTest {
 
-	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TicketDAOImplTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TicketDAOImplTest.class);
 
 	@Inject
 	private ITicketDAO ticketDAO;
 
 	@Test
 	public void testRead() throws Exception {
-		Ticket t = ticketDAO.findById(4);
+		final Ticket t = ticketDAO.findById(4);
 		assertNotNull(t);
 		assertEquals(new Integer(4), t.getIdTicket());
 		assertEquals("Dush", t.getAuthorName());
@@ -35,11 +37,11 @@ public class TicketDAOImplTest extends AbstractJunitTest {
 
 	@Test
 	public void testCreate() throws Exception {
-		logger.debug("---> testCreate()");
+		LOGGER.debug("---> testCreate()");
 
-		int size = ticketDAO.findAll().size();
+		final int size = ticketDAO.findAll().size();
 
-		Ticket t = new Ticket();
+		final Ticket t = new Ticket();
 		t.setAuthorName("me");
 		t.setDate(new Date());
 		t.setMessage("J'ai rien a dire");
@@ -49,7 +51,7 @@ public class TicketDAOImplTest extends AbstractJunitTest {
 
 		assertEquals(1, ticketDAO.findAll().size() - size);
 
-		logger.debug("<---- testCreate()");
+		LOGGER.debug("<---- testCreate()");
 	}
 
 	@Test
@@ -59,11 +61,11 @@ public class TicketDAOImplTest extends AbstractJunitTest {
 
 	@Test
 	public void readAll() {
-		Collection<Ticket> tickets = ticketDAO.findAll();
+		final Collection<Ticket> tickets = ticketDAO.findAll();
 
 		assertEquals(5, ticketDAO.findAll().size());
-		for (Ticket t : tickets) {
-			logger.debug("Ticket : {}", t);
+		for (final Ticket t : tickets) {
+			LOGGER.debug("Ticket : {}", t);
 		}
 	}
 

@@ -51,6 +51,8 @@ public class ContextedDAOTest extends AbstractSpringJunitTest {
 		frReaderThread.throwError();
 		enReaderThread.startAndWait();
 		enReaderThread.throwError();
+
+		System.out.println("OK.");
 	}
 
 	public class SaverThread extends ContextedThread {
@@ -63,7 +65,7 @@ public class ContextedDAOTest extends AbstractSpringJunitTest {
 		}
 
 		@Override
-		public void run() {
+		public void test() {
 			final ITicketDAO ticketDAO = getTicketDAO();
 
 			final Ticket t = new Ticket();
@@ -88,7 +90,7 @@ public class ContextedDAOTest extends AbstractSpringJunitTest {
 		}
 
 		@Override
-		public void run() {
+		public void test() {
 			final ITicketDAO ticketDAO = getTicketDAO();
 
 			final List<Ticket> tickets = ticketDAO.findAll();
