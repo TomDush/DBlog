@@ -1,5 +1,7 @@
 package fr.dush.test.dblog.services.scopes;
 
+import static org.junit.Assert.*;
+
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;

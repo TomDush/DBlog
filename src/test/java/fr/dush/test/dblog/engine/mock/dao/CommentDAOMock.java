@@ -7,7 +7,7 @@ import fr.dush.test.dblog.dto.model.Comment;
 
 //@Named
 //@Alternative
-public class CommentDAOAlt implements ICommentDAO {
+public class CommentDAOMock implements ICommentDAO {
 
 	@Override
 	public List<Comment> findLast(int ticketId, int nb) {

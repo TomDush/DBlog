@@ -12,10 +12,11 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
 import fr.dush.test.dblog.dao.scope.IDatasourceFactory;
+import fr.dush.test.dblog.engine.AbstractSimpleSpringJunitTest;
 import fr.dush.test.dblog.engine.context.ContextedThread;
 import fr.dush.test.dblog.exceptions.ConfigurationException;
 
-public class PropertiesDatasourceFactoryImplTest extends AbstractSpringJunitTest {
+public class PropertiesDatasourceFactoryImplTest extends AbstractSimpleSpringJunitTest {
 
 	@Inject
 	private ApplicationContext context;

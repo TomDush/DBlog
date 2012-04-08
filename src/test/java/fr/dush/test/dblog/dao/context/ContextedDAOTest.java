@@ -15,6 +15,7 @@ import org.springframework.context.ApplicationContext;
 
 import fr.dush.test.dblog.dao.model.ITicketDAO;
 import fr.dush.test.dblog.dto.model.Ticket;
+import fr.dush.test.dblog.engine.AbstractSimpleSpringJunitTest;
 import fr.dush.test.dblog.engine.context.ContextedThread;
 
 /**
@@ -24,7 +25,7 @@ import fr.dush.test.dblog.engine.context.ContextedThread;
  *
  */
 
-public class ContextedDAOTest extends AbstractSpringJunitTest {
+public class ContextedDAOTest extends AbstractSimpleSpringJunitTest {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ContextedDAOTest.class);
 

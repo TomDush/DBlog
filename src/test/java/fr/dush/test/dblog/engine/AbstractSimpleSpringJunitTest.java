@@ -1,11 +1,15 @@
-package fr.dush.test.dblog.dao.context;
+package fr.dush.test.dblog.engine;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * Tests unitaires comprenant l'injection de dépendance mais sans le mock des contextes (celui qui fait se confondre tous les contectes...).
+ * Super classe de base pour les tests JUNIT. Comprend :
+ * <ul>
+ * <li>Injection des dépendances SPRING et configuration <i>main</i></li>
+ * <li>Mock du controlle i18n : mode thread pour permettre les tests multi-langue</li>
+ * </ul>
  *
  * @author Thomas Duchatelle (duchatelle.thomas@gmail.com)
  *
@@ -14,8 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:WEB-INF/spring/context-global.xml",
 		"classpath:WEB-INF/spring/context-persistence.xml",
 		"classpath:WEB-INF/spring/context-scope.xml",
-		"classpath:WEB-INF/spring/web-session-scopes.xml",
 		"classpath:WEB-INF/spring/mock-controller.xml" })
-public abstract class AbstractSpringJunitTest {
+public abstract class AbstractSimpleSpringJunitTest {
 
 }

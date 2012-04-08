@@ -5,6 +5,13 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+/**
+ * ??
+ *
+ * @author Thomas Duchatelle (duchatelle.thomas@gmail.com)
+ * @deprecated Devrai permettre de faire des JUNIT sur la gestion des sessions/request.
+ */
+@Deprecated
 public abstract class AbstractWebContextJunitTest extends AbstractJunitTest {
 
 	protected MockHttpSession session;

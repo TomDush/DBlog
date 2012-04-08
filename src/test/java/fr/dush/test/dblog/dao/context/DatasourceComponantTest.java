@@ -10,7 +10,9 @@ import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
-public class DatasourceComponantTest extends AbstractSpringJunitTest {
+import fr.dush.test.dblog.engine.AbstractSimpleSpringJunitTest;
+
+public class DatasourceComponantTest extends AbstractSimpleSpringJunitTest {
 
 	@Inject
 	private ApplicationContext context;

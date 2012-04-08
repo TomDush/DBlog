@@ -1,5 +1,7 @@
 package fr.dush.test.dblog.services;
 
+import static org.junit.Assert.*;
+
 import javax.inject.Inject;
 
 import org.junit.After;

@@ -11,8 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.dbcp.BasicDataSource;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
@@ -26,28 +24,30 @@ import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 
+import fr.dush.test.dblog.dao.scope.IDatasourceFactory;
 import fr.dush.test.dblog.engine.dbunitapi.DBUnitJUnit4ClassRunner;
 import fr.dush.test.dblog.engine.dbunitapi.IDatabaseScriptsReader;
 
 /**
- * Initialise le contexte SPRING et founie les méthodes pour gérer le contenu de la base de données (avec DBUnit).
- *
+ * Superclasse des JUNITs ayant une base de données simulée.
+ * <ul>
+ * <li>MOCK DBUnit de la base de données</li>
+ * <li>MOCK de {@link IDatasourceFactory} pour n'avoir qu'une seule et unique base de données.</li>
+ * </ul>
  *
  * @author Thomas Duchatelle (thomas.duchatelle@capgemini.com)
+ *
  */
 @RunWith(DBUnitJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:WEB-INF/spring/context-global.xml",
-		"classpath:WEB-INF/spring/context-persistence.xml",
-		"classpath:WEB-INF/spring/context-scope.xml",
-		"classpath:WEB-INF/spring/web-session-scopes.xml",
-		"classpath:WEB-INF/spring/mock-controller.xml"
-		})
-public abstract class AbstractJunitTest extends TestCase implements IDatabaseScriptsReader {
+@ContextConfiguration(locations = {"classpath:WEB-INF/spring/mock-datasources.xml"})
+public abstract class AbstractJunitTest extends AbstractSimpleSpringJunitTest implements IDatabaseScriptsReader {
 
-	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AbstractJunitTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractJunitTest.class);
 
 	@Inject
 	private DataSource dataSource;
@@ -84,7 +84,7 @@ public abstract class AbstractJunitTest extends TestCase implements IDatabaseScr
 
 	@PostConstruct
 	public void initConnexion() throws Exception {
-		logger.debug("Initialisation of AbstractJunitTest.");
+		LOGGER.debug("Initialisation of AbstractJunitTest.");
 
 		if (dataSource instanceof BasicDataSource) {
 			System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, ((BasicDataSource) dataSource).getDriverClassName());
@@ -129,34 +129,30 @@ public abstract class AbstractJunitTest extends TestCase implements IDatabaseScr
 
 	}
 
-	@Override
 	@Before
 	public void setUp() throws Exception {
-		logger.debug("--> setUp");
-		super.setUp();
+		LOGGER.debug("--> setUp");
 		if (databasePopulationScripts == null) {
-			logger.warn("No databasePopulationScripts.");
+			LOGGER.warn("No databasePopulationScripts.");
 			return;
 		} else {
 			DatabaseOperation.CLEAN_INSERT.execute(getConnexion(), getDataSet());
 		}
-		logger.debug("<-- setUp");
+		LOGGER.debug("<-- setUp");
 	}
 
-	@Override
 	@After
 	public void tearDown() throws Exception {
-		logger.debug("--> tearDown");
-		super.tearDown();
+		LOGGER.debug("--> tearDown");
 		if (databasePopulationScripts == null) {
-			logger.warn("No databasePopulationScripts.");
+			LOGGER.warn("No databasePopulationScripts.");
 			return;
 		} else {
 			DatabaseOperation.DELETE_ALL.execute(getConnexion(), getDataSet());
 		}
 
 		closeConnection();
-		logger.debug("<-- tearDown");
+		LOGGER.debug("<-- tearDown");
 	}
 
 	private DatabaseConnection getConnexion() throws DatabaseUnitException, SQLException {

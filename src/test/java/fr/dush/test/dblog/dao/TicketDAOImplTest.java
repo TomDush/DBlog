@@ -1,5 +1,7 @@
 package fr.dush.test.dblog.dao;
 
+import static org.junit.Assert.*;
+
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;

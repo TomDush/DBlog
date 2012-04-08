@@ -1,5 +1,7 @@
 package fr.dush.test.dblog.aspects;
 
+import static org.junit.Assert.*;
+
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -18,7 +20,7 @@ import fr.dush.test.dblog.engine.dbunitapi.DatabaseScripts;
 @DatabaseScripts(locations = { "/bdd/comments.xml" })
 public class CommentPaginationTest extends AbstractJunitTest {
 
-	private CommentPagination commentPagination = new CommentPagination();
+	private final CommentPagination commentPagination = new CommentPagination();
 
 	@Inject
 	private ICommentDAO commentDAO;

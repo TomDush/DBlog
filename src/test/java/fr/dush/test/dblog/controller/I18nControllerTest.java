@@ -1,22 +1,18 @@
 package fr.dush.test.dblog.controller;
 
+import static org.junit.Assert.*;
+
 import javax.inject.Inject;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import fr.dush.test.dblog.dto.i18n.AvailableLocale;
-import fr.dush.test.dblog.engine.AbstractWebContextJunitTest;
+import fr.dush.test.dblog.engine.AbstractSimpleSpringJunitTest;
 
-public class I18nControllerTest extends AbstractWebContextJunitTest {
+public class I18nControllerTest extends AbstractSimpleSpringJunitTest {
 
 	@Inject
 	private I18nController i18nController;
-
-	@Before
-	public void initScope() {
-		startSession();
-	}
 
 	@Test
 	public void testGetAvailableLocalesList() {
