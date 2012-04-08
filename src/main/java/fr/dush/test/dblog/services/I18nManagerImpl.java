@@ -14,6 +14,8 @@ import javax.inject.Named;
 
 import org.apache.commons.io.FilenameUtils;
 import org.hibernate.internal.util.config.ConfigurationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -21,7 +23,7 @@ import org.springframework.core.io.ResourceLoader;
 import fr.dush.test.dblog.dto.i18n.AvailableLocale;
 
 /**
- * Liste les locales disponible pour l'application.
+ * Liste les locales disponibles pour l'application.
  *
  *
  * @author Thomas Duchatelle (thomas.duchatelle@capgemini.com)
@@ -29,14 +31,14 @@ import fr.dush.test.dblog.dto.i18n.AvailableLocale;
 @Named
 public class I18nManagerImpl implements II18nManager {
 
-	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(I18nManagerImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(I18nManagerImpl.class);
 
 	private final Set<AvailableLocale> availableLocales = new HashSet<>();
 
 	@Inject
 	public I18nManagerImpl(@Value("${directory.i18n}") final String localesDir, final ResourceLoader loader) throws IOException {
 		final Resource i18nRessource = loader.getResource("classpath:" + localesDir);
-		logger.debug("Scan {} for locales resources.", i18nRessource);
+		LOGGER.debug("Scan {} for locales resources.", i18nRessource);
 
 		if (!i18nRessource.getFile().exists()) {
 			throw new ConfigurationException("Directory " + i18nRessource + " for locales not found.");
@@ -68,7 +70,8 @@ public class I18nManagerImpl implements II18nManager {
 		});
 
 		for (final File f : locales) {
-			availableLocales.add(convertAvailableLocale(f));
+			final AvailableLocale locale = convertAvailableLocale(f);
+			if(locale != null) availableLocales.add(locale);
 		}
 	}
 
@@ -78,16 +81,27 @@ public class I18nManagerImpl implements II18nManager {
 	 * @return Locale disponible.
 	 * @throws IOException
 	 */
-	private AvailableLocale convertAvailableLocale(final File langFile) throws IOException {
+	protected static AvailableLocale convertAvailableLocale(final File langFile) throws IOException {
 		final Properties props = new Properties();
 		props.load(new FileReader(langFile));
 
-		final AvailableLocale locale = new AvailableLocale();
-		locale.setIcon(props.getProperty("icon"));
-		locale.setLocale(new Locale(props.getProperty("locale")));
-		locale.setLanguage(props.getProperty("language"));
+		// Détermination de la locale
+		final String[] localeStr = props.getProperty("locale").split("_");
+		Locale locale = null;
+		if(localeStr.length == 1) locale = new Locale(localeStr[0]);
+		else if(localeStr.length == 2) locale = new Locale(localeStr[0], localeStr[1]);
+		else {
+			LOGGER.error("String {} is not a valid locale. Found in file {}", props.getProperty("locale"), langFile);
+			return null;
+		}
 
-		return locale;
+		// Object regroupant la locale, l'icone, le nom de la langue.
+		final AvailableLocale avalaibleLocale = new AvailableLocale();
+		avalaibleLocale.setIcon(props.getProperty("icon"));
+		avalaibleLocale.setLanguage(props.getProperty("language"));
+		avalaibleLocale.setLocale(locale);
+
+		return avalaibleLocale;
 	}
 
 }

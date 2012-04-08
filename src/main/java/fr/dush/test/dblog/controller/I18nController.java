@@ -9,6 +9,8 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 
 import fr.dush.test.dblog.dto.i18n.AvailableLocale;
@@ -18,7 +20,7 @@ import fr.dush.test.dblog.services.II18nManager;
 @Scope("session")
 public class I18nController {
 
-	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(I18nController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(I18nController.class);
 
 	@Inject
 	private II18nManager i18nManager;
@@ -27,7 +29,7 @@ public class I18nController {
 
 	public AvailableLocale[] getAvailableLocalesList() {
 		final Collection<AvailableLocale> locales = i18nManager.getAvailableLocales();
-		logger.debug("getAvailableLocalesList {}", locales);
+		LOGGER.debug("getAvailableLocalesList {}", locales);
 		return locales.toArray(new AvailableLocale[locales.size()]);
 	}
 
@@ -42,17 +44,18 @@ public class I18nController {
 
 	/**
 	 * Méthode appellable à partir d'un HtmlCommandLink pour changer la langue du site.
+	 * TODO Il y a plus simple ...
 	 * @param event Event de source HtmlCommandLink qui détient un attribut "locale" de type Locale.
 	 */
 	public void onChangeLocale(final ActionEvent event) {
 		if(event.getSource() instanceof HtmlCommandLink) {
 			final Object obj = ((HtmlCommandLink)event.getSource()).getAttributes().get("locale");
-			logger.debug(" --> onChangeLocale  ({})", obj);
+			LOGGER.debug(" --> onChangeLocale  ({})", obj);
 			if(obj instanceof Locale) {
 				changeLocale((Locale) obj);
 			}
 		} else {
-			logger.warn("Unknown event {}", event);
+			LOGGER.warn("Unknown event {}", event);
 		}
 	}
 

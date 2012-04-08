@@ -17,7 +17,11 @@ public class AvailableLocale {
 	private String icon;
 
 	public String getFullLocale() {
-		return locale.getLanguage();
+		if(locale.getCountry() == null || locale.getCountry().isEmpty()) {
+			return locale.getLanguage();
+		}
+
+		return locale.getLanguage() + "_" + locale.getCountry();
 	}
 
 	public Locale getLocale() {

@@ -26,7 +26,7 @@ public class I18nControllerTest extends AbstractWebContextJunitTest {
 
 		for(final AvailableLocale l : locales) {
 			assertNotNull(l.getLocale());
-			assertTrue(l.getFullLocale() + " is invalid.", "fr_fr".equals(l.getFullLocale()) || "en_us".equals(l.getFullLocale()));
+			assertTrue(l.getFullLocale() + " is invalid.", "fr_FR".equals(l.getFullLocale()) || "en_US".equals(l.getFullLocale()));
 			assertTrue(l.getFullLocale() + " is invalid.", l.getIcon().endsWith(".png"));
 		}
 	}
