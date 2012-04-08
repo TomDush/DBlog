@@ -12,6 +12,7 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.ApplicationContext;
 
 import fr.dush.test.dblog.controller.I18nController;
+import fr.dush.test.dblog.dao.scope.language.LanguageScope;
 import fr.dush.test.dblog.engine.AbstractWebContextJunitTest;
 import fr.dush.test.dblog.engine.mock.context.ContextLocatorMock;
 

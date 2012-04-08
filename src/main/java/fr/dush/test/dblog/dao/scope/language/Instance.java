@@ -1,5 +1,11 @@
-package fr.dush.test.dblog.services.scopes;
+package fr.dush.test.dblog.dao.scope.language;
 
+/**
+ * Conserve l'instance d'un objet dont le scope est limité au langage. Cette classe est utilisée par {@link LanguageScope}.
+ *
+ * @author Thomas Duchatelle (duchatelle.thomas@gmail.com)
+ *
+ */
 public class Instance {
 
 	private String name;

@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.dao.context;
+package fr.dush.test.dblog.dao.scope;
 
 import javax.sql.DataSource;
 

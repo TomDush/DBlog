@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.dao.context;
+package fr.dush.test.dblog.dao.scope;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -10,8 +10,15 @@ import org.springframework.stereotype.Component;
 import fr.dush.test.dblog.exceptions.ConfigurationException;
 
 /**
- * Factory vue par Spring pour créer des datasources. L'implémentation de la véritable factory est paramétrable afin de permettre la configuration des datasource de
- * plusieurs façon (datasource, pool, JNDI).
+ * Fournit, à partir d'une factory, la Datasource adaptée au contexte "language".
+ *
+ * <p>
+ * L'implémentation de la véritable factory dépend du contexte d'exécution :
+ * <ul>
+ * <li>Tests unitaires : sources de données décrites dans un fichier properties</li>
+ * <li>Déploiement en recette et production : sources de données définies dans un annuaire JNDI.
+ * </ul>
+ * </p>
  *
  * TODO Créer une factory de datasource par JNDI
  *

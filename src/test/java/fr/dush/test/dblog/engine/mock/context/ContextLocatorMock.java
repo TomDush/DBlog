@@ -2,7 +2,7 @@ package fr.dush.test.dblog.engine.mock.context;
 
 import java.util.Locale;
 
-import fr.dush.test.dblog.dao.context.IContextLocator;
+import fr.dush.test.dblog.dao.scope.IContextLocator;
 
 public class ContextLocatorMock implements IContextLocator {
 

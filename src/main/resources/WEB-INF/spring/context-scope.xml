@@ -7,7 +7,7 @@
 		<property name="scopes">
 			<map>
 				<entry key="language">
-					<bean class="fr.dush.test.dblog.services.scopes.LanguageScope" />
+					<bean class="fr.dush.test.dblog.dao.scope.language.LanguageScope" />
 				</entry>
 			</map>
 		</property>

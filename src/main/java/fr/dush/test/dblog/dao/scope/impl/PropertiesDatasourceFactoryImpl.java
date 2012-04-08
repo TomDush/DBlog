@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.dao.context;
+package fr.dush.test.dblog.dao.scope.impl;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
+import fr.dush.test.dblog.dao.scope.IContextLocator;
+import fr.dush.test.dblog.dao.scope.IDatasourceFactory;
 import fr.dush.test.dblog.exceptions.ConfigurationException;
 
 @Named("DatasourceFactory")

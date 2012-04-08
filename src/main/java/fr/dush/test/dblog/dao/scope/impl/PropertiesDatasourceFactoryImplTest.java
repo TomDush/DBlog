@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.dao.context;
+package fr.dush.test.dblog.dao.scope.impl;
 
 import static org.junit.Assert.*;
 
@@ -11,6 +11,8 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
+import fr.dush.test.dblog.dao.context.AbstractSpringJunitTest;
+import fr.dush.test.dblog.dao.scope.IDatasourceFactory;
 import fr.dush.test.dblog.engine.context.ContextedThread;
 import fr.dush.test.dblog.exceptions.ConfigurationException;
 

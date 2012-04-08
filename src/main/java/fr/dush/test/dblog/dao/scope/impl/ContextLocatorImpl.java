@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.dao.context;
+package fr.dush.test.dblog.dao.scope.impl;
 
 import java.util.Locale;
 
@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
 
 import fr.dush.test.dblog.controller.I18nController;
+import fr.dush.test.dblog.dao.scope.IContextLocator;
 
 /**
  * Mais où suis-je ?? Ne vous inquiétez plus, vous êtes ici -----> *

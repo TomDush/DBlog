@@ -1,10 +1,10 @@
-package fr.dush.test.dblog.services.scopes;
+package fr.dush.test.dblog.dao.scope.language;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Instances dans un contexte language.
+ * Conserve toutes les instances d'un même langage. Cette classe est utilisée par {@link LanguageScope}.
  *
  * @author Thomas Duchatelle (duchatelle.thomas@gmail.com)
  *
