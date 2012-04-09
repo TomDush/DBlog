@@ -1,0 +1,43 @@
+/* AFFICHAGE DES TICKETS */
+
+.ticket {
+	width: 90%;
+	margin: 10px auto;
+	
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	
+	background-color: #DFDFDF;
+}
+
+.ticket .ticketinfo {
+	float: right;
+	text-align: right;
+	padding-right: 10px;
+	padding-top: 5px;
+
+	border-radius: 0px 10px 0px 0px;
+	-moz-border-radius: 0px 10px 0px 0px;
+	
+	font-style: italic;
+}
+
+.ticket h1 {
+	text-align: left;
+	font-size: 1.2em;
+	color: #333;
+	padding-left: 15px;
+	
+	width: 98%;
+	margin: auto;
+	border-bottom: 1px solid #444;
+}
+
+.ticket .content {
+	padding: 5px;
+	padding-bottom: 10px;
+	text-align: justify;
+	
+	border-radius: 0px 0px 10px 10px;
+	-moz-border-radius: 0px 0px 10px 10px;
+}

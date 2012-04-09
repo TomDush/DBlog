@@ -65,8 +65,7 @@ h3 {
 }
 
 h1.headerlogo {	
-	padding: 0px 50px;
-	text-align: left;
+	text-align: center;
 	font-size: 4em;
 	font-weight: bold;
 	font-variant: small-caps;
