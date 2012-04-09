@@ -18,12 +18,19 @@
 
 		<ui:repeat var="ticket" value="#{ticketsController.ticketPage}"
 			varStatus="status">
-			
+
 			<div class="ticket">
 				<div class="title">
-				<span class="ticketinfo">on <h:outputText value="#{ticket.date}" /> by <h:outputText value="#{ticket.authorName}" /></span>
-				<h1><h:outputText value="#{ticket.title}" /></h1>
-				<div class="content"><h:outputText value="#{ticket.message}" /></div>
+					<span class="ticketinfo"><h:outputFormat value="#{msg['tickets.dateAuthor']}">
+							<f:param value="#{ticket.date}" />
+							<f:param value="#{ticket.authorName}" />
+						</h:outputFormat></span>
+					<h1>
+						<h:outputText value="#{ticket.title}" />
+					</h1>
+					<div class="content">
+						<h:outputText value="#{ticket.message}" />
+					</div>
 				</div>
 			</div>
 		</ui:repeat>
