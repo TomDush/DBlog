@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.services.scopes;
+package fr.dush.test.dblog.dao.context;
 
 import javax.inject.Named;
 

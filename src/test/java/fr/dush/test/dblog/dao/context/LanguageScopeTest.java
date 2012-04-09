@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.services.scopes;
+package fr.dush.test.dblog.dao.context;
 
 import static org.junit.Assert.*;
 
@@ -15,10 +15,10 @@ import org.springframework.context.ApplicationContext;
 
 import fr.dush.test.dblog.controller.I18nController;
 import fr.dush.test.dblog.dao.scope.language.LanguageScope;
-import fr.dush.test.dblog.engine.AbstractWebContextJunitTest;
+import fr.dush.test.dblog.engine.AbstractSimpleSpringJunitTest;
 import fr.dush.test.dblog.engine.mock.context.ContextLocatorMock;
 
-public class LanguageScopeTest extends AbstractWebContextJunitTest {
+public class LanguageScopeTest extends AbstractSimpleSpringJunitTest {
 
 	@Inject
 	private ApplicationContext context;
@@ -26,11 +26,10 @@ public class LanguageScopeTest extends AbstractWebContextJunitTest {
 	@Inject
 	private I18nController i18nController;
 
-	// TODO Utiliser ce mock dans tous les TU
-	private final ContextLocatorMock contextLocator = new ContextLocatorMock();
-
 	@Test
 	public void testGet() {
+		final ContextLocatorMock contextLocator = new ContextLocatorMock();
+
 		// le test repose sur la comparaison des références d'objet
 		assertFalse(new Integer(3) == new Integer(3));
 
