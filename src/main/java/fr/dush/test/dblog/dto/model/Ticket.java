@@ -61,6 +61,16 @@ public class Ticket {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Collection<Comment> comments = new HashSet<>();
 
+	public Ticket() {
+	}
+
+	public Ticket(Date date, String title, String message, String authorName) {
+		this.date = date;
+		this.title = title;
+		this.message = message;
+		this.authorName = authorName;
+	}
+
 	public Integer getIdTicket() {
 		return idTicket;
 	}

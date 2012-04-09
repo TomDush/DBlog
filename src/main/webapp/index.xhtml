@@ -13,14 +13,18 @@
 		</h1>
 
 		<h2>
-			<h:outputText value="#{msg['homepage.lastTickets']" />
+			<h:outputText value="#{msg['homepage.lastTickets']}" />
 		</h2>
 
-		<ui:repeat var="locale" value="#{ticketsController.getTicketPage}"
+		<ui:repeat var="ticket" value="#{ticketsController.ticketPage}"
 			varStatus="status">
 			
 			<div class="ticket">
-				<h1></h1>
+				<div class="title">
+				<span class="info">on <h:outputText value="#{ticket.date}" /> by <h:outputText value="#{ticket.authorName}" /></span>
+				<h1><h:outputText value="#{ticket.title}" /></h1>
+				<div class="content"><h:outputText value="#{ticket.message}" /></div>
+				</div>
 			</div>
 		</ui:repeat>
 

@@ -14,6 +14,7 @@ import fr.dush.test.dblog.dto.model.Ticket;
 import fr.dush.test.dblog.engine.AbstractJunitTest;
 import fr.dush.test.dblog.services.page.Page;
 
+// FIXME Cette classe est totalmement inutile...
 @ContextConfiguration(locations = { "classpath:WEB-INF/spring/mock-dao.xml"})
 public class TicketManagerImplTest extends AbstractJunitTest {
 
