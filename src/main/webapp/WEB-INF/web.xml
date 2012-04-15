@@ -29,8 +29,9 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath:/WEB-INF/spring/context-global.xml,
-			classpath:/WEB-INF/spring/mock-peupled-dao.xml,
-			classpath:/WEB-INF/spring/context-persistence.xml			
+			classpath:/WEB-INF/spring/context-persistence.xml,
+			classpath:/WEB-INF/spring/context-scope.xml,
+			classpath:/WEB-INF/spring/mock-peupled-dao.xml		
 		</param-value>
 	</context-param>
 
