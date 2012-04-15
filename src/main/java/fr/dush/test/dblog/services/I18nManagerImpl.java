@@ -2,8 +2,10 @@ package fr.dush.test.dblog.services;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Properties;
@@ -33,6 +35,8 @@ public class I18nManagerImpl implements II18nManager {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(I18nManagerImpl.class);
 
+	private static final String PROPERTIES_ENCODING = "ISO-8859-1";
+
 	private final Set<AvailableLocale> availableLocales = new HashSet<>();
 
 	@Inject
@@ -49,6 +53,7 @@ public class I18nManagerImpl implements II18nManager {
 
 	/**
 	 * Revoie les langues disponibles pour l'application
+	 *
 	 * @return
 	 */
 	@Override
@@ -58,6 +63,7 @@ public class I18nManagerImpl implements II18nManager {
 
 	/**
 	 * Charge les fichiers de langue trouvé.
+	 *
 	 * @param i18nDir
 	 * @throws IOException
 	 */
@@ -71,25 +77,27 @@ public class I18nManagerImpl implements II18nManager {
 
 		for (final File f : locales) {
 			final AvailableLocale locale = convertAvailableLocale(f);
-			if(locale != null) availableLocales.add(locale);
+			if (locale != null) availableLocales.add(locale);
 		}
 	}
 
 	/**
 	 * Convertit le fichier de langue un contexte (langue, pays, nom du contexte) disponible.
+	 *
 	 * @param langFile fichier de langue
 	 * @return Locale disponible.
 	 * @throws IOException
 	 */
 	protected static AvailableLocale convertAvailableLocale(final File langFile) throws IOException {
+		// Pourquoi il ne charge pas le fichier par défaut en ISO ??
 		final Properties props = new Properties();
-		props.load(new FileReader(langFile));
+		props.load(new InputStreamReader(new FileInputStream(langFile), Charset.forName(PROPERTIES_ENCODING)));
 
 		// Détermination de la locale
 		final String[] localeStr = props.getProperty("locale").split("_");
 		Locale locale = null;
-		if(localeStr.length == 1) locale = new Locale(localeStr[0]);
-		else if(localeStr.length == 2) locale = new Locale(localeStr[0], localeStr[1]);
+		if (localeStr.length == 1) locale = new Locale(localeStr[0]);
+		else if (localeStr.length == 2) locale = new Locale(localeStr[0], localeStr[1]);
 		else {
 			LOGGER.error("String {} is not a valid locale. Found in file {}", props.getProperty("locale"), langFile);
 			return null;
@@ -103,5 +111,4 @@ public class I18nManagerImpl implements II18nManager {
 
 		return avalaibleLocale;
 	}
-
 }
