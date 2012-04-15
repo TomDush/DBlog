@@ -29,9 +29,13 @@ h1 {
 }
 
 h2 {
+	margin-top: 15px;
+	margin-bottom: 10px;
+	
 	font-size: 1.6em;
 	padding-left: 10px;
 	color: #FFF;
+	
 	background-image: -webkit-gradient(linear, left top, right top, color-stop(0.1, #165986),
 		color-stop(0.5, #FFF) );
 	background-image: -moz-linear-gradient(left center, #165986 10%, #FFF 50%);
