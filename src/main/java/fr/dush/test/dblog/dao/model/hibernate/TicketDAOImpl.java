@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.dao.model;
+package fr.dush.test.dblog.dao.model.hibernate;
 
 import java.util.List;
 
@@ -8,9 +8,12 @@ import javax.inject.Named;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.dush.test.dblog.dao.model.ITicketDAO;
 import fr.dush.test.dblog.dto.model.Ticket;
 
 @Named
@@ -18,7 +21,7 @@ import fr.dush.test.dblog.dto.model.Ticket;
 @Scope("language")
 public class TicketDAOImpl implements ITicketDAO {
 
-	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TicketDAOImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TicketDAOImpl.class);
 
 	@Inject
 	private SessionFactory sessionFactory;
@@ -31,19 +34,20 @@ public class TicketDAOImpl implements ITicketDAO {
 	public List<Ticket> findAll() {
 		@SuppressWarnings("unchecked")
 		final
-		List<Ticket> tickets = sessionFactory.getCurrentSession().createQuery("FROM Ticket ORDER BY date").list();
+		List<Ticket> tickets = sessionFactory.getCurrentSession().createQuery("FROM Ticket ORDER BY creationDate").list();
 
-		logger.debug("{} ticket(s) found", tickets.size());
+		LOGGER.debug("{} ticket(s) found", tickets.size());
 
 		return tickets;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Ticket> findPage(final int firstResult, final int maxResults) {
+	public List<Ticket> findPage(int firstResult, int maxResults) {
 		final Criteria c = sessionFactory.getCurrentSession().createCriteria(Ticket.class);
-		c.addOrder(Order.desc("date"));
+		c.addOrder(Order.desc("creationDate"));
 		c.setMaxResults(maxResults).setFirstResult(firstResult);
+		c.setCacheable(true);
 
 		return c.list();
 	}
@@ -55,7 +59,7 @@ public class TicketDAOImpl implements ITicketDAO {
 
 	@Override
 	public void merge(Ticket ticket) {
-		logger.debug("Save ticket : {}", ticket);
+		LOGGER.debug("Save ticket : {}", ticket);
 		sessionFactory.getCurrentSession().merge(ticket);
 	}
 
@@ -66,7 +70,7 @@ public class TicketDAOImpl implements ITicketDAO {
 
 	@Override
 	public long count() {
-		return (long) sessionFactory.getCurrentSession().createQuery("SELECT COUNT(t) FROM Ticket t").uniqueResult();
+		return (long) sessionFactory.getCurrentSession().createQuery("SELECT COUNT(*) FROM Ticket t").uniqueResult();
 	}
 
 }

@@ -34,7 +34,7 @@ public class TicketDAOImplTest extends AbstractJunitTest {
 		assertEquals("It's mine !", t.getMessage());
 		assertEquals("Oct", t.getTitle());
 		assertEquals(0, t.getComments().size());
-		assertEquals("2011-10-08 00:00:00.0", t.getDate().toString());
+		assertEquals("2011-10-08 00:00:00.0", t.getCreationDate().toString());
 	}
 
 	@Test
@@ -45,7 +45,7 @@ public class TicketDAOImplTest extends AbstractJunitTest {
 
 		final Ticket t = new Ticket();
 		t.setAuthorName("me");
-		t.setDate(new Date());
+		t.setCreationDate(new Date());
 		t.setMessage("J'ai rien a dire");
 		t.setTitle("Mon super message");
 
@@ -113,6 +113,77 @@ public class TicketDAOImplTest extends AbstractJunitTest {
 		assertEquals(2, tickets.size());
 		assertEquals("Mar", tickets.get(0).getTitle());
 		assertEquals("Jan", tickets.get(1).getTitle());
+	}
+
+	@Test
+	public void testCachedQuery() throws Exception {
+		// il faut activer les requetes SQL et lire le log pour valider..
+
+		List<Ticket> tickets = ticketDAO.findPage(0, 5);
+		assertEquals(5, tickets.size());
+
+		LOGGER.info("next call of 5 tickets");
+		tickets = ticketDAO.findPage(0, 5);
+		assertEquals(5, tickets.size());
+
+		LOGGER.info("next call of 10 tickets");
+		tickets = ticketDAO.findPage(0, 10);
+		assertEquals(5, tickets.size());
+
+		LOGGER.info("next call of 5 tickets");
+		tickets = ticketDAO.findPage(0, 5);
+		assertEquals(5, tickets.size());
+
+		LOGGER.info("next call of 10 tickets");
+		tickets = ticketDAO.findPage(0, 10);
+		assertEquals(5, tickets.size());
+	}
+
+	@Test
+	public void testCachedGet() throws Exception {
+		LOGGER.info("first call of ticket 4");
+		Ticket t1 = ticketDAO.findById(4);
+		assertNotNull(t1);
+
+		LOGGER.info("next call of ticket 4");
+		Ticket t2 = ticketDAO.findById(4);
+		assertNotNull(t2);
+		assertFalse(t1.equals(t2));
+
+		LOGGER.info("next call of ticket 4");
+		Ticket t3 = ticketDAO.findById(4);
+		assertNotNull(t3);
+		assertFalse(t1.equals(t3));
+	}
+
+	@Test
+	public void testSaveBetweenCachedQuery() throws Exception {
+
+		List<Ticket> tickets = ticketDAO.findPage(0, 5);
+		assertEquals(5, tickets.size());
+
+		Ticket t = new Ticket();
+		t.setAuthorName("me");
+		t.setCreationDate(new Date());
+		t.setMessage("New message");
+		t.setTitle("New message");
+
+		LOGGER.info("Merge 1 ticket");
+		ticketDAO.merge(t);
+
+		LOGGER.info("next call of 5 tickets");
+		tickets = ticketDAO.findPage(0, 5);
+		assertEquals(5, tickets.size());
+
+		LOGGER.info("next call of 5 tickets");
+		tickets = ticketDAO.findPage(0, 5);
+		assertEquals(5, tickets.size());
+
+		boolean newTicketPresent = false;
+		for(Ticket ti : tickets) {
+			if(ti.getTitle().equals(t.getTitle())) newTicketPresent = true;
+		}
+		assertTrue("Le nouveau ticket n'a pas été trouvé ...", newTicketPresent);
 	}
 
 }

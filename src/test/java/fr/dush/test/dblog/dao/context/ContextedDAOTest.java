@@ -70,7 +70,7 @@ public class ContextedDAOTest extends AbstractSimpleSpringJunitTest {
 			final ITicketDAO ticketDAO = getTicketDAO();
 
 			final Ticket t = new Ticket();
-			t.setDate(new Date());
+			t.setCreationDate(new Date());
 			t.setTitle(ticketTitle);
 			t.setMessage(ticketTitle);
 			t.setAuthorName(ticketTitle);

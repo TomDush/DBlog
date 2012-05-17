@@ -51,7 +51,7 @@ public class TicketDAOMock implements ITicketDAO {
 
 			@Override
 			public int compare(Ticket date1, Ticket date2) {
-				return date2.getDate().compareTo(date1.getDate());
+				return date2.getCreationDate().compareTo(date1.getCreationDate());
 			}
 		});
 		return list;
@@ -64,7 +64,7 @@ public class TicketDAOMock implements ITicketDAO {
 
 			@Override
 			public int compare(Ticket date1, Ticket date2) {
-				return date2.getDate().compareTo(date1.getDate());
+				return date2.getCreationDate().compareTo(date1.getCreationDate());
 			}
 		});
 		return list;

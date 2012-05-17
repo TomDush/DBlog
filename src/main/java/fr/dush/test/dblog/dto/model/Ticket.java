@@ -13,15 +13,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.annotations.Proxy;
+import org.hibernate.validator.constraints.NotBlank;
+
+import fr.dush.test.dblog.dao.events.AutoCreationDate;
 
 @Entity
-@Proxy(lazy = false)
-public class Ticket {
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public class Ticket implements AutoCreationDate {
 
 	@Id
 	@GeneratedValue
@@ -32,8 +38,15 @@ public class Ticket {
 	 * Date de création du ticket.
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull
-	private Date date;
+	@Column(name = "creation_date")
+	private Date creationDate;
+
+	/**
+	 * Date de création du ticket.
+	 */
+	@Version
+	@Column(name = "last_update")
+	private Date lastUpdate;
 
 	/**
 	 * Titre du billet.
@@ -44,12 +57,13 @@ public class Ticket {
 	/**
 	 * Contenu du billet
 	 */
+	@NotBlank
 	private String message;
 
 	/**
 	 * Nom de l'auteur.
 	 */
-	@NotNull
+	@NotBlank
 	@Column(name = "author_name")
 	private String authorName;
 
@@ -57,15 +71,17 @@ public class Ticket {
 	 * Commentaires sur le billet.
 	 */
 	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "ticket")
-	@OrderBy(value = "date")
+	@OrderBy(value = "creationDate")
+	@Valid
 	@LazyCollection(LazyCollectionOption.FALSE)
+//	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	private Collection<Comment> comments = new HashSet<>();
 
 	public Ticket() {
 	}
 
 	public Ticket(Date date, String title, String message, String authorName) {
-		this.date = date;
+		this.creationDate = date;
 		this.title = title;
 		this.message = message;
 		this.authorName = authorName;
@@ -79,12 +95,22 @@ public class Ticket {
 		this.idTicket = idTicket;
 	}
 
-	public Date getDate() {
-		return date;
+	@Override
+	public Date getCreationDate() {
+		return creationDate;
 	}
 
-	public void setDate(final Date date) {
-		this.date = date;
+	@Override
+	public void setCreationDate(final Date date) {
+		this.creationDate = date;
+	}
+
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 	public String getTitle() {
@@ -121,7 +147,7 @@ public class Ticket {
 
 	@Override
 	public String toString() {
-		return "Ticket [idTicket=" + idTicket + ", date=" + date + ", title=" + title + ", message=" + message + ", authorName="
+		return "Ticket [idTicket=" + idTicket + ", date=" + creationDate + ", title=" + title + ", message=" + message + ", authorName="
 				+ authorName + ", comments size=" + comments.size() + "]";
 	}
 

@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.dao.model;
+package fr.dush.test.dblog.dao.model.hibernate;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.dush.test.dblog.dao.model.ICommentDAO;
 import fr.dush.test.dblog.dto.model.Comment;
 
 @Named
@@ -40,7 +41,7 @@ public class CommentDAOImpl implements ICommentDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Comment> findLast(final int idTicket, final int nb) {
-		final Query q = sessionFactory.getCurrentSession().createQuery("FROM Comment WHERE ticket.idTicket = :idTicket ORDER BY date");
+		final Query q = sessionFactory.getCurrentSession().createQuery("FROM Comment WHERE ticket.idTicket = :idTicket ORDER BY creationDate");
 		q.setInteger("idTicket", idTicket);
 		q.setMaxResults(nb);
 		return q.list();

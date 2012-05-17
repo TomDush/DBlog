@@ -5,6 +5,7 @@ import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
 
+import fr.dush.test.dblog.dao.events.AutoCreationDate;
 import fr.dush.test.dblog.dao.model.ITicketDAO;
 import fr.dush.test.dblog.dto.model.Ticket;
 import fr.dush.test.dblog.services.page.Page;
@@ -39,7 +40,7 @@ public class TicketManagerImpl implements ITicketManager {
 	}
 
 	@Override
-	public Ticket findTicket(final int id) {
+	public AutoCreationDate findTicket(final int id) {
 		return ticketDAO.findById(id);
 	}
 

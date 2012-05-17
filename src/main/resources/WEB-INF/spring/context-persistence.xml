@@ -19,11 +19,15 @@
 			<value>
 				hibernate.dialect=${datasources.dialect}
 				hibernate.hbm2ddl.auto=create
+				hibernate.show_sql=true
+				hibernate.cache.use_query_cache=true
+				hibernate.cache.provider_class=org.hibernate.cache.EhCacheProvider
+				hibernate.cache.region.factory_class=org.hibernate.cache.ehcache.EhCacheRegionFactory
 			</value>
-			<!-- <value> -->
-			<!-- hibernate.hbm2ddl.auto=create-drop -->
-			<!-- </value> -->
 		</property>
+<!-- 		hibernate.cache.use_query_cache=true -->
+<!-- <property name="hibernate.cache.region.factory_class"> -->
+<!--          net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</property> -->
 	</bean>
 
 	<!-- TRANSACTIONS -->

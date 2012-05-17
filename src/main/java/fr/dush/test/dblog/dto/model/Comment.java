@@ -9,10 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Proxy;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Proxy(lazy = false)
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Comment {
 
 	@Id
@@ -20,19 +24,20 @@ public class Comment {
 	@Column(name = "id_comment")
 	private Integer idComment;
 
-	@NotNull
+	@NotBlank
 	@Column(name = "author_name")
 	private String authorName;
 
 	@ManyToOne
 	@NotNull
 	//@Column(name = "id_ticket")
-	//@LazyToOne(LazyToOneOption.FALSE)
 	private Ticket ticket;
 
 	@NotNull
-	private Date date;
+	@Column(name = "creation_date")
+	private Date creationDate;
 
+	@NotBlank
 	private String message;
 
 	public Integer getIdComment() {
@@ -52,11 +57,11 @@ public class Comment {
 	}
 
 	public Date getDate() {
-		return date;
+		return creationDate;
 	}
 
 	public void setDate(final Date date) {
-		this.date = date;
+		this.creationDate = date;
 	}
 
 	public String getMessage() {
@@ -77,7 +82,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [idComment=" + idComment + ", authorName=" + authorName + ", ticket=" + ticket + ", date=" + date + ", message="
+		return "Comment [idComment=" + idComment + ", authorName=" + authorName + ", ticket=" + ticket + ", date=" + creationDate + ", message="
 				+ message + "]";
 	}
 

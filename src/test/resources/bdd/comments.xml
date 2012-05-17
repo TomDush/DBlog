@@ -1,42 +1,42 @@
 <dataset>
     <TICKET	id_ticket="2" 
-				date="2011-10-08"
+				creation_date="2011-10-08"
                 title="Oct"
                 message="It's mine !"
 				author_name="Dush"/> 
     <TICKET	id_ticket="3" 
-				date="2012-12-21"
+				creation_date="2012-12-21"
                 title="Jan"
                 message="Hello world"
 				author_name="Me"/> 
 	
     <COMMENT	id_comment="3" 
     			ticket_id_ticket="2"
-				date="2011-10-09"
+				creation_date="2011-10-09"
                 message="My Message"
 				author_name="NiceGirl"/> 
 	
     <COMMENT	id_comment="4" 
     			ticket_id_ticket="3"
-				date="2011-10-08"
+				creation_date="2011-10-08"
                 message="Oct"
 				author_name="NiceGirl"/> 
 	
     <COMMENT	id_comment="5" 
     			ticket_id_ticket="3"
-				date="2011-11-09"
+				creation_date="2011-11-09"
                 message="Nov"
 				author_name="NiceGirl"/> 
 	
     <COMMENT	id_comment="6" 
     			ticket_id_ticket="3"
-				date="2011-01-09"
+				creation_date="2011-01-09"
                 message="Jan"
 				author_name="NiceGirl"/> 
 	
     <COMMENT	id_comment="7" 
     			ticket_id_ticket="3"
-				date="2011-03-09"
+				creation_date="2011-03-09"
                 message="Mar"
 				author_name="NiceGirl"/> 
 </dataset>
