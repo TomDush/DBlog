@@ -1,5 +1,6 @@
 package fr.dush.test.dblog.dto.model;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -25,9 +26,12 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import fr.dush.test.dblog.dao.events.AutoCreationDate;
 
+
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Ticket implements AutoCreationDate {
+public class Ticket implements AutoCreationDate, Serializable {
+
+	private static final long serialVersionUID = -4065056584175302382L;
 
 	@Id
 	@GeneratedValue

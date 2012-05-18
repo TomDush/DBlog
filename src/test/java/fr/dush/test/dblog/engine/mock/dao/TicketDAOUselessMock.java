@@ -1,5 +1,6 @@
 package fr.dush.test.dblog.engine.mock.dao;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,23 +24,34 @@ public class TicketDAOUselessMock implements ITicketDAO {
 	}
 
 	@Override
-	public Ticket findById(final Integer id) {
+	public Ticket findById(Serializable id) {
 		return tickets.get(id);
 	}
 
 	@Override
-	public void merge(final Ticket ticket) {
+	public Ticket merge(Ticket ticket) {
 		tickets.put(ticket.getIdTicket(), ticket);
+		return ticket;
 	}
 
 	@Override
-	public void delete(final Integer ticket) {
-		tickets.remove(ticket);
+	public void delete(Ticket ticket) {
+		tickets.remove(ticket.getIdTicket());
 	}
 
 	@Override
 	public long count() {
 		return tickets.size();
+	}
+
+	@Override
+	public void deleteById(Serializable id) {
+		tickets.remove(id);
+	}
+
+	@Override
+	public void save(Ticket ticket) {
+		merge(ticket);
 	}
 
 }

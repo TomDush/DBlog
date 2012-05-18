@@ -1,11 +1,14 @@
 package fr.dush.test.dblog.dto.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
@@ -17,29 +20,23 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Proxy(lazy = false)
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class Comment {
+public class Comment implements Serializable {
+
+	private static final long serialVersionUID = -6763893228021416944L;
+
+	private Integer idComment;
+
+	private String authorName;
+
+	private Ticket ticket;
+
+	private Date creationDate;
+
+	private String message;
 
 	@Id
 	@GeneratedValue
 	@Column(name = "id_comment")
-	private Integer idComment;
-
-	@NotBlank
-	@Column(name = "author_name")
-	private String authorName;
-
-	@ManyToOne
-	@NotNull
-	//@Column(name = "id_ticket")
-	private Ticket ticket;
-
-	@NotNull
-	@Column(name = "creation_date")
-	private Date creationDate;
-
-	@NotBlank
-	private String message;
-
 	public Integer getIdComment() {
 		return idComment;
 	}
@@ -48,6 +45,9 @@ public class Comment {
 		this.idComment = idComment;
 	}
 
+	@ManyToOne(cascade = {}, fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "id_ticket", nullable = false, insertable = false, updatable = false)
+	@NotNull
 	public Ticket getTicket() {
 		return ticket;
 	}
@@ -56,14 +56,17 @@ public class Comment {
 		this.ticket = ticket;
 	}
 
-	public Date getDate() {
+	@Column(name = "creation_date")
+	@NotNull
+	public Date getCreationDate() {
 		return creationDate;
 	}
 
-	public void setDate(final Date date) {
+	public void setCreationDate(final Date date) {
 		this.creationDate = date;
 	}
 
+	@NotBlank
 	public String getMessage() {
 		return message;
 	}
@@ -72,6 +75,8 @@ public class Comment {
 		this.message = message;
 	}
 
+	@Column(name = "author_name")
+	@NotBlank
 	public String getAuthorName() {
 		return authorName;
 	}
@@ -82,8 +87,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [idComment=" + idComment + ", authorName=" + authorName + ", ticket=" + ticket + ", date=" + creationDate + ", message="
-				+ message + "]";
+		return "Comment [idComment=" + idComment + ", authorName=" + authorName + ", ticket=" + ticket + ", date=" + creationDate + ", message=" + message + "]";
 	}
 
 }

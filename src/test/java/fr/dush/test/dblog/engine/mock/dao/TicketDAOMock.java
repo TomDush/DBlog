@@ -1,5 +1,6 @@
 package fr.dush.test.dblog.engine.mock.dao;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -71,12 +72,12 @@ public class TicketDAOMock implements ITicketDAO {
 	}
 
 	@Override
-	public Ticket findById(final Integer id) {
+	public Ticket findById(Serializable id) {
 		return tickets.get(id);
 	}
 
 	@Override
-	public void merge(final Ticket ticket) {
+	public Ticket merge(Ticket ticket) {
 		if (ticket.getIdTicket() == null) {
 			synchronized (this) {
 				ticket.setIdTicket(ticketId++);
@@ -84,16 +85,28 @@ public class TicketDAOMock implements ITicketDAO {
 		}
 
 		tickets.put(ticket.getIdTicket(), ticket);
+
+		return ticket;
 	}
 
 	@Override
-	public void delete(final Integer ticket) {
+	public void deleteById(Serializable ticket) {
 		tickets.remove(ticket);
 	}
 
 	@Override
 	public long count() {
 		return tickets.size();
+	}
+
+	@Override
+	public void delete(Ticket ticket) {
+		deleteById(ticket.getIdTicket());
+	}
+
+	@Override
+	public void save(Ticket ticket) {
+		merge(ticket);
 	}
 
 }

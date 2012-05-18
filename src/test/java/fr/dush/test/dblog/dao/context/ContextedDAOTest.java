@@ -75,7 +75,7 @@ public class ContextedDAOTest extends AbstractSimpleSpringJunitTest {
 			t.setMessage(ticketTitle);
 			t.setAuthorName(ticketTitle);
 
-			ticketDAO.merge(t);
+			ticketDAO.save(t);
 			LOGGER.info("Ticket {} saved on locale {}", t, locale);
 		}
 

@@ -54,7 +54,7 @@ public class TicketDAOImplTest extends AbstractJunitTest {
 		t.setMessage("J'ai rien a dire");
 		t.setTitle("Mon super message");
 
-		ticketDAO.merge(t);
+		ticketDAO.save(t);
 
 		assertEquals(1, ticketDAO.findAll().size() - size);
 
@@ -83,7 +83,7 @@ public class TicketDAOImplTest extends AbstractJunitTest {
 		Ticket t = ticketDAO.findById(id);
 		assertNotNull("Test init failed.", t);
 
-		ticketDAO.delete(id);
+		ticketDAO.deleteById(id);
 
 		t = ticketDAO.findById(id);
 		assertNull("Test init failed.", t);
@@ -173,8 +173,8 @@ public class TicketDAOImplTest extends AbstractJunitTest {
 		t.setMessage("New message");
 		t.setTitle("New message");
 
-		LOGGER.info("Merge 1 ticket");
-		ticketDAO.merge(t);
+		LOGGER.info("save 1 ticket");
+		ticketDAO.save(t);
 
 		LOGGER.info("next call of 5 tickets");
 		tickets = ticketDAO.findPage(0, 5);
@@ -202,7 +202,7 @@ public class TicketDAOImplTest extends AbstractJunitTest {
 		t.setTitle("New message");
 
 		// Ca fonctionne car la validation ne se fait PAS avant la mise en BDD (et la base de données n'a pas la contrainte).
-		ticketDAO.merge(t);
+		ticketDAO.save(t);
 	}
 
 	@Test

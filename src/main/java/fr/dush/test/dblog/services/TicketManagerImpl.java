@@ -36,7 +36,7 @@ public class TicketManagerImpl implements ITicketManager {
 	@Override
 	public void saveTicket(final Ticket ticket) {
 		// TODO protéger (bbcode ?) les champs de texte.
-		ticketDAO.merge(ticket);
+		ticketDAO.save(ticket);
 	}
 
 	@Override

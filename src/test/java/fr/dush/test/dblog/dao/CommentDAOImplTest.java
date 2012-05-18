@@ -37,12 +37,13 @@ public class CommentDAOImplTest extends AbstractJunitTest {
 		final Integer id = 5;
 
 		Comment c = commentDAO.findById(id);
+//		c.getTicket().getComments().remove(c);
 		assertNotNull("Test init failed.", c);
 
-		commentDAO.delete(id);
+		commentDAO.delete(c);
 
 		c = commentDAO.findById(id);
-		assertNull("Test init failed.", c);
+		assertNull(c);
 	}
 
 	@Test
@@ -52,7 +53,7 @@ public class CommentDAOImplTest extends AbstractJunitTest {
 		assertEquals(new Integer(3), comment.getIdComment());
 		assertEquals(new Integer(2), comment.getTicket().getIdTicket());
 		assertEquals("My Message", comment.getMessage());
-		assertEquals("2011-10-09 00:00:00.0", comment.getDate().toString());
+		assertEquals("2011-10-09 00:00:00.0", comment.getCreationDate().toString());
 		assertEquals("NiceGirl", comment.getAuthorName());
 	}
 
@@ -95,16 +96,16 @@ public class CommentDAOImplTest extends AbstractJunitTest {
 	}
 
 	@Test
-	public void testMerge() {
+	public void testSave() {
 		final long count = commentDAO.countByTicket(2);
 
 		final Comment c = new Comment();
 		c.setAuthorName("me");
-		c.setDate(new Date());
+		c.setCreationDate(new Date());
 		c.setMessage("J'ai rien a dire");
 		c.setTicket(ticketDAO.findById(2));
 
-		commentDAO.merge(c);
+		commentDAO.save(c);
 
 		assertEquals(1, commentDAO.countByTicket(2) - count);
 	}

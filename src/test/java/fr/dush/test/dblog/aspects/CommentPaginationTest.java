@@ -50,10 +50,10 @@ public class CommentPaginationTest extends AbstractJunitTest {
 		Date d = null;
 		for (final Comment c : t.getComments()) {
 			if (d != null) {
-				assertTrue(d.after(c.getDate()));
+				assertTrue(d.after(c.getCreationDate()));
 			}
 
-			d = c.getDate();
+			d = c.getCreationDate();
 		}
 
 	}

@@ -26,14 +26,14 @@ public class TicketManagerImplTest extends AbstractJunitTest {
 
 	@Before
 	public void addTickets() {
-		ticketDAOMock.merge(generateTicket(2));
-		ticketDAOMock.merge(generateTicket(3));
-		ticketDAOMock.merge(generateTicket(4));
+		ticketDAOMock.save(generateTicket(2));
+		ticketDAOMock.save(generateTicket(3));
+		ticketDAOMock.save(generateTicket(4));
 	}
 
 	@After
 	public void deleteCreatedTickets() {
-		ticketDAOMock.delete(1);
+		ticketDAOMock.deleteById(1);
 	}
 
 	private Ticket generateTicket(final int id) {

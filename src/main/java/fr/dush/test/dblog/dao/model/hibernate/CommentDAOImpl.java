@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.hibernate.Criteria;
-import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -14,28 +13,24 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.dush.test.dblog.dao.AbstractGenericDAOImpl;
 import fr.dush.test.dblog.dao.model.ICommentDAO;
 import fr.dush.test.dblog.dto.model.Comment;
 
 @Named
 @Transactional
 @Scope("language")
-public class CommentDAOImpl implements ICommentDAO {
+public class CommentDAOImpl extends AbstractGenericDAOImpl<Comment> implements ICommentDAO {
+
+	public CommentDAOImpl() {
+		super(Comment.class, true);
+	}
 
 	@Inject
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(final SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
-	}
-
-	@Override
-	public Comment findById(final Integer id) {
-		try {
-			return (Comment) sessionFactory.getCurrentSession().load(Comment.class, id);
-		} catch (final ObjectNotFoundException e) {
-			return null;
-		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -49,33 +44,20 @@ public class CommentDAOImpl implements ICommentDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Comment> findByTicket(final Integer ticket, final int firstResult, final int maxResult) {
+	public List<Comment> findByTicket(int ticket, final int firstResult, final int maxResult) {
 		final Criteria c = sessionFactory.getCurrentSession().createCriteria(Comment.class);
-		c.add(Restrictions.eq("ticket.idTicket", ticket)).addOrder(Order.desc("date"));
+		c.add(Restrictions.eq("ticket.idTicket", ticket)).addOrder(Order.desc("creationDate"));
 		c.setFirstResult(firstResult).setMaxResults(maxResult);
 
 		return c.list();
 	}
 
 	@Override
-	public long countByTicket(final Integer idTicket) {
-		final Query q = sessionFactory.getCurrentSession()
-				.createQuery("SELECT COUNT(c) FROM Comment c WHERE c.ticket.idTicket = :idTicket");
+	public long countByTicket(int idTicket) {
+		final Query q = sessionFactory.getCurrentSession().createQuery("SELECT COUNT(c) FROM Comment c WHERE c.ticket.idTicket = :idTicket");
 		q.setInteger("idTicket", idTicket);
 
 		return (long) q.uniqueResult();
-	}
-
-	@Override
-	public void merge(final Comment comment) {
-		sessionFactory.getCurrentSession().merge(comment);
-	}
-
-	@Override
-	public void delete(final Integer commentId) {
-		final Comment c = findById(commentId);
-		c.getTicket().getComments().remove(c);
-		sessionFactory.getCurrentSession().delete(c);
 	}
 
 }

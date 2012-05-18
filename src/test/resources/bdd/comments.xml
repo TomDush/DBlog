@@ -11,31 +11,31 @@
 				author_name="Me"/> 
 	
     <COMMENT	id_comment="3" 
-    			ticket_id_ticket="2"
+    			id_ticket="2"
 				creation_date="2011-10-09"
                 message="My Message"
 				author_name="NiceGirl"/> 
 	
     <COMMENT	id_comment="4" 
-    			ticket_id_ticket="3"
+    			id_ticket="3"
 				creation_date="2011-10-08"
                 message="Oct"
 				author_name="NiceGirl"/> 
 	
     <COMMENT	id_comment="5" 
-    			ticket_id_ticket="3"
+    			id_ticket="3"
 				creation_date="2011-11-09"
                 message="Nov"
 				author_name="NiceGirl"/> 
 	
     <COMMENT	id_comment="6" 
-    			ticket_id_ticket="3"
+    			id_ticket="3"
 				creation_date="2011-01-09"
                 message="Jan"
 				author_name="NiceGirl"/> 
 	
     <COMMENT	id_comment="7" 
-    			ticket_id_ticket="3"
+    			id_ticket="3"
 				creation_date="2011-03-09"
                 message="Mar"
 				author_name="NiceGirl"/> 
