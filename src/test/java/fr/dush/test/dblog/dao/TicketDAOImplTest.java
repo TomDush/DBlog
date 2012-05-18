@@ -5,8 +5,13 @@ import static org.junit.Assert.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -180,10 +185,41 @@ public class TicketDAOImplTest extends AbstractJunitTest {
 		assertEquals(5, tickets.size());
 
 		boolean newTicketPresent = false;
-		for(Ticket ti : tickets) {
-			if(ti.getTitle().equals(t.getTitle())) newTicketPresent = true;
+		for (Ticket ti : tickets) {
+			if (ti.getTitle().equals(t.getTitle())) newTicketPresent = true;
 		}
 		assertTrue("Le nouveau ticket n'a pas été trouvé ...", newTicketPresent);
+	}
+
+	@Test
+	public void testSavingError() throws Exception {
+		// Je souhaite que Hibernate ne valide PAS avant insertion : la BDD s'en chargera.
+
+		Ticket t = new Ticket();
+		// PAS de nom d'auteur (obligatoire) : t.setAuthorName("me");
+		t.setCreationDate(new Date());
+		t.setMessage("New message");
+		t.setTitle("New message");
+
+		// Ca fonctionne car la validation ne se fait PAS avant la mise en BDD (et la base de données n'a pas la contrainte).
+		ticketDAO.merge(t);
+	}
+
+	@Test
+	public void testValidator() throws Exception {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+
+		Ticket t = new Ticket();
+		// PAS de nom d'auteur (obligatoire) : t.setAuthorName("me");
+		t.setCreationDate(new Date());
+		t.setMessage("New message");
+		t.setTitle("New message");
+
+		Set<ConstraintViolation<Ticket>> violations = validator.validate(t);
+		assertNotNull(violations);
+		assertEquals(1, violations.size());
+		LOGGER.info("Ticket's errors : {}", violations);
 	}
 
 }
