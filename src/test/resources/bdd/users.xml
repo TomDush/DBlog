@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <USER USER_ID="1" EMAIL="me@gmail.com" LOGIN="me" PASSWORD="mePass"/>
+  <USER USER_ID="2" EMAIL="tomdush@gmail.com" LOGIN="Dush" PASSWORD="dushpass"/>
+  <USER USER_ID="3" EMAIL="dieu@paradis.up" LOGIN="Dieu" PASSWORD="chucknoris"/>
+</dataset>
