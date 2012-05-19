@@ -96,6 +96,7 @@ public class CommentDAOImplTest extends AbstractJunitTest {
 	}
 
 	@Test
+	@DatabaseScripts(dumpDatabase = true)
 	public void testSave() {
 		final long count = commentDAO.countByTicket(2);
 

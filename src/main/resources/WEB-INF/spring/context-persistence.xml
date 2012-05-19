@@ -26,9 +26,6 @@
 				javax.persistence.validation.mode=none
 			</value>
 		</property>
-<!-- 		hibernate.cache.use_query_cache=true -->
-<!-- <property name="hibernate.cache.region.factory_class"> -->
-<!--          net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</property> -->
 	</bean>
 
 	<!-- TRANSACTIONS -->

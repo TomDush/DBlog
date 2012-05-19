@@ -8,20 +8,18 @@ import java.util.HashSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Version;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotBlank;
 
 import fr.dush.test.dblog.dao.events.AutoCreationDate;
@@ -48,7 +46,7 @@ public class Ticket implements AutoCreationDate, Serializable {
 	/**
 	 * Date de création du ticket.
 	 */
-	@Version
+//	@Version // Pose problème quand on sauvegarde qu'un commentaire.
 	@Column(name = "last_update")
 	private Date lastUpdate;
 
@@ -74,11 +72,10 @@ public class Ticket implements AutoCreationDate, Serializable {
 	/**
 	 * Commentaires sur le billet.
 	 */
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "ticket")
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "ticket", fetch = FetchType.EAGER)
 	@OrderBy(value = "creationDate")
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@Valid
-	@LazyCollection(LazyCollectionOption.FALSE)
-//	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	private Collection<Comment> comments = new HashSet<>();
 
 	public Ticket() {

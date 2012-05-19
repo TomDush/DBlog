@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -19,7 +18,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Proxy(lazy = false)
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Comment implements Serializable {
 
 	private static final long serialVersionUID = -6763893228021416944L;
@@ -45,8 +44,8 @@ public class Comment implements Serializable {
 		this.idComment = idComment;
 	}
 
-	@ManyToOne(cascade = {}, fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "id_ticket", nullable = false, insertable = false, updatable = false)
+	@ManyToOne//(cascade = {}, fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_ticket") //, nullable = false, insertable = false, updatable = false
 	@NotNull
 	public Ticket getTicket() {
 		return ticket;
