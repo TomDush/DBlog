@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.dao;
+package fr.dush.test.dblog.dao.model.hibernate;
 
 import static org.junit.Assert.*;
 
@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.dush.test.dblog.dao.model.ITicketDAO;
+import fr.dush.test.dblog.dao.security.IUserDAO;
 import fr.dush.test.dblog.dto.model.Ticket;
 import fr.dush.test.dblog.engine.AbstractJunitTest;
 import fr.dush.test.dblog.engine.dbunitapi.DatabaseScripts;
@@ -26,6 +27,9 @@ import fr.dush.test.dblog.engine.dbunitapi.DatabaseScripts;
 public class TicketDAOImplTest extends AbstractJunitTest {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TicketDAOImplTest.class);
+
+	@Inject
+	private IUserDAO userDAO;
 
 	@Inject
 	private ITicketDAO ticketDAO;
@@ -49,7 +53,7 @@ public class TicketDAOImplTest extends AbstractJunitTest {
 		final int size = ticketDAO.findAll().size();
 
 		final Ticket t = new Ticket();
-		t.setAuthorName("me");
+		t.setAuthor(userDAO.findById(1));
 		t.setCreationDate(new Date());
 		t.setMessage("J'ai rien a dire");
 		t.setTitle("Mon super message");
@@ -168,7 +172,7 @@ public class TicketDAOImplTest extends AbstractJunitTest {
 		assertEquals(5, tickets.size());
 
 		Ticket t = new Ticket();
-		t.setAuthorName("me");
+		t.setAuthor(userDAO.findById(1));
 		t.setCreationDate(new Date());
 		t.setMessage("New message");
 		t.setTitle("New message");

@@ -14,7 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
 import fr.dush.test.dblog.dao.model.ITicketDAO;
+import fr.dush.test.dblog.dao.security.IUserDAO;
 import fr.dush.test.dblog.dto.model.Ticket;
+import fr.dush.test.dblog.dto.security.User;
 import fr.dush.test.dblog.engine.AbstractSimpleSpringJunitTest;
 import fr.dush.test.dblog.engine.context.ContextedThread;
 
@@ -67,13 +69,17 @@ public class ContextedDAOTest extends AbstractSimpleSpringJunitTest {
 
 		@Override
 		public void test() {
+			final IUserDAO userDAO = getUserDAO();
+			User user = new User("TomDush", "tom.dush@gmail.com");
+			userDAO.save(user);
+
 			final ITicketDAO ticketDAO = getTicketDAO();
 
 			final Ticket t = new Ticket();
 			t.setCreationDate(new Date());
 			t.setTitle(ticketTitle);
 			t.setMessage(ticketTitle);
-			t.setAuthorName(ticketTitle);
+			t.setAuthor(user);
 
 			ticketDAO.save(t);
 			LOGGER.info("Ticket {} saved on locale {}", t, locale);

@@ -1,4 +1,4 @@
-package fr.dush.test.dblog.dao;
+package fr.dush.test.dblog.dao.model.hibernate;
 
 import static org.junit.Assert.*;
 
@@ -12,12 +12,16 @@ import org.junit.Test;
 
 import fr.dush.test.dblog.dao.model.ICommentDAO;
 import fr.dush.test.dblog.dao.model.ITicketDAO;
+import fr.dush.test.dblog.dao.security.IUserDAO;
 import fr.dush.test.dblog.dto.model.Comment;
 import fr.dush.test.dblog.engine.AbstractJunitTest;
 import fr.dush.test.dblog.engine.dbunitapi.DatabaseScripts;
 
 @DatabaseScripts(locations = { "/bdd/comments.xml" })
 public class CommentDAOImplTest extends AbstractJunitTest {
+
+	@Inject
+	private IUserDAO userDAO;
 
 	@Inject
 	private ICommentDAO commentDAO;
@@ -37,7 +41,6 @@ public class CommentDAOImplTest extends AbstractJunitTest {
 		final Integer id = 5;
 
 		Comment c = commentDAO.findById(id);
-//		c.getTicket().getComments().remove(c);
 		assertNotNull("Test init failed.", c);
 
 		commentDAO.delete(c);
@@ -54,7 +57,7 @@ public class CommentDAOImplTest extends AbstractJunitTest {
 		assertEquals(new Integer(2), comment.getTicket().getIdTicket());
 		assertEquals("My Message", comment.getMessage());
 		assertEquals("2011-10-09 00:00:00.0", comment.getCreationDate().toString());
-		assertEquals("NiceGirl", comment.getAuthorName());
+		assertEquals("Dush", comment.getAuthorName());
 	}
 
 	@Test
@@ -101,7 +104,7 @@ public class CommentDAOImplTest extends AbstractJunitTest {
 		final long count = commentDAO.countByTicket(2);
 
 		final Comment c = new Comment();
-		c.setAuthorName("me");
+		c.setAuthor(userDAO.findById(1));
 		c.setCreationDate(new Date());
 		c.setMessage("J'ai rien a dire");
 		c.setTicket(ticketDAO.findById(2));

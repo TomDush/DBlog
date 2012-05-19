@@ -11,7 +11,6 @@ import fr.dush.test.dblog.dto.security.User;
 import fr.dush.test.dblog.engine.AbstractJunitTest;
 import fr.dush.test.dblog.engine.dbunitapi.DatabaseScripts;
 
-@DatabaseScripts(locations = "/bdd/users.xml")
 public class UserDAOImplTest extends AbstractJunitTest {
 
 	@Inject

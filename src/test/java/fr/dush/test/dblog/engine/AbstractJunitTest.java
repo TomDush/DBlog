@@ -31,6 +31,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import fr.dush.test.dblog.dao.scope.IDatasourceFactory;
 import fr.dush.test.dblog.engine.dbunitapi.DBUnitJUnit4ClassRunner;
+import fr.dush.test.dblog.engine.dbunitapi.DatabaseScripts;
 import fr.dush.test.dblog.engine.dbunitapi.IDatabaseScriptsReader;
 
 /**
@@ -45,6 +46,7 @@ import fr.dush.test.dblog.engine.dbunitapi.IDatabaseScriptsReader;
  */
 @RunWith(DBUnitJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:WEB-INF/spring/mock-datasources.xml"})
+@DatabaseScripts(locations = "/bdd/users.xml")
 public abstract class AbstractJunitTest extends AbstractSimpleSpringJunitTest implements IDatabaseScriptsReader {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractJunitTest.class);

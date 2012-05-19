@@ -4,30 +4,30 @@
 				last_update="2011-10-08"
                 title="Oct"
                 message="It's mine !"
-				author_name="Dush"/> 
+				author_id="2" /> 
     <TICKET	id_ticket="5" 
 				creation_date="2011-01-01"
 				last_update="2011-01-01 12:00:00"
                 title="Jan"
                 message="Hello world"
-				author_name="Me"/> 
+				author_id="1" /> 
     <TICKET	id_ticket="6" 
 				creation_date="2011-03-01"
 				last_update="2011-03-01 09:30:00"
                 title="Mar"
                 message="Hello world"
-				author_name="Him"/> 
+				author_id="1" /> 
     <TICKET	id_ticket="7" 
 				creation_date="2011-11-01"
 				last_update="2011-11-01"
                 title="Nov"
                 message="Hello world"
-				author_name="Foo"/> 
+				author_id="2" /> 
     <TICKET	id_ticket="8" 
 				creation_date="2011-05-01"
 				last_update="2011-05-01"
                 title="Mai"
                 message="Hello world"
-				author_name="Bar"/> 
+				author_id="2" /> 
 				
 </dataset>

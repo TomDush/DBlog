@@ -11,10 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -23,7 +26,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotBlank;
 
 import fr.dush.test.dblog.dao.events.AutoCreationDate;
-
+import fr.dush.test.dblog.dto.security.User;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -31,63 +34,51 @@ public class Ticket implements AutoCreationDate, Serializable {
 
 	private static final long serialVersionUID = -4065056584175302382L;
 
-	@Id
-	@GeneratedValue
-	@Column(name = "id_ticket")
 	private Integer idTicket;
 
 	/**
 	 * Date de création du ticket.
 	 */
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "creation_date")
 	private Date creationDate;
 
 	/**
 	 * Date de création du ticket.
 	 */
-//	@Version // Pose problème quand on sauvegarde qu'un commentaire.
-	@Column(name = "last_update")
 	private Date lastUpdate;
 
 	/**
 	 * Titre du billet.
 	 */
-	@NotNull
 	private String title;
 
 	/**
 	 * Contenu du billet
 	 */
-	@NotBlank
 	private String message;
 
 	/**
 	 * Nom de l'auteur.
 	 */
-	@NotBlank
-	@Column(name = "author_name")
-	private String authorName;
+	private User author;
 
 	/**
 	 * Commentaires sur le billet.
 	 */
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "ticket", fetch = FetchType.EAGER)
-	@OrderBy(value = "creationDate")
-	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	@Valid
 	private Collection<Comment> comments = new HashSet<>();
 
 	public Ticket() {
 	}
 
-	public Ticket(Date date, String title, String message, String authorName) {
+	public Ticket(Date date, String title, String message, User user) {
 		this.creationDate = date;
 		this.title = title;
 		this.message = message;
-		this.authorName = authorName;
+		this.author = user;
 	}
 
+	@Id
+	@GeneratedValue
+	@Column(name = "id_ticket")
 	public Integer getIdTicket() {
 		return idTicket;
 	}
@@ -96,6 +87,8 @@ public class Ticket implements AutoCreationDate, Serializable {
 		this.idTicket = idTicket;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "creation_date")
 	@Override
 	public Date getCreationDate() {
 		return creationDate;
@@ -106,6 +99,8 @@ public class Ticket implements AutoCreationDate, Serializable {
 		this.creationDate = date;
 	}
 
+	@Column(name = "last_update")
+	// @Version // Pose problème quand on sauvegarde qu'un commentaire.
 	public Date getLastUpdate() {
 		return lastUpdate;
 	}
@@ -114,6 +109,7 @@ public class Ticket implements AutoCreationDate, Serializable {
 		this.lastUpdate = lastUpdate;
 	}
 
+	@NotBlank
 	public String getTitle() {
 		return title;
 	}
@@ -122,6 +118,7 @@ public class Ticket implements AutoCreationDate, Serializable {
 		this.title = title;
 	}
 
+	@NotBlank
 	public String getMessage() {
 		return message;
 	}
@@ -130,6 +127,10 @@ public class Ticket implements AutoCreationDate, Serializable {
 		this.message = message;
 	}
 
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "ticket", fetch = FetchType.EAGER)
+	@OrderBy(value = "creationDate")
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+	@Valid
 	public Collection<Comment> getComments() {
 		return comments;
 	}
@@ -138,18 +139,26 @@ public class Ticket implements AutoCreationDate, Serializable {
 		this.comments = comments;
 	}
 
+	@Transient
 	public String getAuthorName() {
-		return authorName;
+		return author == null ? "" : author.getLogin();
 	}
 
-	public void setAuthorName(final String authorName) {
-		this.authorName = authorName;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "author_id")
+	@NotNull
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User user) {
+		this.author = user;
 	}
 
 	@Override
 	public String toString() {
-		return "Ticket [idTicket=" + idTicket + ", date=" + creationDate + ", title=" + title + ", message=" + message + ", authorName="
-				+ authorName + ", comments size=" + comments.size() + "]";
+		return "Ticket [idTicket=" + idTicket + ", date=" + creationDate + ", title=" + title + ", message=" + message + ", autor login=" + getAuthorName()
+				+ ", comments size=" + comments.size() + "]";
 	}
 
 }

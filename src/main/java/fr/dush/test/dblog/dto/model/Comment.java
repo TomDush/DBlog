@@ -5,16 +5,21 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.validator.constraints.NotBlank;
+
+import fr.dush.test.dblog.dto.security.User;
+
 
 @Entity
 @Proxy(lazy = false)
@@ -25,7 +30,7 @@ public class Comment implements Serializable {
 
 	private Integer idComment;
 
-	private String authorName;
+	private User author;
 
 	private Ticket ticket;
 
@@ -44,8 +49,8 @@ public class Comment implements Serializable {
 		this.idComment = idComment;
 	}
 
-	@ManyToOne//(cascade = {}, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_ticket") //, nullable = false, insertable = false, updatable = false
+	@ManyToOne
+	@JoinColumn(name = "id_ticket")
 	@NotNull
 	public Ticket getTicket() {
 		return ticket;
@@ -74,19 +79,24 @@ public class Comment implements Serializable {
 		this.message = message;
 	}
 
-	@Column(name = "author_name")
-	@NotBlank
+	@Transient
 	public String getAuthorName() {
-		return authorName;
+		return author == null ? "" : author.getLogin();
 	}
 
-	public void setAuthorName(final String authorName) {
-		this.authorName = authorName;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "author_id")
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User user) {
+		this.author = user;
 	}
 
 	@Override
 	public String toString() {
-		return "Comment [idComment=" + idComment + ", authorName=" + authorName + ", ticket=" + ticket + ", date=" + creationDate + ", message=" + message + "]";
+		return "Comment [idComment=" + idComment + ", authorName=" + getAuthorName() + ", ticket=" + ticket + ", date=" + creationDate + ", message=" + message + "]";
 	}
 
 }

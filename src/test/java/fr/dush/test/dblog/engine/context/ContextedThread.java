@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 
 import fr.dush.test.dblog.controller.I18nController;
 import fr.dush.test.dblog.dao.model.ITicketDAO;
+import fr.dush.test.dblog.dao.security.IUserDAO;
 
 public abstract class ContextedThread extends Thread implements UncaughtExceptionHandler {
 
@@ -43,6 +44,10 @@ public abstract class ContextedThread extends Thread implements UncaughtExceptio
 
 	protected ITicketDAO getTicketDAO() {
 		return context.getBean(ITicketDAO.class);
+	}
+
+	protected IUserDAO getUserDAO() {
+		return context.getBean(IUserDAO.class);
 	}
 
 	@Override

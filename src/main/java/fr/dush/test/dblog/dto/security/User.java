@@ -30,6 +30,14 @@ public class User implements Serializable {
 
 	private String email;
 
+	public User() {
+	}
+
+	public User(String login, String email) {
+		this.login = login;
+		this.email = email;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
