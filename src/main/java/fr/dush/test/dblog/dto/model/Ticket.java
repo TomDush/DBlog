@@ -151,6 +151,7 @@ public class Ticket implements AutoCreationDate, Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "author_id")
 	@NotNull
+	@Valid
 	public User getAuthor() {
 		return author;
 	}

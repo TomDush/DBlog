@@ -38,6 +38,12 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
+	public User(String login, String email, String password) {
+		this.login = login;
+		this.email = email;
+		this.password = password;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
@@ -70,7 +76,7 @@ public class User implements Serializable {
 	}
 
 	@Column(unique = true)
-	@Email
+	@Email(message = "{fr.dush.dblog.invalidemail.message}")
 	@NotBlank
 	public String getEmail() {
 		return email;

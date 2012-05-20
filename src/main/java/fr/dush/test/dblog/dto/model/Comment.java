@@ -20,7 +20,6 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import fr.dush.test.dblog.dto.security.User;
 
-
 @Entity
 @Proxy(lazy = false)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -37,6 +36,15 @@ public class Comment implements Serializable {
 	private Date creationDate;
 
 	private String message;
+
+	public Comment() {
+	}
+
+	public Comment(User author, Ticket ticket, String message) {
+		this.author = author;
+		this.ticket = ticket;
+		this.message = message;
+	}
 
 	@Id
 	@GeneratedValue
@@ -61,7 +69,6 @@ public class Comment implements Serializable {
 	}
 
 	@Column(name = "creation_date")
-	@NotNull
 	public Date getCreationDate() {
 		return creationDate;
 	}
@@ -96,7 +103,8 @@ public class Comment implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Comment [idComment=" + idComment + ", authorName=" + getAuthorName() + ", ticket=" + ticket + ", date=" + creationDate + ", message=" + message + "]";
+		return "Comment [idComment=" + idComment + ", authorName=" + getAuthorName() + ", ticket=" + ticket + ", date=" + creationDate + ", message=" + message
+				+ "]";
 	}
 
 }
