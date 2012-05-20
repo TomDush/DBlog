@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <COMMENT/>
+  <SCORE TICKET_ID="4" USER_ID="1" SCORE="3"/>  
+  <SCORE TICKET_ID="4" USER_ID="2" SCORE="5"/>  
+  <SCORE TICKET_ID="4" USER_ID="3" SCORE="7"/>
+  
+  <SCORE TICKET_ID="5" USER_ID="1" SCORE="3"/>  
+  <SCORE TICKET_ID="5" USER_ID="2" SCORE="4"/>
+</dataset>

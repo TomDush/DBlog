@@ -69,6 +69,10 @@ public class Ticket implements AutoCreationDate, Serializable {
 	public Ticket() {
 	}
 
+	public Ticket(Integer idTicket) {
+		this.idTicket = idTicket;
+	}
+
 	public Ticket(Date date, String title, String message, User user) {
 		this.creationDate = date;
 		this.title = title;

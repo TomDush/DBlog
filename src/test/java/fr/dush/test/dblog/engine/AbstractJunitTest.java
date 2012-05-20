@@ -3,6 +3,7 @@ package fr.dush.test.dblog.engine;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,7 +46,7 @@ import fr.dush.test.dblog.engine.dbunitapi.IDatabaseScriptsReader;
  *
  */
 @RunWith(DBUnitJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:WEB-INF/spring/mock-datasources.xml"})
+@ContextConfiguration(locations = { "classpath:WEB-INF/spring/mock-datasources.xml" })
 @DatabaseScripts(locations = "/bdd/users.xml")
 public abstract class AbstractJunitTest extends AbstractSimpleSpringJunitTest implements IDatabaseScriptsReader {
 
@@ -115,12 +116,11 @@ public abstract class AbstractJunitTest extends AbstractSimpleSpringJunitTest im
 	/**
 	 * Drops the database schema so that it can be created on the next test
 	 */
-	@After
+//	@After
 	public void dropDatabase() throws Exception {
 		if (dumpDatabase) {
 			final File targetDirFile = new File("target/bdd/");
-			if (!targetDirFile.exists())
-				targetDirFile.mkdir();
+			if (!targetDirFile.exists()) targetDirFile.mkdir();
 
 			final File dumpFile = new File(targetDirFile, new SimpleDateFormat("yyyy-MM-dd.HH-mm-ss.S").format(new java.util.Date()) + "-db-" + dumpFilename
 					+ ".xml");
@@ -145,16 +145,36 @@ public abstract class AbstractJunitTest extends AbstractSimpleSpringJunitTest im
 
 	@After
 	public void tearDown() throws Exception {
+		dropDatabase();
+
 		LOGGER.debug("--> tearDown");
 		if (databasePopulationScripts == null) {
 			LOGGER.warn("No databasePopulationScripts.");
 			return;
 		} else {
-			DatabaseOperation.DELETE_ALL.execute(getConnexion(), getDataSet());
+			// DatabaseOperation.DELETE_ALL.execute(getConnexion(), getDataSet());
+			DatabaseConnection c = getConnexion();
+			try {
+				emptyTable(c, "COMMENT");
+				emptyTable(c, "SCORE");
+				emptyTable(c, "TICKET");
+				emptyTable(c, "USER");
+			} finally {
+				c.close();
+			}
 		}
 
 		closeConnection();
 		LOGGER.debug("<-- tearDown");
+	}
+
+	public boolean emptyTable(DatabaseConnection c, String tableName) throws SQLException {
+		Statement s = c.getConnection().createStatement();
+		try {
+			return s.execute("DELETE FROM " + tableName);
+		} finally {
+			s.close();
+		}
 	}
 
 	private DatabaseConnection getConnexion() throws DatabaseUnitException, SQLException {
@@ -165,7 +185,6 @@ public abstract class AbstractJunitTest extends AbstractSimpleSpringJunitTest im
 	}
 
 	private void closeConnection() throws SQLException {
-		if (databaseConnection != null)
-			databaseConnection.close();
+		if (databaseConnection != null) databaseConnection.close();
 	}
 }
