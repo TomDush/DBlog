@@ -36,7 +36,7 @@
 
 	<dependencySets>
 		<dependencySet>
-			<outputDirectory>/DblogLibs</outputDirectory>
+			<outputDirectory>/DBlogLibs</outputDirectory>
 			<useProjectArtifact>true</useProjectArtifact>
 			<unpack>false</unpack>
 			<scope>runtime</scope>
