@@ -6,17 +6,17 @@ import java.util.List;
 public class Page<Type> {
 
 	/**
-	 * Eléments de cette page
+	 * ElÃ©ments de cette page
 	 */
 	private List<Type> elements = new LinkedList<>();
 
 	/**
-	 * Nombre d'éléments en tout
+	 * Nombre d'Ã©lÃ©ments en tout
 	 */
 	private long elementsSize;
 
 	/**
-	 * Numéro de la page.
+	 * NumÃ©ro de la page.
 	 */
 	private int pageNumber;
 

@@ -7,11 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.Range;
-
-import com.sun.istack.internal.NotNull;
 
 import fr.dush.test.dblog.dto.security.User;
 
