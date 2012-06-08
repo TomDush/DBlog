@@ -1,7 +1,5 @@
 package fr.dush.test.dblog.aspects;
 
-import javax.inject.Named;
-
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.hibernate.Hibernate;
@@ -16,7 +14,7 @@ import fr.dush.test.dblog.dto.model.Ticket;
  * @author Thomas Duchatelle (duchatelle.thomas@gmail.com)
  *
  */
-@Named
+//@Named
 @Aspect
 public class UnlazyfiedDto {
 

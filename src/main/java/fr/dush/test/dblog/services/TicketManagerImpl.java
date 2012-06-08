@@ -5,6 +5,7 @@ import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
 
+import fr.dush.test.dblog.aspects.MonitorExecutionTime;
 import fr.dush.test.dblog.dao.events.AutoCreationDate;
 import fr.dush.test.dblog.dao.model.ITicketDAO;
 import fr.dush.test.dblog.dto.model.Ticket;
@@ -18,6 +19,7 @@ public class TicketManagerImpl implements ITicketManager {
 	private ITicketDAO ticketDAO;
 
 	@Override
+	@MonitorExecutionTime
 	public Page<Ticket> getTicketPage(final int pageNumber, final int pageSize) {
 		final Page<Ticket> page = new Page<Ticket>(pageSize, ticketDAO.count());
 		page.setPageNumber(pageNumber);
